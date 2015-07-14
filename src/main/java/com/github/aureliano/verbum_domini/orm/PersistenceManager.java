@@ -1,5 +1,8 @@
 package com.github.aureliano.verbum_domini.orm;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.github.aureliano.verbum_domini.bean.BibleBean;
@@ -8,8 +11,14 @@ public final class PersistenceManager {
 
 	private static PersistenceManager instance;
 	
+	private SessionFactory sessionFactory;
+	
 	private PersistenceManager() {
 		super();
+	}
+	
+	public Session openSession() {
+		return this.sessionFactory.openSession();
 	}
 	
 	public static PersistenceManager instance() {
@@ -18,6 +27,25 @@ public final class PersistenceManager {
 		}
 		
 		return instance;
+	}
+	
+	public void startUp() {
+		if (this.sessionFactory == null) {
+			this.sessionFactory = this.buildSessionFactory();
+		}
+	}
+	
+	public void shutdown() {
+		if ((this.sessionFactory != null) && (!this.sessionFactory.isClosed())) {
+			this.sessionFactory.close();
+		}
+	}
+	
+	private SessionFactory buildSessionFactory() {
+		Configuration configuration = this.buildConfiguration();
+		StandardServiceRegistryBuilder ssrBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+		
+		return configuration.buildSessionFactory(ssrBuilder.build());
 	}
 	
 	protected Configuration buildConfiguration() {
@@ -29,7 +57,7 @@ public final class PersistenceManager {
 			.setProperty("hibernate.connection.url", this.getDatabaseUrl())
 			.setProperty("connection_pool_size", "1")
 			.setProperty("show_sql", "false")
-			.addClass(BibleBean.class);
+			.addAnnotatedClass(BibleBean.class);
 	}
 	
 	protected String getUserName() {
