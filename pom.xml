@@ -34,7 +34,7 @@
                     <useJsr303Annotations>false</useJsr303Annotations>
                     <jsonMapper>jackson2</jsonMapper>
                     <removeOldOutput>true</removeOldOutput>
-                    <skip>false</skip>
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
