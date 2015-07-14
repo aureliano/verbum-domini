@@ -1,0 +1,89 @@
+#%RAML 0.8
+---
+title: "Holy bible REST API"
+baseUri: http://localhost:8081/verbum_domini/apirest
+version: v1
+schemas:
+  - bible: |
+      {  "$schema": "http://json-schema.org/draft-03/schema",
+         "type": "object",
+         "description": "Holy bible",
+         "$linkedData": {
+           "books": {
+             "schema": "book",
+             "type": "collection",
+             "path": ["/bibles", "/{language}"]
+           }
+         },
+         "properties": {
+           "id": { "type": "integer", "required": true },
+           "name": { "type": "string", "required": true },
+           "language": { "type": "string", "required": true },
+           "url": { "type": "string", "required": false },
+           "edition": { "type": "string", "required": false },
+           "printedSource": { "type": "string", "required": true },
+           "eletronicTranscriptionSource": { "type": "string", "required": false },
+           "eletronicTranscriptionSourceUrl": { "type": "string", "required": false },
+           "copyright": { "type": "string", "required": false }
+         }
+      }
+  - bibles: |
+      {  "$schema": "http://json-schema.org/draft-03/schema",
+         "type": "object",
+         "description": "Available Holy Bible collection",
+         "properties": {
+           "size":  { "type": "integer", "required": true },
+           "bibles": {
+             "type": "array",
+             "items": { "$ref": "bible" }
+           }
+         }
+       }
+
+resourceTypes:
+  - base:
+      get?:
+        responses: &standardResponses
+          200:
+            description: OK
+  - collection:
+      type: base
+      get:
+        is: [ paged ]
+  - typedCollection:
+      type: collection
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<collectionSchema>>
+  - member:
+      type: base
+      get:
+  - typedMember:
+      type: member
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+
+traits:
+  - paged:
+      displayName: paged
+      queryParameters:
+        start:
+          displayName: start
+          description: The first page to return
+          type: integer
+        pages:
+          displayName: pages
+          description: The number of pages to return
+          type: integer
+
+/bibles: &bibles
+  type: { typedCollection: { schema: bible, collectionSchema: bibles } }
+  /{language}:
+    type: { typedMember: { schema: bible } }
