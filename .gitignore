@@ -8,3 +8,7 @@ crawler/*.html
 crawler/*.HTM
 
 target
+
+.classpath
+.project
+.settings
