@@ -105,6 +105,13 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.3-1102-jdbc41</version>
 		</dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <properties>
