@@ -26,4 +26,8 @@ public class Pagination<T> {
 	public void setElements(List<T> elements) {
 		this.elements = elements;
 	}
+	
+	public boolean isEmpty() {
+		return ((this.size == null) ? true : (this.size > 0));
+	}
 }
