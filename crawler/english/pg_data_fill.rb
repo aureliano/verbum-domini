@@ -5,7 +5,7 @@ index = JSON.parse(File.read File.join('data', 'index.json'))
 bible_id = next_seq_value 'bible_seq'
 
 begin
-  insert 'bible', { :id => bible_id, :name => index['bible'], :language => 'English', :url => index['url'],
+  insert 'bible', { :id => bible_id, :name => index['bible'], :language => 'english', :url => index['url'],
                     :printed_source => index['credits']['printed_source'],
                     :copyright => index['copyright'], :edition => index['edition'],
                     :eletronic_transcription_source => index['credits']['eletronic_transcription_source'],
