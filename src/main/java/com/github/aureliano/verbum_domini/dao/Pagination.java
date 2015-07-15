@@ -16,6 +16,9 @@ public class Pagination<T> {
 	}
 
 	public void setSize(Integer size) {
+		if ((size != null) && (size < 0)) {
+			throw new IllegalArgumentException("Pagination size must be grater than -1");
+		}
 		this.size = size;
 	}
 
@@ -28,6 +31,6 @@ public class Pagination<T> {
 	}
 	
 	public boolean isEmpty() {
-		return ((this.size == null) ? true : (this.size > 0));
+		return ((this.size == null) ? true : (this.size == 0));
 	}
 }
