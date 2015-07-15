@@ -12,6 +12,8 @@ public interface IDao<T> {
 	
 	public abstract Pagination<T> list(T filter);
 	
+	public abstract Pagination<T> list(ServiceParams params);
+	
 	public abstract Pagination<T> list(T filter, ServiceParams params);
 	
 	public abstract T load(Serializable id);

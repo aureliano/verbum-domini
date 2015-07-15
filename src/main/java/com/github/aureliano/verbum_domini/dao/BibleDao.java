@@ -36,6 +36,11 @@ public class BibleDao implements IDao<BibleBean> {
 	}
 	
 	@Override
+	public Pagination<BibleBean> list(ServiceParams params) {
+		return this.list(null, params);
+	}
+	
+	@Override
 	public Pagination<BibleBean> list(BibleBean filter, ServiceParams params) {
 		Pagination<BibleBean> pagination = new Pagination<BibleBean>();
 		
