@@ -9,6 +9,7 @@ public class VerbumDominiApiResourceConfig extends ResourceConfig {
 	public VerbumDominiApiResourceConfig() {
 		packages("com.github.aureliano.verbum_domini.resource.impl");
 		
+		register(CharsetResponseFilter.class);
 		register(BiblesResourceImpl.class);
 	}
 }
