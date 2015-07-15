@@ -10,7 +10,7 @@
     <name>verbum-domini</name>
 
     <build>
-        <finalName>verbum_domini</finalName>
+        <finalName>verbumdomini</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
