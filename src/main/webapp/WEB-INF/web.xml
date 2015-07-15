@@ -15,4 +15,7 @@
     <servlet-name>Jersey Web Application</servlet-name>
     <url-pattern>/apirest/*</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>com.github.aureliano.verbum_domini.web.PersistenceManagerServletContextListener</listener-class>
+  </listener>
 </web-app>
