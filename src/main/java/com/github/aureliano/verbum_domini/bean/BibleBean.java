@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.github.aureliano.verbum_domini.model.Bible;
+
 @Entity
 @Table(name = "bible")
 public class BibleBean implements Serializable {
@@ -120,6 +122,19 @@ public class BibleBean implements Serializable {
 
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
+	}
+	
+	public Bible toResource() {
+		return new Bible()
+			.withId(this.id)
+			.withName(this.name)
+			.withLanguage(this.language)
+			.withUrl(this.url)
+			.withEdition(this.edition)
+			.withPrintedSource(this.printedSource)
+			.withEletronicTranscriptionSource(this.eletronicTranscriptionSource)
+			.withEletronicTranscriptionSourceUrl(this.eletronicTranscriptionSourceUrl)
+			.withCopyright(this.copyright);
 	}
 
 	@Override
