@@ -77,7 +77,7 @@ public class BibleDao implements IDao<BibleBean> {
 		}
 		
 		if (bible.getLanguage() != null) {
-			criteria.add(Restrictions.eq("language", bible.getLanguage()));
+			criteria.add(Restrictions.eq("language", bible.getLanguage().toLowerCase()));
 		}
 		
 		return criteria;
