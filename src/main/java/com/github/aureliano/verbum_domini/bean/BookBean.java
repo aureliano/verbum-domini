@@ -25,7 +25,7 @@ public class BookBean implements Serializable {
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = BibleBean.class, optional = false)
-	public BibleBean bible;
+	private BibleBean bible;
 	
 	public BookBean() {
 		super();
