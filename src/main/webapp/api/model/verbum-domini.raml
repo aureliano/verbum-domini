@@ -112,7 +112,9 @@ traits:
           description: The number of pages to return
           type: integer
 
-/bibles: &bibles
+/bibles:
   type: { typedCollection: { schema: bible, collectionSchema: bibles } }
   /{language}:
     type: { typedMember: { schema: bible } }
+    /books:
+      type: { typedCollection: { schema: book, collectionSchema: books } }
