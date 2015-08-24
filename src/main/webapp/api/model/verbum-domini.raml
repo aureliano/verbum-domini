@@ -12,7 +12,7 @@ schemas:
            "books": {
              "schema": "book",
              "type": "collection",
-             "path": ["/bibles", "/{language}"]
+             "path": ["/bibles", "/{language}", "/books"]
            }
          },
          "properties": {
@@ -36,6 +36,35 @@ schemas:
            "bibles": {
              "type": "array",
              "items": { "$ref": "bible" }
+           }
+         }
+       }
+  - book: |
+      {  "$schema": "http://json-schema.org/draft-03/schema",
+         "type": "object",
+         "description": "Books within the Holy Bible",
+         "$linkedData": {
+           "chapters": {
+             "schema": "chapter",
+             "type": "collection",
+             "path": ["/bibles", "/{language}", "/books", "/{bibleId}"]
+           }
+         },
+         "properties": {
+           "id": { "type": "integer", "required": true },
+           "name": { "type": "string", "required": true },
+           "bibleId": { "type": "integer", "required": true }
+         }
+      }
+  - books: |
+      {  "$schema": "http://json-schema.org/draft-03/schema",
+         "type": "object",
+         "description": "Available books within the Holy Bible",
+         "properties": {
+           "size":  { "type": "integer", "required": true },
+           "books": {
+             "type": "array",
+             "items": { "$ref": "book" }
            }
          }
        }
