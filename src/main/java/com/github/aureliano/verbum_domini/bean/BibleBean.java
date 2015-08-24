@@ -4,10 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.github.aureliano.verbum_domini.model.Bible;
@@ -19,8 +16,6 @@ public class BibleBean implements Serializable {
 	private static final long serialVersionUID = -9140101263038741687L;
 	
 	@Id
-	@SequenceGenerator(name = "bible_sequence", schema = "public", sequenceName = "bible_seq")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bible_sequence")
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
