@@ -8,6 +8,8 @@ import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
 
 public final class PropertyHelper {
 
+	public static final String DATA_SOURCE_RESOURCE_NAME = "data-source.properties";
+	
 	private PropertyHelper() {
 		super();
 	}
@@ -22,5 +24,9 @@ public final class PropertyHelper {
 		}
 		
 		return properties;
+	}
+	
+	public static Properties loadDataSource() {
+		return loadProperties(DATA_SOURCE_RESOURCE_NAME);
 	}
 }

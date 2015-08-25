@@ -6,6 +6,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 import com.github.aureliano.verbum_domini.bean.BibleBean;
+import com.github.aureliano.verbum_domini.helper.PropertyHelper;
 
 public final class PersistenceManager {
 
@@ -50,13 +51,7 @@ public final class PersistenceManager {
 	
 	protected Configuration buildConfiguration() {
 		return new Configuration()
-			.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
-			.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver")
-			.setProperty("hibernate.connection.username", this.getUserName())
-			.setProperty("hibernate.connection.password", this.getUserPassword())
-			.setProperty("hibernate.connection.url", this.getDatabaseUrl())
-			.setProperty("connection_pool_size", "1")
-			.setProperty("show_sql", "false")
+			.setProperties(PropertyHelper.loadDataSource())
 			.addAnnotatedClass(BibleBean.class);
 	}
 	
