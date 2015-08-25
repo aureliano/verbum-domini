@@ -100,6 +100,7 @@
 			<scope>compile</scope>
 		</dependency>
 		
+		<!-- Change this dependency if you want to use another database manager system -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
