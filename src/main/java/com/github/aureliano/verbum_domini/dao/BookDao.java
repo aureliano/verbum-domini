@@ -65,10 +65,7 @@ public class BookDao implements IDao<BookBean> {
 		}
 		
 		if (book.getBible() != null) {
-			criteria
-				.createAlias("book.bible", "bible")
-				.add(Restrictions.eq("bible.id", book.getBible().getId()));
-			
+			criteria.add(Restrictions.eq("bible", book.getBible()));
 		}
 		
 		return criteria;
