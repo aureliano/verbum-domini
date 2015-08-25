@@ -5,9 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.github.aureliano.verbum_domini.bean.BibleBean;
-import com.github.aureliano.verbum_domini.helper.PropertyHelper;
-
 public final class PersistenceManager {
 
 	private static PersistenceManager instance;
@@ -43,15 +40,9 @@ public final class PersistenceManager {
 	}
 	
 	private SessionFactory buildSessionFactory() {
-		Configuration configuration = this.buildConfiguration();
+		Configuration configuration = new Configuration();
 		StandardServiceRegistryBuilder ssrBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
 		
 		return configuration.buildSessionFactory(ssrBuilder.build());
-	}
-	
-	protected Configuration buildConfiguration() {
-		return new Configuration()
-			.setProperties(PropertyHelper.loadDataSource())
-			.addAnnotatedClass(BibleBean.class);
 	}
 }
