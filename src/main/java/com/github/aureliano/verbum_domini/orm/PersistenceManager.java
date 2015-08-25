@@ -54,19 +54,4 @@ public final class PersistenceManager {
 			.setProperties(PropertyHelper.loadDataSource())
 			.addAnnotatedClass(BibleBean.class);
 	}
-	
-	protected String getUserName() {
-		String userName = System.getenv("DB_USERNAME");
-		return (userName == null) ? "postgres" : userName;
-	}
-	
-	protected String getUserPassword() {
-		String password = System.getenv("DB_PASSWORD");
-		return (password == null) ? "postgres" : password;
-	}
-	
-	protected String getDatabaseUrl() {
-		String databaseUrl = System.getenv("DB_URL");
-		return (databaseUrl == null) ? "jdbc:postgresql://localhost:5432/verbum_domini" : databaseUrl;
-	}
 }
