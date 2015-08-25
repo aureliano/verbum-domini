@@ -12,3 +12,5 @@ target
 .classpath
 .project
 .settings
+
+src/main/resources/hibernate.cfg.xml

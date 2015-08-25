@@ -40,9 +40,10 @@ public final class PersistenceManager {
 	}
 	
 	private SessionFactory buildSessionFactory() {
-		Configuration configuration = new Configuration();
-		StandardServiceRegistryBuilder ssrBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+		Configuration configuration = new Configuration().configure();
+		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+		SessionFactory factory = configuration.buildSessionFactory(builder.build());
 		
-		return configuration.buildSessionFactory(ssrBuilder.build());
+		return factory;
 	}
 }
