@@ -14,5 +14,6 @@
 		<property name="hbm2ddl.auto">create</property>
 		
 		<mapping class="com.github.aureliano.verbum_domini.bean.BibleBean"/>
+		<mapping class="com.github.aureliano.verbum_domini.bean.BookBean"/>
 	</session-factory>
 </hibernate-configuration>
