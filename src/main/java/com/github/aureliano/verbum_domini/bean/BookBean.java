@@ -59,7 +59,7 @@ public class BookBean implements Serializable {
 	
 	public Book toResource() {
 		return new Book()
-			.withId(this.id)
+			.withBookId(this.id)
 			.withName(this.name)
 			.withBibleId(this.bible.getId());
 	}

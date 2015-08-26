@@ -20,7 +20,7 @@ public class BookBeanTest {
 		
 		Book resource = bean.toResource();
 		
-		Assert.assertEquals(bean.getId(), resource.getId());
+		Assert.assertEquals(bean.getId(), resource.getBookId());
 		Assert.assertEquals(bean.getName(), resource.getName());
 		Assert.assertEquals(bean.getBible().getId(), resource.getBibleId());
 	}

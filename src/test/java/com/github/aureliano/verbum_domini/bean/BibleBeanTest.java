@@ -27,7 +27,7 @@ public class BibleBeanTest {
 		Assert.assertEquals(bean.getEdition(), resource.getEdition());
 		Assert.assertEquals(bean.getEletronicTranscriptionSource(), resource.getEletronicTranscriptionSource());
 		Assert.assertEquals(bean.getEletronicTranscriptionSourceUrl(), resource.getEletronicTranscriptionSourceUrl());
-		Assert.assertEquals(bean.getId(), resource.getId());
+		Assert.assertEquals(bean.getId(), resource.getBibleId());
 		Assert.assertEquals(bean.getLanguage(), resource.getLanguage());
 		Assert.assertEquals(bean.getName(), resource.getName());
 		Assert.assertEquals(bean.getPrintedSource(), resource.getPrintedSource());

@@ -121,7 +121,7 @@ public class BibleBean implements Serializable {
 	
 	public Bible toResource() {
 		return new Bible()
-			.withId(this.id)
+			.withBibleId(this.id)
 			.withName(this.name)
 			.withLanguage(this.language)
 			.withUrl(this.url)

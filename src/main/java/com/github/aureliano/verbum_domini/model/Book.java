@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "id",
+    "bookId",
     "name",
     "bibleId"
 })
@@ -28,8 +28,8 @@ public class Book {
      * (Required)
      * 
      */
-    @JsonProperty("id")
-    private Integer id;
+    @JsonProperty("bookId")
+    private Integer bookId;
     /**
      * 
      * (Required)
@@ -52,27 +52,27 @@ public class Book {
      * (Required)
      * 
      * @return
-     *     The id
+     *     The bookId
      */
-    @JsonProperty("id")
-    public Integer getId() {
-        return id;
+    @JsonProperty("bookId")
+    public Integer getBookId() {
+        return bookId;
     }
 
     /**
      * 
      * (Required)
      * 
-     * @param id
-     *     The id
+     * @param bookId
+     *     The bookId
      */
-    @JsonProperty("id")
-    public void setId(Integer id) {
-        this.id = id;
+    @JsonProperty("bookId")
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public Book withId(Integer id) {
-        this.id = id;
+    public Book withBookId(Integer bookId) {
+        this.bookId = bookId;
         return this;
     }
 

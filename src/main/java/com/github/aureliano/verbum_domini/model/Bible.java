@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-	"id",
+	"bibleId",
 	"name",
 	"language",
 	"url",
@@ -34,8 +34,8 @@ public class Bible {
 	 * (Required)
 	 * 
 	 */
-	@JsonProperty("id")
-	private Integer id;
+	@JsonProperty("bibleId")
+	private Integer bibleId;
 	/**
 	 * 
 	 * (Required)
@@ -90,27 +90,27 @@ public class Bible {
 	 * (Required)
 	 * 
 	 * @return
-	 *		 The id
+	 *		 The bibleId
 	 */
-	@JsonProperty("id")
-	public Integer getId() {
-			return id;
+	@JsonProperty("bibleId")
+	public Integer getBibleId() {
+			return bibleId;
 	}
 
 	/**
 	 * 
 	 * (Required)
 	 * 
-	 * @param id
-	 *		 The id
+	 * @param bibleId
+	 *		 The bibleId
 	 */
-	@JsonProperty("id")
-	public void setId(Integer id) {
-			this.id = id;
+	@JsonProperty("bibleId")
+	public void setBibleId(Integer bibleId) {
+			this.bibleId = bibleId;
 	}
 
-	public Bible withId(Integer id) {
-			this.id = id;
+	public Bible withBibleId(Integer bibleId) {
+			this.bibleId = bibleId;
 			return this;
 	}
 
