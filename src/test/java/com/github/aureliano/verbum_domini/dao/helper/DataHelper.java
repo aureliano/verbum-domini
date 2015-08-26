@@ -28,6 +28,7 @@ public final class DataHelper {
 		PersistenceManager.instance().startUp();
 		BibleDataHelper.createBibles();
 		BookDataHelper.createBooks();
+		ChapterDataHelper.createChapters();
 		
 		this.dataHelpersInitialized = true;
 	}
