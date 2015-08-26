@@ -12,7 +12,7 @@ schemas:
            "books": {
              "schema": "book",
              "type": "collection",
-             "path": ["/bibles", "/{language}", "/books"]
+             "path": ["/bibles", "/{bibleId}", "/books"]
            }
          },
          "properties": {
@@ -47,7 +47,7 @@ schemas:
            "chapters": {
              "schema": "chapter",
              "type": "collection",
-             "path": ["/bibles", "/{language}", "/books", "/{id}", "/chapters"]
+             "path": ["/bibles", "/{bibleId}", "/books", "/{bookId}", "/chapters"]
            },
            "bible": {
              "schema": "bible",
