@@ -78,6 +78,11 @@ schemas:
          "type": "object",
          "description": "Chapter of a book.",
          "$linkedData": {
+           "verses": {
+             "schema": "verse",
+             "type": "collection",
+             "path": ["/bibles", "/{bibleId}", "/books", "/{bookId}", "/chapters", "/{chapterId}", "/verses"]
+           },
            "book": {
              "schema": "book",
              "type": "single",
@@ -99,6 +104,36 @@ schemas:
            "chapters": {
              "type": "array",
              "items": { "$ref": "chapter" }
+           }
+         }
+       }
+  - verse: |
+      {  "$schema": "http://json-schema.org/draft-03/schema",
+         "type": "object",
+         "description": "Verse of a chapter.",
+         "$linkedData": {
+           "chapter": {
+             "schema": "chapter",
+             "type": "single",
+             "path": ["/bibles", "/{bibleId}", "/books", "/{bookId}", "/chapters", "/{chapterId}"]
+           }
+         },
+         "properties": {
+           "verseId": { "type": "integer", "required": true },
+           "number": { "type": "string", "required": true },
+           "text": { "type": "string", "required": true },
+           "chapterId": { "type": "integer", "required": true }
+         }
+      }
+  - verses: |
+      {  "$schema": "http://json-schema.org/draft-03/schema",
+         "type": "object",
+         "description": "Available verses of a chapter.",
+         "properties": {
+           "size":  { "type": "integer", "required": true },
+           "verses": {
+             "type": "array",
+             "items": { "$ref": "verse" }
            }
          }
        }
