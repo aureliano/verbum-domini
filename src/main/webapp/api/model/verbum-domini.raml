@@ -154,3 +154,5 @@ traits:
       type: { typedCollection: { schema: book, collectionSchema: books } }
       /{bookId}:
         type: { typedMember: { schema: book } }
+        /chapters:
+          type: { typedCollection: { schema: chapter, collectionSchema: chapters } }

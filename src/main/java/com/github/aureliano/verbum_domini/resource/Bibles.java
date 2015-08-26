@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
+import com.github.aureliano.verbum_domini.model.Chapters;
 
 @Path("bibles")
 public interface Bibles {
@@ -16,9 +17,9 @@ public interface Bibles {
 	/**
 	 * 
 	 * @param start
-	 *	 The first page to return
+	 *	 The first page to return (> 0)
 	 * @param pages
-	 *	 The number of pages to return
+	 *	 The number of pages to return (> 0 <= 2)
 	 */
 	@GET
 	@Produces({
@@ -51,11 +52,11 @@ public interface Bibles {
 	/**
 	 * 
 	 * @param start
-	 *	 The first page to return
+	 *	 The first page to return (> 0)
 	 * @param bibleId
 	 *	 
 	 * @param pages
-	 *	 The number of pages to return
+	 *	 The number of pages to return (> 0 <= 2)
 	 */
 	@GET
 	@Path("{bibleId}/books")
@@ -91,6 +92,54 @@ public interface Bibles {
 		String bibleId)
 		throws Exception
 	;
+
+	/**
+	 * 
+	 * @param start
+	 *	 The first page to return (> 0)
+	 * @param bibleId
+	 *	 
+	 * @param pages
+	 *	 The number of pages to return (> 0 <= 2)
+	 * @param bookId
+	 *	 
+	 */
+	@GET
+	@Path("{bibleId}/books/{bookId}/chapters")
+	@Produces({
+		"application/json"
+	})
+	Bibles.GetBiblesByBibleIdBooksByBookIdChaptersResponse getBiblesByBibleIdBooksByBookIdChapters(
+		@PathParam("bookId")
+		String bookId,
+		@PathParam("bibleId")
+		String bibleId,
+		@QueryParam("start")
+		Long start,
+		@QueryParam("pages")
+		Long pages)
+		throws Exception
+	;
+
+	public class GetBiblesByBibleIdBooksByBookIdChaptersResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBiblesByBibleIdBooksByBookIdChaptersResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Bibles.GetBiblesByBibleIdBooksByBookIdChaptersResponse withJsonOK(Chapters entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Bibles.GetBiblesByBibleIdBooksByBookIdChaptersResponse(responseBuilder.build());
+		}
+	}
 
 	public class GetBiblesByBibleIdBooksByBookIdResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
@@ -150,6 +199,7 @@ public interface Bibles {
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesByBibleIdResponse(responseBuilder.build());
 		}
+
 	}
 
 	public class GetBiblesResponse

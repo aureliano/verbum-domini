@@ -3,6 +3,7 @@ package com.github.aureliano.verbum_domini.resource.impl;
 import com.github.aureliano.verbum_domini.resource.Bibles;
 import com.github.aureliano.verbum_domini.service.BiblesService;
 import com.github.aureliano.verbum_domini.service.BooksService;
+import com.github.aureliano.verbum_domini.service.ChaptersService;
 
 public class BiblesResourceImpl implements Bibles {
 
@@ -21,12 +22,18 @@ public class BiblesResourceImpl implements Bibles {
 	}
 
 	@Override
-	public GetBiblesByBibleIdBooksResponse getBiblesByBibleIdBooks(String id, Long start, Long pages) throws Exception {
-		return GetBiblesByBibleIdBooksResponse.withJsonOK(BooksService.fetchBooksByBible(id, start, pages));
+	public GetBiblesByBibleIdBooksResponse getBiblesByBibleIdBooks(String bibleId, Long start, Long pages) throws Exception {
+		return GetBiblesByBibleIdBooksResponse.withJsonOK(BooksService.fetchBooksByBible(bibleId, start, pages));
 	}
 
 	@Override
-	public GetBiblesByBibleIdBooksByBookIdResponse getBiblesByBibleIdBooksByBookId(String id, String language) throws Exception {
-		return GetBiblesByBibleIdBooksByBookIdResponse.withJsonOK(BooksService.fetchBookById(id));
+	public GetBiblesByBibleIdBooksByBookIdResponse getBiblesByBibleIdBooksByBookId(String bookId, String language) throws Exception {
+		return GetBiblesByBibleIdBooksByBookIdResponse.withJsonOK(BooksService.fetchBookById(bookId));
+	}
+
+	@Override
+	public GetBiblesByBibleIdBooksByBookIdChaptersResponse getBiblesByBibleIdBooksByBookIdChapters(String bookId, String bibleId,
+			Long start, Long pages) throws Exception {
+		return GetBiblesByBibleIdBooksByBookIdChaptersResponse.withJsonOK(ChaptersService.fetchChaptersByBook(bookId, start, pages));
 	}
 }

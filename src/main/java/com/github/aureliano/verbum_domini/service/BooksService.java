@@ -14,7 +14,7 @@ import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public final class BooksService {
 
-	public BooksService() {
+	private BooksService() {
 		super();
 	}
 	
