@@ -26,6 +26,11 @@ public class BibleDao implements IDao<BibleBean> {
 	}
 	
 	@Override
+	public BibleBean get(Serializable id) {
+		return (BibleBean) this.persistenceManager.openSession().get(BibleBean.class, id);
+	}
+	
+	@Override
 	public Pagination<BibleBean> list() {
 		return this.list(null, ServiceParams.createDefault());
 	}

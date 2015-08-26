@@ -56,6 +56,11 @@ public class BookDao implements IDao<BookBean> {
 	public BookBean load(Serializable id) {
 		return (BookBean) this.persistenceManager.openSession().load(BookBean.class, id);
 	}
+
+	@Override
+	public BookBean get(Serializable id) {
+		return (BookBean) this.persistenceManager.openSession().get(BookBean.class, id);
+	}
 	
 	private Criteria createDefaultCriteria(Session session, BookBean book) {
 		Criteria criteria = session.createCriteria(BookBean.class, "book");

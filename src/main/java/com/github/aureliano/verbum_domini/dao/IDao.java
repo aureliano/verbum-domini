@@ -17,4 +17,6 @@ public interface IDao<T> {
 	public abstract Pagination<T> list(T filter, ServiceParams params);
 	
 	public abstract T load(Serializable id);
+	
+	public abstract T get(Serializable id);
 }
