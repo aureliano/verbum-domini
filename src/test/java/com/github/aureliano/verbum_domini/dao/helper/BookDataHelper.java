@@ -21,18 +21,18 @@ public final class BookDataHelper {
 		Session session = PersistenceManager.instance().openSession();
 		int[] ids = new int[] { 1, 2 };
 		int bookId = 0;
+		Transaction transaction = session.beginTransaction();
 		
 		for (int id : ids) {
 			BibleBean bible = (BibleBean) session.load(BibleBean.class, id);
 			
-			Transaction transaction = session.beginTransaction();
 			for (String name : names) {
 				BookBean book = prepareBook(++bookId, name, bible);
 				session.saveOrUpdate(book);
 			}
-			
-			transaction.commit();
 		}
+		
+		transaction.commit();
 	}
 	
 	private static BookBean prepareBook(Integer id, String name, BibleBean bible) {
