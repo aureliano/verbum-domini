@@ -5,8 +5,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.bean.BibleBean;
-import com.github.aureliano.verbum_domini.dao.helper.BibleDataHelper;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
+import com.github.aureliano.verbum_domini.dao.helper.DataHelper;
 import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public class BibleDaoTest {
@@ -58,7 +57,6 @@ public class BibleDaoTest {
 	}
 	
 	private void prepareData() {
-		PersistenceManager.instance().startUp();
-		BibleDataHelper.createBibles();
+		DataHelper.instance().initializeDataHelpers();
 	}
 }
