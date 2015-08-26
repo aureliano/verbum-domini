@@ -2,6 +2,9 @@ package com.github.aureliano.verbum_domini.web;
 
 public class ServiceParams {
 
+	private static final Integer MIN_START = 1;
+	private static final Integer MAX_PAGES = 2;
+	
 	private Integer start;
 	private Integer pages;
 	
@@ -26,8 +29,8 @@ public class ServiceParams {
 			this.start = (Integer) start;
 		}
 		
-		if (this.start < 1) {
-			this.start = 1;
+		if (this.start < MIN_START) {
+			this.start = MIN_START;
 		}
 		
 		return this;
@@ -48,6 +51,8 @@ public class ServiceParams {
 		
 		if (this.pages < 1) {
 			this.pages = 1;
+		} else if (this.pages > MAX_PAGES) {
+			this.pages = MAX_PAGES;
 		}
 		
 		return this;
