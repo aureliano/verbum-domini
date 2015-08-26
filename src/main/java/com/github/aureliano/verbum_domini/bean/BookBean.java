@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,7 +25,8 @@ public class BookBean implements Serializable {
 	@Column(name = "name", precision = 100, nullable = false)
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = BibleBean.class, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = BibleBean.class, optional = false)
+	@JoinColumn(name = "bible_fk")
 	private BibleBean bible;
 	
 	public BookBean() {
