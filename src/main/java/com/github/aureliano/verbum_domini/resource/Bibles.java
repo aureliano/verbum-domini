@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
+import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
 
 @Path("bibles")
@@ -121,6 +122,50 @@ public interface Bibles {
 		throws Exception
 	;
 
+	/**
+	 * 
+	 * @param chapterId
+	 *	 
+	 * @param bibleId
+	 *	 
+	 * @param bookId
+	 *	 
+	 */
+	@GET
+	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}")
+	@Produces({
+		"application/json"
+	})
+	Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse getBiblesByBibleIdBooksByBookIdChaptersByChapterId(
+		@PathParam("chapterId")
+		String chapterId,
+		@PathParam("bookId")
+		String bookId,
+		@PathParam("bibleId")
+		String bibleId)
+		throws Exception
+	;
+
+	public class GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse withJsonOK(Chapter entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse(responseBuilder.build());
+		}
+	}
+
 	public class GetBiblesByBibleIdBooksByBookIdChaptersResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
@@ -199,7 +244,6 @@ public interface Bibles {
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesByBibleIdResponse(responseBuilder.build());
 		}
-
 	}
 
 	public class GetBiblesResponse

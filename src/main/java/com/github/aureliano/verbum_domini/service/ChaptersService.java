@@ -40,6 +40,15 @@ public final class ChaptersService {
 		return new Chapters().withChapters(chapters).withSize(beans.getSize());
 	}
 	
+	public static Chapter fetchChapterById(String id) {
+		if (!id.matches("\\d+")) {
+			return null;
+		}
+		
+		ChapterBean chapter = new ChapterDao().get(Integer.parseInt(id));
+		return (chapter == null) ? null : chapter.toResource();
+	}
+	
 	private static ChapterBean createFilter(String id) {
 		BookBean book = new BookDao().get(Integer.parseInt(id));
 		ChapterBean chapter = new ChapterBean();
