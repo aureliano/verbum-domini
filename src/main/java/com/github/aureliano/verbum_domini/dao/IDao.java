@@ -6,7 +6,7 @@ import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public interface IDao<T> {
 
-	public static final Integer PAGE_ELEMENTS = 50;
+	public static final Integer MAX_ELEMENTS_BY_QUERY = 25;
 
 	public abstract Pagination<T> list();
 	

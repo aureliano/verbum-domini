@@ -44,7 +44,7 @@ public class BookDao implements IDao<BookBean> {
 		
 		List<BookBean> books = this.createDefaultCriteria(session, filter)
 				.setFirstResult(params.getStart() - 1)
-				.setMaxResults(params.getPages() * PAGE_ELEMENTS)
+				.setMaxResults(params.getPages() * MAX_ELEMENTS_BY_QUERY)
 				.list();
 		pagination.setElements(books);
 		

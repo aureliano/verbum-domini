@@ -54,7 +54,7 @@ public class BibleDao implements IDao<BibleBean> {
 		
 		List<BibleBean> bibles = this.createDefaultCriteria(session, filter)
 				.setFirstResult(params.getStart() - 1)
-				.setMaxResults(params.getPages() * PAGE_ELEMENTS)
+				.setMaxResults(params.getPages() * MAX_ELEMENTS_BY_QUERY)
 				.list();
 		pagination.setElements(bibles);
 		
