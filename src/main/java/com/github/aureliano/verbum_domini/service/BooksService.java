@@ -31,6 +31,15 @@ public final class BooksService {
 		return new Books().withBooks(books).withSize(beans.getSize());
 	}
 	
+	public static Book fetchBookById(String id) {
+		if (!id.matches("\\d+")) {
+			return null;
+		}
+		
+		BookBean book = new BookDao().get(Integer.parseInt(id));
+		return (book == null) ? null : book.toResource();
+	}
+	
 	private static BookBean createFilter(String language) {
 		BibleBean bible = new BibleDao().findByLanguage(language);
 		BookBean book = new BookBean();

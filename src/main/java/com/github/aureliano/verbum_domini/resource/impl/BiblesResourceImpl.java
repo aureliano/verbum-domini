@@ -12,16 +12,21 @@ public class BiblesResourceImpl implements Bibles {
 
 	@Override
 	public GetBiblesResponse getBibles(Long start, Long pages) throws Exception {
-		return GetBiblesResponse.jsonOK(BiblesService.fetchAll(start, pages));
+		return GetBiblesResponse.withJsonOK(BiblesService.fetchAll(start, pages));
 	}
 
 	@Override
 	public GetBiblesByLanguageResponse getBiblesByLanguage(String language) throws Exception {
-		return GetBiblesByLanguageResponse.jsonOK(BiblesService.fetchByLanguage(language));
+		return GetBiblesByLanguageResponse.withJsonOK(BiblesService.fetchByLanguage(language));
 	}
 
 	@Override
 	public GetBiblesByLanguageBooksResponse getBiblesByLanguageBooks(String language, Long start, Long pages) throws Exception {
-		return GetBiblesByLanguageBooksResponse.jsonOK(BooksService.fetchBooksByBible(language, start, pages));
+		return GetBiblesByLanguageBooksResponse.withJsonOK(BooksService.fetchBooksByBible(language, start, pages));
+	}
+
+	@Override
+	public GetBiblesByLanguageBooksByIdResponse getBiblesByLanguageBooksById(String id, String language) throws Exception {
+		return GetBiblesByLanguageBooksByIdResponse.withJsonOK(BooksService.fetchBookById(id));
 	}
 }

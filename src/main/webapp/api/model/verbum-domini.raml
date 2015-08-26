@@ -118,3 +118,5 @@ traits:
     type: { typedMember: { schema: bible } }
     /books:
       type: { typedCollection: { schema: book, collectionSchema: books } }
+      /{id}:
+        type: { typedMember: { schema: book } }

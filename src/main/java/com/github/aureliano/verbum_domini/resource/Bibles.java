@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import com.github.aureliano.verbum_domini.model.Bible;
+import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 
 @Path("bibles")
@@ -71,6 +72,46 @@ public interface Bibles {
 		throws Exception
 	;
 
+	/**
+	 * 
+	 * @param id
+	 *	 
+	 * @param language
+	 *	 
+	 */
+	@GET
+	@Path("{language}/books/{id}")
+	@Produces({
+		"application/json"
+	})
+	Bibles.GetBiblesByLanguageBooksByIdResponse getBiblesByLanguageBooksById(
+		@PathParam("id")
+		String id,
+		@PathParam("language")
+		String language)
+		throws Exception
+	;
+
+	public class GetBiblesByLanguageBooksByIdResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBiblesByLanguageBooksByIdResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Bibles.GetBiblesByLanguageBooksByIdResponse withJsonOK(Book entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Bibles.GetBiblesByLanguageBooksByIdResponse(responseBuilder.build());
+		}
+	}
+
 	public class GetBiblesByLanguageBooksResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
@@ -84,12 +125,11 @@ public interface Bibles {
 		 * @param entity
 		 *	 
 		 */
-		public static Bibles.GetBiblesByLanguageBooksResponse jsonOK(Books entity) {
+		public static Bibles.GetBiblesByLanguageBooksResponse withJsonOK(Books entity) {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesByLanguageBooksResponse(responseBuilder.build());
 		}
-
 	}
 
 	public class GetBiblesByLanguageResponse
@@ -105,12 +145,11 @@ public interface Bibles {
 		 * @param entity
 		 *	 
 		 */
-		public static Bibles.GetBiblesByLanguageResponse jsonOK(Bible entity) {
+		public static Bibles.GetBiblesByLanguageResponse withJsonOK(Bible entity) {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesByLanguageResponse(responseBuilder.build());
 		}
-
 	}
 
 	public class GetBiblesResponse
@@ -126,7 +165,7 @@ public interface Bibles {
 		 * @param entity
 		 *	 
 		 */
-		public static Bibles.GetBiblesResponse jsonOK(com.github.aureliano.verbum_domini.model.Bibles entity) {
+		public static Bibles.GetBiblesResponse withJsonOK(com.github.aureliano.verbum_domini.model.Bibles entity) {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesResponse(responseBuilder.build());
