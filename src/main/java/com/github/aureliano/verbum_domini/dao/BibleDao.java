@@ -62,18 +62,6 @@ public class BibleDao implements IDao<BibleBean> {
 		return pagination;
 	}
 	
-	public BibleBean findByLanguage(String language) {
-		BibleBean filter = new BibleBean();
-		filter.setLanguage(language);
-		
-		Pagination<BibleBean> pagination = this.list(filter);
-		if (pagination.getSize() > 1) {
-			throw new RuntimeException("Found more than one Bible with language " + language);
-		}
-		
-		return (pagination.isEmpty()) ? null : pagination.getElements().get(0);
-	}
-	
 	private Criteria createDefaultCriteria(Session session, BibleBean bible) {
 		Criteria criteria = session.createCriteria(BibleBean.class);
 		

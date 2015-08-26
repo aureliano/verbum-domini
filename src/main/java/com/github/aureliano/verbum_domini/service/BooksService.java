@@ -18,9 +18,18 @@ public final class BooksService {
 		super();
 	}
 	
-	public static Books fetchBooksByBible(String language, Long start, Long pages) {
+	public static Books fetchBooksByBible(String id, Long start, Long pages) {
+		if (!id.matches("\\d+")) {
+			return null;
+		}
+		
+		BookBean filter = createFilter(id);
+		if (filter.getBible() == null) {
+			return null;
+		}
+		
 		Pagination<BookBean> beans = new BookDao()
-			.list(createFilter(language), new ServiceParams().withStart(start).withPages(pages));
+			.list(filter, new ServiceParams().withStart(start).withPages(pages));
 		
 		List<Book> books = new ArrayList<Book>();
 		
@@ -40,8 +49,8 @@ public final class BooksService {
 		return (book == null) ? null : book.toResource();
 	}
 	
-	private static BookBean createFilter(String language) {
-		BibleBean bible = new BibleDao().findByLanguage(language);
+	private static BookBean createFilter(String id) {
+		BibleBean bible = new BibleDao().get(Integer.parseInt(id));
 		BookBean book = new BookBean();
 		book.setBible(bible);
 		

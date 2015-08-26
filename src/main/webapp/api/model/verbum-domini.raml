@@ -7,7 +7,7 @@ schemas:
   - bible: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "type": "object",
-         "description": "Holy bible",
+         "description": "Holy bible.",
          "$linkedData": {
            "books": {
              "schema": "book",
@@ -16,7 +16,7 @@ schemas:
            }
          },
          "properties": {
-           "id": { "type": "integer", "required": true },
+           "bibleId": { "type": "integer", "required": true },
            "name": { "type": "string", "required": true },
            "language": { "type": "string", "required": true },
            "url": { "type": "string", "required": false },
@@ -30,7 +30,7 @@ schemas:
   - bibles: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "type": "object",
-         "description": "Available Holy Bible collection",
+         "description": "Available Holy Bible collection.",
          "properties": {
            "size":  { "type": "integer", "required": true },
            "bibles": {
@@ -42,16 +42,21 @@ schemas:
   - book: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "type": "object",
-         "description": "Books within the Holy Bible",
+         "description": "Book within the Holy Bible.",
          "$linkedData": {
            "chapters": {
              "schema": "chapter",
              "type": "collection",
-             "path": ["/bibles", "/{language}", "/books", "/{bibleId}"]
+             "path": ["/bibles", "/{language}", "/books", "/{id}", "/chapters"]
+           },
+           "bible": {
+             "schema": "bible",
+             "type": "single",
+             "path": ["/bibles", "/{bibleId}"]
            }
          },
          "properties": {
-           "id": { "type": "integer", "required": true },
+           "bookId": { "type": "integer", "required": true },
            "name": { "type": "string", "required": true },
            "bibleId": { "type": "integer", "required": true }
          }
@@ -59,7 +64,7 @@ schemas:
   - books: |
       {  "$schema": "http://json-schema.org/draft-03/schema",
          "type": "object",
-         "description": "Available books within the Holy Bible",
+         "description": "Available books within the Holy Bible.",
          "properties": {
            "size":  { "type": "integer", "required": true },
            "books": {
@@ -114,9 +119,9 @@ traits:
 
 /bibles:
   type: { typedCollection: { schema: bible, collectionSchema: bibles } }
-  /{language}:
+  /{bibleId}:
     type: { typedMember: { schema: bible } }
     /books:
       type: { typedCollection: { schema: book, collectionSchema: books } }
-      /{id}:
+      /{bookId}:
         type: { typedMember: { schema: book } }

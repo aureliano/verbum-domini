@@ -27,8 +27,12 @@ public final class BiblesService {
 		return new Bibles().withBibles(bibles).withSize(beans.getSize());
 	}
 	
-	public static Bible fetchByLanguage(String language) {
-		BibleBean bean = new BibleDao().findByLanguage(language);
+	public static Bible fetchById(String id) {
+		if (!id.matches("\\d+")) {
+			return null;
+		}
+		
+		BibleBean bean = new BibleDao().get(Integer.parseInt(id));
 		return (bean == null) ? null : bean.toResource();
 	}
 }

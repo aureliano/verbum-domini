@@ -34,17 +34,17 @@ public interface Bibles {
 
 	/**
 	 * 
-	 * @param language
+	 * @param bibleId
 	 *	 
 	 */
 	@GET
-	@Path("{language}")
+	@Path("{bibleId}")
 	@Produces({
 		"application/json"
 	})
-	Bibles.GetBiblesByLanguageResponse getBiblesByLanguage(
-		@PathParam("language")
-		String language)
+	Bibles.GetBiblesByBibleIdResponse getBiblesByBibleId(
+		@PathParam("bibleId")
+		String bibleId)
 		throws Exception
 	;
 
@@ -52,19 +52,19 @@ public interface Bibles {
 	 * 
 	 * @param start
 	 *	 The first page to return
+	 * @param bibleId
+	 *	 
 	 * @param pages
 	 *	 The number of pages to return
-	 * @param language
-	 *	 
 	 */
 	@GET
-	@Path("{language}/books")
+	@Path("{bibleId}/books")
 	@Produces({
 		"application/json"
 	})
-	Bibles.GetBiblesByLanguageBooksResponse getBiblesByLanguageBooks(
-		@PathParam("language")
-		String language,
+	Bibles.GetBiblesByBibleIdBooksResponse getBiblesByBibleIdBooks(
+		@PathParam("bibleId")
+		String bibleId,
 		@QueryParam("start")
 		Long start,
 		@QueryParam("pages")
@@ -74,28 +74,28 @@ public interface Bibles {
 
 	/**
 	 * 
-	 * @param id
+	 * @param bibleId
 	 *	 
-	 * @param language
+	 * @param bookId
 	 *	 
 	 */
 	@GET
-	@Path("{language}/books/{id}")
+	@Path("{bibleId}/books/{bookId}")
 	@Produces({
 		"application/json"
 	})
-	Bibles.GetBiblesByLanguageBooksByIdResponse getBiblesByLanguageBooksById(
-		@PathParam("id")
-		String id,
-		@PathParam("language")
-		String language)
+	Bibles.GetBiblesByBibleIdBooksByBookIdResponse getBiblesByBibleIdBooksByBookId(
+		@PathParam("bookId")
+		String bookId,
+		@PathParam("bibleId")
+		String bibleId)
 		throws Exception
 	;
 
-	public class GetBiblesByLanguageBooksByIdResponse
+	public class GetBiblesByBibleIdBooksByBookIdResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
-		private GetBiblesByLanguageBooksByIdResponse(Response delegate) {
+		private GetBiblesByBibleIdBooksByBookIdResponse(Response delegate) {
 			super(delegate);
 		}
 
@@ -105,17 +105,17 @@ public interface Bibles {
 		 * @param entity
 		 *	 
 		 */
-		public static Bibles.GetBiblesByLanguageBooksByIdResponse withJsonOK(Book entity) {
+		public static Bibles.GetBiblesByBibleIdBooksByBookIdResponse withJsonOK(Book entity) {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
-			return new Bibles.GetBiblesByLanguageBooksByIdResponse(responseBuilder.build());
+			return new Bibles.GetBiblesByBibleIdBooksByBookIdResponse(responseBuilder.build());
 		}
 	}
 
-	public class GetBiblesByLanguageBooksResponse
+	public class GetBiblesByBibleIdBooksResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
-		private GetBiblesByLanguageBooksResponse(Response delegate) {
+		private GetBiblesByBibleIdBooksResponse(Response delegate) {
 			super(delegate);
 		}
 
@@ -125,17 +125,17 @@ public interface Bibles {
 		 * @param entity
 		 *	 
 		 */
-		public static Bibles.GetBiblesByLanguageBooksResponse withJsonOK(Books entity) {
+		public static Bibles.GetBiblesByBibleIdBooksResponse withJsonOK(Books entity) {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
-			return new Bibles.GetBiblesByLanguageBooksResponse(responseBuilder.build());
+			return new Bibles.GetBiblesByBibleIdBooksResponse(responseBuilder.build());
 		}
 	}
 
-	public class GetBiblesByLanguageResponse
+	public class GetBiblesByBibleIdResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
-		private GetBiblesByLanguageResponse(Response delegate) {
+		private GetBiblesByBibleIdResponse(Response delegate) {
 			super(delegate);
 		}
 
@@ -145,10 +145,10 @@ public interface Bibles {
 		 * @param entity
 		 *	 
 		 */
-		public static Bibles.GetBiblesByLanguageResponse withJsonOK(Bible entity) {
+		public static Bibles.GetBiblesByBibleIdResponse withJsonOK(Bible entity) {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
-			return new Bibles.GetBiblesByLanguageResponse(responseBuilder.build());
+			return new Bibles.GetBiblesByBibleIdResponse(responseBuilder.build());
 		}
 	}
 
