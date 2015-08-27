@@ -56,4 +56,11 @@ public class BiblesResourceImpl implements Bibles {
 		return GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse
 				.withJsonOK(VersesService.fetchVersesByChapter(chapterId, start, pages));
 	}
+
+	@Override
+	public GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse getBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseId(
+			String verseId, String chapterId, String bookId, String bibleId) throws Exception {
+		return GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse
+				.withJsonOK(VersesService.fetchVerseById(verseId));
+	}
 }

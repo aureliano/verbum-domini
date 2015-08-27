@@ -195,3 +195,5 @@ traits:
             type: { typedMember: { schema: chapter } }
             /verses:
               type: { typedCollection: { schema: verse, collectionSchema: verses } }
+              /{verseId}:
+                type: { typedMember: { schema: verse } }

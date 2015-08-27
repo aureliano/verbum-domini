@@ -11,6 +11,7 @@ import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
+import com.github.aureliano.verbum_domini.model.Verse;
 import com.github.aureliano.verbum_domini.model.Verses;
 
 @Path("bibles")
@@ -179,6 +180,34 @@ public interface Bibles {
 		throws Exception
 	;
 
+	/**
+	 * 
+	 * @param chapterId
+	 *	 
+	 * @param verseId
+	 *	 
+	 * @param bibleId
+	 *	 
+	 * @param bookId
+	 *	 
+	 */
+	@GET
+	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}/verses/{verseId}")
+	@Produces({
+		"application/json"
+	})
+	Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse getBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseId(
+		@PathParam("verseId")
+		String verseId,
+		@PathParam("chapterId")
+		String chapterId,
+		@PathParam("bookId")
+		String bookId,
+		@PathParam("bibleId")
+		String bibleId)
+		throws Exception
+	;
+
 	public class GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
@@ -197,7 +226,26 @@ public interface Bibles {
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse(responseBuilder.build());
 		}
+	}
 
+	public class GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse withJsonOK(Verse entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse(responseBuilder.build());
+		}
 	}
 
 	public class GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse

@@ -40,6 +40,15 @@ public final class VersesService {
 		return new Verses().withVerses(verses).withSize(beans.getSize());
 	}
 	
+	public static Verse fetchVerseById(String id) {
+		if (!id.matches("\\d+")) {
+			return null;
+		}
+		
+		VerseBean verse = new VerseDao().get(Integer.parseInt(id));
+		return (verse == null) ? null : verse.toResource();
+	}
+	
 	private static VerseBean createFilter(String id) {
 		ChapterBean chapter = new ChapterDao().get(Integer.parseInt(id));
 		VerseBean verse = new VerseBean();
