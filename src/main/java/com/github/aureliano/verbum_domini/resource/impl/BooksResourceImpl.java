@@ -2,6 +2,8 @@ package com.github.aureliano.verbum_domini.resource.impl;
 
 import com.github.aureliano.verbum_domini.resource.Books;
 import com.github.aureliano.verbum_domini.service.BooksService;
+import com.github.aureliano.verbum_domini.service.ChaptersService;
+import com.github.aureliano.verbum_domini.service.VersesService;
 
 public class BooksResourceImpl implements Books {
 
@@ -17,5 +19,28 @@ public class BooksResourceImpl implements Books {
 	@Override
 	public GetBooksByBookIdResponse getBooksByBookId(String bookId) throws Exception {
 		return GetBooksByBookIdResponse.withJsonOK(BooksService.fetchBookById(bookId));
+	}
+
+	@Override
+	public GetBooksByBookIdChaptersResponse getBooksByBookIdChapters(String bookId, Long start, Long pages) throws Exception {
+		return GetBooksByBookIdChaptersResponse.withJsonOK(ChaptersService.fetchChaptersByBook(bookId, start, pages));
+	}
+
+	@Override
+	public GetBooksByBookIdChaptersByChapterIdResponse getBooksByBookIdChaptersByChapterId(String chapterId, String bookId)
+			throws Exception {
+		return GetBooksByBookIdChaptersByChapterIdResponse.withJsonOK(ChaptersService.fetchChapterById(chapterId));
+	}
+
+	@Override
+	public GetBooksByBookIdChaptersByChapterIdVersesResponse getBooksByBookIdChaptersByChapterIdVerses(String chapterId, String bookId,
+			Long start, Long pages) throws Exception {
+		return GetBooksByBookIdChaptersByChapterIdVersesResponse.withJsonOK(VersesService.fetchVersesByChapter(chapterId, start, pages));
+	}
+
+	@Override
+	public GetBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse getBooksByBookIdChaptersByChapterIdVersesByVerseId(String verseId,
+			String chapterId, String bookId) throws Exception {
+		return GetBooksByBookIdChaptersByChapterIdVersesByVerseIdResponse.withJsonOK(VersesService.fetchVerseById(verseId));
 	}
 }

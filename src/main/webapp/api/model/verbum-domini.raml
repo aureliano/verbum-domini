@@ -181,34 +181,25 @@ traits:
           description: The number of pages to return (> 0 <= 2)
           type: integer
 
-/books: &books
-  type: { typedCollection: { schema: book, collectionSchema: books } }
-  /{bookId}:
-    type: { typedMember: { schema: book } }
-
-/chapters: &chapters
-  type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
-  /{chapterId}:
-    type: { typedMember: { schema: chapter } }
-
 /verses: &verses
   type: { typedCollection: { schema: verse, collectionSchema: verses } }
   /{verseId}:
     type: { typedMember: { schema: verse } }
 
+/chapters: &chapters
+  type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
+  /{chapterId}:
+    type: { typedMember: { schema: chapter } }
+    /verses: *verses
+
+/books: &books
+  type: { typedCollection: { schema: book, collectionSchema: books } }
+  /{bookId}:
+    type: { typedMember: { schema: book } }
+    /chapters: *chapters
+
 /bibles:
   type: { typedCollection: { schema: bible, collectionSchema: bibles } }
   /{bibleId}:
     type: { typedMember: { schema: bible } }
-    /books:
-      type: { typedCollection: { schema: book, collectionSchema: books } }
-      /{bookId}:
-        type: { typedMember: { schema: book } }
-        /chapters:
-          type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
-          /{chapterId}:
-            type: { typedMember: { schema: chapter } }
-            /verses:
-              type: { typedCollection: { schema: verse, collectionSchema: verses } }
-              /{verseId}:
-                type: { typedMember: { schema: verse } }
+    /books: *books
