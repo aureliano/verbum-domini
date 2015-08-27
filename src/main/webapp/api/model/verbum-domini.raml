@@ -186,6 +186,11 @@ traits:
   /{bookId}:
     type: { typedMember: { schema: book } }
 
+/chapters: &chapters
+  type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
+  /{chapterId}:
+    type: { typedMember: { schema: chapter } }
+
 /bibles:
   type: { typedCollection: { schema: bible, collectionSchema: bibles } }
   /{bibleId}:

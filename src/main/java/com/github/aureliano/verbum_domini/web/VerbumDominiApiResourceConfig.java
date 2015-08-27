@@ -4,6 +4,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import com.github.aureliano.verbum_domini.resource.impl.BiblesResourceImpl;
 import com.github.aureliano.verbum_domini.resource.impl.BooksResourceImpl;
+import com.github.aureliano.verbum_domini.resource.impl.ChaptersResourceImpl;
 
 public class VerbumDominiApiResourceConfig extends ResourceConfig {
 
@@ -13,5 +14,6 @@ public class VerbumDominiApiResourceConfig extends ResourceConfig {
 		register(CharsetResponseFilter.class);
 		register(BiblesResourceImpl.class);
 		register(BooksResourceImpl.class);
+		register(ChaptersResourceImpl.class);
 	}
 }

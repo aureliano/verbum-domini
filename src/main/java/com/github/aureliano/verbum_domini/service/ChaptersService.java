@@ -18,6 +18,17 @@ public final class ChaptersService {
 		super();
 	}
 	
+	public static Chapters fetchAll(Long start, Long pages) {
+		Pagination<ChapterBean> beans = new ChapterDao().list(new ServiceParams().withStart(start).withPages(pages));
+		List<Chapter> chapters = new ArrayList<Chapter>();
+		
+		for (ChapterBean bean : beans.getElements()) {
+			chapters.add(bean.toResource());
+		}
+		
+		return new Chapters().withChapters(chapters).withSize(beans.getSize());
+	}
+	
 	public static Chapters fetchChaptersByBook(String id, Long start, Long pages) {
 		if (!id.matches("\\d+")) {
 			return null;
