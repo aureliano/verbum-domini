@@ -29,6 +29,7 @@ public final class DataHelper {
 		BibleDataHelper.createBibles();
 		BookDataHelper.createBooks();
 		ChapterDataHelper.createChapters();
+		VerseDataHelper.createChapters();
 		
 		this.dataHelpersInitialized = true;
 	}
