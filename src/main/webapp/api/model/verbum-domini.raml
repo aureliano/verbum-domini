@@ -191,6 +191,11 @@ traits:
   /{chapterId}:
     type: { typedMember: { schema: chapter } }
 
+/verses: &verses
+  type: { typedCollection: { schema: verse, collectionSchema: verses } }
+  /{verseId}:
+    type: { typedMember: { schema: verse } }
+
 /bibles:
   type: { typedCollection: { schema: bible, collectionSchema: bibles } }
   /{bibleId}:

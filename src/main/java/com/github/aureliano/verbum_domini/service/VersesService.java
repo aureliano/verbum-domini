@@ -18,6 +18,17 @@ public final class VersesService {
 		super();
 	}
 	
+	public static Verses fetchAll(Long start, Long pages) {
+		Pagination<VerseBean> beans = new VerseDao().list(new ServiceParams().withStart(start).withPages(pages));
+		List<Verse> verses = new ArrayList<Verse>();
+		
+		for (VerseBean bean : beans.getElements()) {
+			verses.add(bean.toResource());
+		}
+		
+		return new Verses().withVerses(verses).withSize(beans.getSize());
+	}
+	
 	public static Verses fetchVersesByChapter(String id, Long start, Long pages) {
 		if (!id.matches("\\d+")) {
 			return null;
