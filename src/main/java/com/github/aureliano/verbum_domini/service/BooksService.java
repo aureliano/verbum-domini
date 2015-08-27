@@ -18,6 +18,17 @@ public final class BooksService {
 		super();
 	}
 	
+	public static Books fetchAll(Long start, Long pages) {
+		Pagination<BookBean> beans = new BookDao().list(new ServiceParams().withStart(start).withPages(pages));
+		List<Book> books = new ArrayList<Book>();
+		
+		for (BookBean bean : beans.getElements()) {
+			books.add(bean.toResource());
+		}
+		
+		return new Books().withBooks(books).withSize(beans.getSize());
+	}
+	
 	public static Books fetchBooksByBible(String id, Long start, Long pages) {
 		if (!id.matches("\\d+")) {
 			return null;
