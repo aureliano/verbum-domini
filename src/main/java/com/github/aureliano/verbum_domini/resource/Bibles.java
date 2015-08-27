@@ -11,6 +11,7 @@ import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
+import com.github.aureliano.verbum_domini.model.Verses;
 
 @Path("bibles")
 public interface Bibles {
@@ -146,6 +147,38 @@ public interface Bibles {
 		throws Exception
 	;
 
+	/**
+	 * 
+	 * @param chapterId
+	 *	 
+	 * @param start
+	 *	 The first page to return (> 0)
+	 * @param bibleId
+	 *	 
+	 * @param pages
+	 *	 The number of pages to return (> 0 <= 2)
+	 * @param bookId
+	 *	 
+	 */
+	@GET
+	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}/verses")
+	@Produces({
+		"application/json"
+	})
+	Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse getBiblesByBibleIdBooksByBookIdChaptersByChapterIdVerses(
+		@PathParam("chapterId")
+		String chapterId,
+		@PathParam("bookId")
+		String bookId,
+		@PathParam("bibleId")
+		String bibleId,
+		@QueryParam("start")
+		Long start,
+		@QueryParam("pages")
+		Long pages)
+		throws Exception
+	;
+
 	public class GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
 	{
@@ -163,6 +196,27 @@ public interface Bibles {
 			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
 			responseBuilder.entity(entity);
 			return new Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdResponse(responseBuilder.build());
+		}
+
+	}
+
+	public class GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse withJsonOK(Verses entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Bibles.GetBiblesByBibleIdBooksByBookIdChaptersByChapterIdVersesResponse(responseBuilder.build());
 		}
 	}
 
