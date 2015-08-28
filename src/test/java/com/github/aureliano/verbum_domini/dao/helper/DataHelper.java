@@ -30,6 +30,7 @@ public final class DataHelper {
 		BookDataHelper.createBooks();
 		ChapterDataHelper.createChapters();
 		VerseDataHelper.createChapters();
+		AnnotationDataHelper.createAnnotations();
 		
 		this.dataHelpersInitialized = true;
 	}

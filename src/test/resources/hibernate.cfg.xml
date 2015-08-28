@@ -17,5 +17,6 @@
 		<mapping class="com.github.aureliano.verbum_domini.bean.BookBean"/>
 		<mapping class="com.github.aureliano.verbum_domini.bean.ChapterBean"/>
 		<mapping class="com.github.aureliano.verbum_domini.bean.VerseBean"/>
+		<mapping class="com.github.aureliano.verbum_domini.bean.AnnotationBean"/>
 	</session-factory>
 </hibernate-configuration>
