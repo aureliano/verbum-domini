@@ -6,6 +6,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import com.github.aureliano.verbum_domini.model.Annotation;
+import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
@@ -145,6 +147,98 @@ public interface Books {
 		String bookId)
 		throws Exception
 	;
+
+	/**
+	 * 
+	 * @param chapterId
+	 *	 
+	 * @param start
+	 *	 The first page to return (> 0)
+	 * @param pages
+	 *	 The number of pages to return (> 0 <= 2)
+	 * @param bookId
+	 *	 
+	 */
+	@GET
+	@Path("{bookId}/chapters/{chapterId}/annotations")
+	@Produces({
+		"application/json"
+	})
+	Books.GetBooksByBookIdChaptersByChapterIdAnnotationsResponse getBooksByBookIdChaptersByChapterIdAnnotations(
+		@PathParam("chapterId")
+		String chapterId,
+		@PathParam("bookId")
+		String bookId,
+		@QueryParam("start")
+		Long start,
+		@QueryParam("pages")
+		Long pages)
+		throws Exception
+	;
+
+	/**
+	 * 
+	 * @param chapterId
+	 *	 
+	 * @param annotationId
+	 *	 
+	 * @param bookId
+	 *	 
+	 */
+	@GET
+	@Path("{bookId}/chapters/{chapterId}/annotations/{annotationId}")
+	@Produces({
+		"application/json"
+	})
+	Books.GetBooksByBookIdChaptersByChapterIdAnnotationsByAnnotationIdResponse getBooksByBookIdChaptersByChapterIdAnnotationsByAnnotationId(
+		@PathParam("annotationId")
+		String annotationId,
+		@PathParam("chapterId")
+		String chapterId,
+		@PathParam("bookId")
+		String bookId)
+		throws Exception
+	;
+
+	public class GetBooksByBookIdChaptersByChapterIdAnnotationsByAnnotationIdResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBooksByBookIdChaptersByChapterIdAnnotationsByAnnotationIdResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Books.GetBooksByBookIdChaptersByChapterIdAnnotationsByAnnotationIdResponse withJsonOK(Annotation entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Books.GetBooksByBookIdChaptersByChapterIdAnnotationsByAnnotationIdResponse(responseBuilder.build());
+		}
+	}
+
+	public class GetBooksByBookIdChaptersByChapterIdAnnotationsResponse
+		extends com.github.aureliano.verbum_domini.support.ResponseWrapper
+	{
+		private GetBooksByBookIdChaptersByChapterIdAnnotationsResponse(Response delegate) {
+			super(delegate);
+		}
+
+		/**
+		 * OK
+		 * 
+		 * @param entity
+		 *	 
+		 */
+		public static Books.GetBooksByBookIdChaptersByChapterIdAnnotationsResponse withJsonOK(Annotations entity) {
+			Response.ResponseBuilder responseBuilder = Response.status(200).header("Content-Type", "application/json");
+			responseBuilder.entity(entity);
+			return new Books.GetBooksByBookIdChaptersByChapterIdAnnotationsResponse(responseBuilder.build());
+		}
+	}
 
 	public class GetBooksByBookIdChaptersByChapterIdResponse
 		extends com.github.aureliano.verbum_domini.support.ResponseWrapper

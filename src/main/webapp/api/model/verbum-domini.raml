@@ -226,6 +226,7 @@ traits:
   /{chapterId}:
     type: { typedMember: { schema: chapter } }
     /verses: *verses
+    /annotations: *annotations
 
 /books: &books
   type: { typedCollection: { schema: book, collectionSchema: books } }

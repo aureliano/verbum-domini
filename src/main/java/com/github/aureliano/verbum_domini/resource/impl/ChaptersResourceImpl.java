@@ -1,6 +1,7 @@
 package com.github.aureliano.verbum_domini.resource.impl;
 
 import com.github.aureliano.verbum_domini.resource.Chapters;
+import com.github.aureliano.verbum_domini.service.AnnotationsService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
 import com.github.aureliano.verbum_domini.service.VersesService;
 
@@ -29,5 +30,19 @@ public class ChaptersResourceImpl implements Chapters {
 	public GetChaptersByChapterIdVersesByVerseIdResponse getChaptersByChapterIdVersesByVerseId(String verseId, String chapterId)
 			throws Exception {
 		return GetChaptersByChapterIdVersesByVerseIdResponse.withJsonOK(VersesService.fetchVerseById(verseId));
+	}
+
+	@Override
+	public GetChaptersByChapterIdAnnotationsResponse getChaptersByChapterIdAnnotations(String chapterId, Long start, Long pages)
+			throws Exception {
+		return GetChaptersByChapterIdAnnotationsResponse
+				.withJsonOK(AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages));
+	}
+
+	@Override
+	public GetChaptersByChapterIdAnnotationsByAnnotationIdResponse getChaptersByChapterIdAnnotationsByAnnotationId(String annotationId,
+			String chapterId) throws Exception {
+		return GetChaptersByChapterIdAnnotationsByAnnotationIdResponse
+				.withJsonOK(AnnotationsService.fetchAnnotationById(annotationId));
 	}
 }
