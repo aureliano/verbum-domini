@@ -16,14 +16,23 @@ begin
     insert 'book', { :id => book_id, :bible_fk => bible_id, :name => fbook.sub(/\.json/, '') }
 
     book = JSON.parse(File.read File.join('data', fbook))
-    book['chapters'].each do |chapter, verses|
+    book['chapters'].each do |chapter, hash|
       chapter_id = next_seq_value 'chapter_seq'
       insert 'chapter', :id => chapter_id, :number => chapter, :book_fk => book_id
 
-      verses.each do |verse|
+      hash['verses'].each do |number, verse|
         verse_id = next_seq_value 'verse_seq'
-        text = ((verse[1]['verse'].nil?) ? verse[1] : verse[1]['verse']).gsub(/'/ ,"''").gsub("\\", '\\\\\\\\')
-        insert 'verse', :id => verse_id, :number => verse.first, :text => text, :chapter_fk => chapter_id
+        
+        text = (verse['verse'].nil?) ? verse : verse['verse']
+        text = text.gsub(/'/ ,"''").gsub("\\", '\\\\\\\\')
+        insert 'verse', :id => verse_id, :number => number, :text => text, :chapter_fk => chapter_id
+      end
+
+      hash['annotations'].each do |number, annotation|
+        annotation_id = next_seq_value 'annotation_seq'
+
+        text = annotation.gsub(/'/ ,"''").gsub("\\", '\\\\\\\\')
+        insert 'annotation', :id => annotation_id, :number => number, :text => text, :chapter_fk => chapter_id
       end
     end
   end
