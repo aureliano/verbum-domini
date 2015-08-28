@@ -23,7 +23,9 @@ public final class VersesService {
 		List<Verse> verses = new ArrayList<Verse>();
 		
 		for (VerseBean bean : beans.getElements()) {
-			verses.add(bean.toResource());
+			Verse resource = bean.toResource();
+			resource.setText(null);
+			verses.add(resource);
 		}
 		
 		return new Verses().withVerses(verses).withSize(beans.getSize());

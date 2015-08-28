@@ -23,7 +23,9 @@ public final class AnnotationsService {
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		
 		for (AnnotationBean bean : beans.getElements()) {
-			annotations.add(bean.toResource());
+			Annotation resource = bean.toResource();
+			resource.setText(null);
+			annotations.add(resource);
 		}
 		
 		return new Annotations().withAnnotations(annotations).withSize(beans.getSize());
@@ -45,7 +47,9 @@ public final class AnnotationsService {
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		
 		for (AnnotationBean bean : beans.getElements()) {
-			annotations.add(bean.toResource());
+			Annotation resource = bean.toResource();
+			resource.setText(null);
+			annotations.add(resource);
 		}
 		
 		return new Annotations().withAnnotations(annotations).withSize(beans.getSize());
