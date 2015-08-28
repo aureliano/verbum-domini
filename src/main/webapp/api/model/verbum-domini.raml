@@ -216,6 +216,11 @@ traits:
   /{verseId}:
     type: { typedMember: { schema: verse } }
 
+/annotations: &annotations
+  type: { typedCollection: { schema: annotation, collectionSchema: annotations } }
+  /{annotationId}:
+    type: { typedMember: { schema: annotation } }
+
 /chapters: &chapters
   type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
   /{chapterId}:
