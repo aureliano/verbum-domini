@@ -1,0 +1,5 @@
+source :rubygems
+
+gem 'pg', '0.18.0'
+gem 'mongo', '~> 1.8.1'
+gem 'bson_ext', :require => "mongo"
