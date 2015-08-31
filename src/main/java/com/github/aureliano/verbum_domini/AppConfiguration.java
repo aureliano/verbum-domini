@@ -1,4 +1,4 @@
-package com.github.aureliano.verbum_domini.config;
+package com.github.aureliano.verbum_domini;
 
 import java.util.Properties;
 import java.util.Set;
@@ -30,5 +30,9 @@ public class AppConfiguration {
 	
 	public Set<Object> getKeys() {
 		return this.properties.keySet();
+	}
+	
+	public boolean isNoSql() {
+		return "nosql".equalsIgnoreCase(this.properties.getProperty("hibernate.datastore.type"));
 	}
 }
