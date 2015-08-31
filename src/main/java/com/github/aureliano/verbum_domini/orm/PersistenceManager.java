@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import com.github.aureliano.verbum_domini.AppConfiguration;
+
 public final class PersistenceManager {
 
 	private static PersistenceManager instance;
@@ -40,10 +42,28 @@ public final class PersistenceManager {
 	}
 	
 	private SessionFactory buildSessionFactory() {
-		Configuration configuration = new Configuration().configure();
+		Configuration configuration = this.createDefaultConfiguration().configure();
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
 		SessionFactory factory = configuration.buildSessionFactory(builder.build());
 		
 		return factory;
+	}
+	
+	private Configuration createDefaultConfiguration() {
+		return this.createDefaultConfiguration(AppConfiguration.instance().getProperty("hibernate.datastore.type"));
+	}
+	
+	protected Configuration createDefaultConfiguration(String datastoreType) {
+		boolean relationalDatabase = "sql".equalsIgnoreCase(datastoreType);
+		boolean nosqlDatabase = "nosql".equalsIgnoreCase(datastoreType);
+		
+		if (relationalDatabase) {
+			return new Configuration();
+		} else if (nosqlDatabase) {
+			//return new OgmConfiguration();
+			return null;
+		} else {
+			throw new UnsupportedOperationException("Unsupported datastore type in hibernate.datastore.type configuration. Expected one of [sql, nosql].");
+		}
 	}
 }
