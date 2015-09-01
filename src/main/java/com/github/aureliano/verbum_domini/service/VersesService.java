@@ -3,11 +3,11 @@ package com.github.aureliano.verbum_domini.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.aureliano.verbum_domini.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.bean.VerseBean;
-import com.github.aureliano.verbum_domini.dao.ChapterDao;
-import com.github.aureliano.verbum_domini.dao.Pagination;
-import com.github.aureliano.verbum_domini.dao.VerseDao;
+import com.github.aureliano.verbum_domini.domain.bean.ChapterBean;
+import com.github.aureliano.verbum_domini.domain.bean.VerseBean;
+import com.github.aureliano.verbum_domini.domain.dao.ChapterDao;
+import com.github.aureliano.verbum_domini.domain.dao.Pagination;
+import com.github.aureliano.verbum_domini.domain.dao.VerseDao;
 import com.github.aureliano.verbum_domini.model.Verse;
 import com.github.aureliano.verbum_domini.model.Verses;
 import com.github.aureliano.verbum_domini.web.ServiceParams;

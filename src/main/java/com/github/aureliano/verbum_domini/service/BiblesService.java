@@ -3,9 +3,9 @@ package com.github.aureliano.verbum_domini.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.aureliano.verbum_domini.bean.BibleBean;
-import com.github.aureliano.verbum_domini.dao.BibleDao;
-import com.github.aureliano.verbum_domini.dao.Pagination;
+import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
+import com.github.aureliano.verbum_domini.domain.dao.BibleDao;
+import com.github.aureliano.verbum_domini.domain.dao.Pagination;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 import com.github.aureliano.verbum_domini.web.ServiceParams;
