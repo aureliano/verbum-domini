@@ -1,7 +1,5 @@
 package com.github.aureliano.verbum_domini.bean;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +12,7 @@ import com.github.aureliano.verbum_domini.model.Annotation;
 
 @Entity
 @Table(name = "annotation")
-public class AnnotationBean implements Serializable {
+public class AnnotationBean implements IBean {
 
 	private static final long serialVersionUID = 6527131617359623209L;
 
@@ -68,6 +66,7 @@ public class AnnotationBean implements Serializable {
 		this.chapter = chapter;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Annotation toResource() {
 		return new Annotation()
 			.withAnnotationId(this.id)

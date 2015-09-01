@@ -1,7 +1,5 @@
 package com.github.aureliano.verbum_domini.bean;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +9,7 @@ import com.github.aureliano.verbum_domini.model.Bible;
 
 @Entity
 @Table(name = "bible")
-public class BibleBean implements Serializable {
+public class BibleBean implements IBean {
 
 	private static final long serialVersionUID = -9140101263038741687L;
 	
@@ -119,6 +117,7 @@ public class BibleBean implements Serializable {
 		this.copyright = copyright;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Bible toResource() {
 		return new Bible()
 			.withBibleId(this.id)

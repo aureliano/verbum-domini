@@ -1,7 +1,5 @@
 package com.github.aureliano.verbum_domini.bean;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +12,7 @@ import com.github.aureliano.verbum_domini.model.Chapter;
 
 @Entity
 @Table(name = "chapter")
-public class ChapterBean implements Serializable {
+public class ChapterBean implements IBean {
 
 	private static final long serialVersionUID = 8638750836956946677L;
 
@@ -57,6 +55,7 @@ public class ChapterBean implements Serializable {
 		this.book = book;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Chapter toResource() {
 		return new Chapter()
 			.withChapterId(this.id)
