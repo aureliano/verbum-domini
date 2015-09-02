@@ -63,10 +63,15 @@ public class ConnectionSingleton {
 		String password = config.getProperty("jdbc.connection.password");
 		
 		try {
+			System.out.println("Loading driver class " + driver);
 			Class.forName(driver);
+			
+			System.out.println("Establishing connection to " + url);
+			System.out.println("User: " + user);
+			System.out.println("Password: " + ((password == null) ? "not provided" : password.replaceAll(".", "*")));
 			this.connection = DriverManager.getConnection(url, user, password);
 		} catch (Exception ex) {
-			
+			throw new VerbumDominiException(ex);
 		}
 	}
 	
