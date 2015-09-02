@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.hibernate.internal.util.ConfigHelper;
-
 public final class PropertyHelper {
 
 	private PropertyHelper() {

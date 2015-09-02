@@ -1,44 +1,19 @@
 package com.github.aureliano.verbum_domini.domain.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.github.aureliano.verbum_domini.model.Bible;
 
-@Entity
-@Table(name = "bible")
 public class BibleBean implements IBean {
 
 	private static final long serialVersionUID = -9140101263038741687L;
 	
-	@Id
-	@Column(name = "id", nullable = false)
 	private Integer id;
-
-	@Column(name = "name", precision = 100, nullable = false)
 	private String name;
-
-	@Column(name = "language", precision = 50, nullable = false)
 	private String language;
-
-	@Column(name = "url", precision = 200, nullable = true)
 	private String url;
-
-	@Column(name = "edition", precision = 100, nullable = true)
 	private String edition;
-
-	@Column(name = "printed_source", precision = 300, nullable = true)
 	private String printedSource;
-
-	@Column(name = "eletronic_transcription_source", precision = 200, nullable = true)
 	private String eletronicTranscriptionSource;
-
-	@Column(name = "eletronic_transcription_source_url", precision = 200, nullable = true)
 	private String eletronicTranscriptionSourceUrl;
-
-	@Column(name = "copyright", precision = 200, nullable = true)
 	private String copyright;
 	
 	public BibleBean() {

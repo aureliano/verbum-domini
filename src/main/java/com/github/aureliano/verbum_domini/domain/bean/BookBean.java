@@ -1,30 +1,13 @@
 package com.github.aureliano.verbum_domini.domain.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.github.aureliano.verbum_domini.model.Book;
 
-@Entity
-@Table(name = "book")
 public class BookBean implements IBean {
 
 	private static final long serialVersionUID = -240907626446100682L;
 
-	@Id
-	@Column(name = "id", nullable = false)
 	private Integer id;
-
-	@Column(name = "name", precision = 100, nullable = false)
 	private String name;
-	
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = BibleBean.class, optional = false)
-	@JoinColumn(name = "bible_fk")
 	private BibleBean bible;
 	
 	public BookBean() {
