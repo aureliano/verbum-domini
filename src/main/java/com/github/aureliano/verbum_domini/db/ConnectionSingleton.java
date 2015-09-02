@@ -49,9 +49,9 @@ public class ConnectionSingleton {
 	
 	private void createConnection() {
 		AppConfiguration config = AppConfiguration.instance();
-		String driver = config.getProperty("jdbc.driver_name");
+		String driver = config.getProperty("jdbc.driver_class");
 		if (driver == null) {
-			this.throwUnsetPropertyException("jdbc.driver_name");
+			this.throwUnsetPropertyException("jdbc.driver_class");
 		}
 		
 		String url = config.getProperty("jdbc.connection.url");
