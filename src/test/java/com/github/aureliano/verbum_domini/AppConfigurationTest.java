@@ -14,15 +14,15 @@ public class AppConfigurationTest {
 	public void testGetKeys() {
 		Set<Object> keys = AppConfiguration.instance().getKeys();
 		
-		Assert.assertTrue(keys.contains("hibernate.datastore.type"));
-		Assert.assertTrue(keys.contains("hibernate.datastore.application"));
+		Assert.assertTrue(keys.contains("database.application.type"));
+		Assert.assertTrue(keys.contains("database.application.name"));
 	}
 	
 	@Test
 	public void testGetProperty() {
 		AppConfiguration config = AppConfiguration.instance();
 		
-		Assert.assertEquals("sql", config.getProperty("hibernate.datastore.type"));
-		Assert.assertEquals("PostgreSQL", config.getProperty("hibernate.datastore.application"));
+		Assert.assertEquals("sql", config.getProperty("database.application.type"));
+		Assert.assertEquals("PostgreSQL", config.getProperty("database.application.name"));
 	}
 }

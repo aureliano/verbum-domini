@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.github.aureliano.verbum_domini.AppConfiguration;
 import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.IBean;
 import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
@@ -20,9 +21,11 @@ public class SqlQuerier implements IQuerier {
 	private static SqlQuerier instance;
 	
 	private Properties queries;
+	private String databaseName;
 	
 	private SqlQuerier() {
 		this.queries = PropertyHelper.loadProperties("domain-queries.properties");
+		this.databaseName = AppConfiguration.instance().getProperty("database.application.name");
 	}
 	
 	public static SqlQuerier instance() {
@@ -36,7 +39,7 @@ public class SqlQuerier implements IQuerier {
 	@Override
 	public <T extends IBean> Integer count(Class<T> type) {
 		Integer count = null;
-		String sql = this.queries.getProperty(this.beanKey(type) + ".sql.count");
+		String sql = this.queries.getProperty(this.beanKey(type) + ".relational." + this.databaseName + ".count");
 		
 		try (
 			PreparedStatement ps = ConnectionSingleton.instance()
@@ -55,7 +58,7 @@ public class SqlQuerier implements IQuerier {
 	@Override
 	public Map<String, Object> get(IBean bean) {
 		Map<String, Object> map = null;
-		String sql = this.queries.getProperty(this.beanKey(bean.getClass()) + ".sql.find.by.id");
+		String sql = this.queries.getProperty(this.beanKey(bean.getClass()) + ".relational. " + this.databaseName + ".find.by.id");
 		
 		try (
 			PreparedStatement ps = ConnectionSingleton.instance()
@@ -90,7 +93,7 @@ public class SqlQuerier implements IQuerier {
 	@Override
 	public <T extends IBean> List<Map<String, Object>> find(Class<T> type, String filterName, Object filterValue) {
 		List<Map<String, Object>> list = null;
-		String sql = this.queries.getProperty(this.beanKey(type) + ".sql.find.by." + filterName);
+		String sql = this.queries.getProperty(this.beanKey(type) + ".relational." + this.databaseName + ".find.by." + filterName);
 		
 		try (
 			PreparedStatement ps = ConnectionSingleton.instance()

@@ -12,7 +12,7 @@ public class PropertyHelperTest {
 	public void testLoadProperties() {
 		Properties p = PropertyHelper.loadProperties("app-configuration.properties");
 		
-		Assert.assertEquals("sql", p.getProperty("hibernate.datastore.type"));
-		Assert.assertEquals("PostgreSQL", p.getProperty("hibernate.datastore.application"));
+		Assert.assertEquals("sql", p.getProperty("database.application.type"));
+		Assert.assertEquals("PostgreSQL", p.getProperty("database.application.name"));
 	}
 }
