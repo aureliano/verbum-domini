@@ -3,7 +3,6 @@ package com.github.aureliano.verbum_domini.helper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.BookBean;
@@ -17,14 +16,7 @@ public final class ChapterDataHelper {
 	}
 	
 	public static void createTable() {
-		Connection connection = ConnectionSingleton.instance().getConnection();
-		try (
-			Statement statement = connection.createStatement();
-		) {
-			statement.executeUpdate(FileHelper.readFile("hsqldb/chapter-schema.sql"));
-		} catch (SQLException ex) {
-			throw new VerbumDominiException(ex);
-		}
+		SchemaHelper.createTable("hsqldb/chapter-schema.sql");
 	}
 	
 	public static void createChapters() {

@@ -3,7 +3,6 @@ package com.github.aureliano.verbum_domini.helper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
@@ -16,14 +15,7 @@ public final class BibleDataHelper {
 	}
 	
 	public static void createTable() {
-		Connection connection = ConnectionSingleton.instance().getConnection();
-		try (
-			Statement statement = connection.createStatement();
-		) {
-			statement.executeUpdate(FileHelper.readFile("hsqldb/bible-schema.sql"));
-		} catch (SQLException ex) {
-			throw new VerbumDominiException(ex);
-		}
+		SchemaHelper.createTable("hsqldb/bible-schema.sql");
 	}
 	
 	public static void createBibles() {
