@@ -13,6 +13,6 @@ public class PropertyHelperTest {
 		Properties p = PropertyHelper.loadProperties("app-configuration.properties");
 		
 		Assert.assertEquals("sql", p.getProperty("database.application.type"));
-		Assert.assertEquals("PostgreSQL", p.getProperty("database.application.name"));
+		Assert.assertEquals("hsqldb", p.getProperty("database.application.name"));
 	}
 }

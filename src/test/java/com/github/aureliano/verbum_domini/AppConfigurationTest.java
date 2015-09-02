@@ -23,6 +23,6 @@ public class AppConfigurationTest {
 		AppConfiguration config = AppConfiguration.instance();
 		
 		Assert.assertEquals("sql", config.getProperty("database.application.type"));
-		Assert.assertEquals("PostgreSQL", config.getProperty("database.application.name"));
+		Assert.assertEquals("hsqldb", config.getProperty("database.application.name"));
 	}
 }
