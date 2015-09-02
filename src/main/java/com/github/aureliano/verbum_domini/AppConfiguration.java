@@ -33,6 +33,6 @@ public class AppConfiguration {
 	}
 	
 	public boolean isNoSql() {
-		return "nosql".equalsIgnoreCase(this.properties.getProperty("hibernate.datastore.type"));
+		return "nosql".equalsIgnoreCase(this.properties.getProperty("database.application.type"));
 	}
 }
