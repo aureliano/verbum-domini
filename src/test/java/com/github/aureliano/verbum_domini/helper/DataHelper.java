@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.helper;
 
-
 public final class DataHelper {
 
 	private static DataHelper instance;
@@ -39,7 +38,7 @@ public final class DataHelper {
 		BookDataHelper.createTable();
 		ChapterDataHelper.createTable();
 		VerseDataHelper.createTable();
-		//AnnotationDataHelper.createTable();
+		AnnotationDataHelper.createTable();
 	}
 	
 	private void createData() {
@@ -47,6 +46,6 @@ public final class DataHelper {
 		BookDataHelper.createBooks();
 		ChapterDataHelper.createChapters();
 		VerseDataHelper.createChapters();
-		//AnnotationDataHelper.createAnnotations();
+		AnnotationDataHelper.createAnnotations();
 	}
 }

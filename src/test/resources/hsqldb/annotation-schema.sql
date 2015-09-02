@@ -1,0 +1,6 @@
+CREATE TABLE annotation(
+  id INTEGER PRIMARY KEY NOT NULL,
+  chapter_fk INTEGER NOT NULL,
+  number VARCHAR(5) NOT NULL,
+  text VARCHAR(10000) NOT NULL
+)

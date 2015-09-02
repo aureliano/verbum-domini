@@ -19,11 +19,10 @@ public class AnnotationDaoTest {
 	}
 	
 	@Test
-	public void testLoad() {
-		AnnotationBean bean = this.dao.load(1);
+	public void testGet() {
+		AnnotationBean bean = this.dao.get(1);
 		Assert.assertEquals(new Integer(1), bean.getId());
 		Assert.assertEquals("1", bean.getNumber());
-		Assert.assertEquals("Something 1", bean.getText());
 		Assert.assertEquals(new Integer(1), bean.getChapter().getId());
 	}
 	

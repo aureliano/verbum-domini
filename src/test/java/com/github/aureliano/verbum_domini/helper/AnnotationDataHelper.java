@@ -1,11 +1,13 @@
 package com.github.aureliano.verbum_domini.helper;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
+import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.domain.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
+import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
 
 public final class AnnotationDataHelper {
 
@@ -13,21 +15,40 @@ public final class AnnotationDataHelper {
 		super();
 	}
 	
+	public static void createTable() {
+		SchemaHelper.createTable("hsqldb/annotation-schema.sql");
+	}
+	
 	public static void createAnnotations() {
-		Session session = PersistenceManager.instance().openSession();
-		Transaction transaction = session.beginTransaction();
 		int annotationId = 0;
 		
 		for (int i = 0; i < 50; i++) {
-			ChapterBean chapter = (ChapterBean) session.load(ChapterBean.class, (i + 1));
+			ChapterBean chapter = new ChapterBean();
+			chapter.setId((i + 1));
 
 			for (byte j = 1; j <= 5; j++) {
 				AnnotationBean annotation = prepareAnnotation(++annotationId, String.valueOf(j), chapter);
-				session.saveOrUpdate(annotation);
+				save(annotation);
 			}
 		}
+	}
+	
+	private static void save(AnnotationBean bean) {
+		Connection connection = ConnectionSingleton.instance().getConnection();
 		
-		transaction.commit();
+		try (
+			PreparedStatement ps = connection.prepareStatement("insert into annotation(" +
+				"id,number,text, chapter_fk) values(?,?,?,?)");
+		) {
+			ps.setInt(1, bean.getId());
+			ps.setString(2, bean.getNumber());
+			ps.setString(3, bean.getText());
+			ps.setInt(4, bean.getChapter().getId());
+			
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
 	}
 	
 	private static AnnotationBean prepareAnnotation(Integer id, String number, ChapterBean chapter) {
