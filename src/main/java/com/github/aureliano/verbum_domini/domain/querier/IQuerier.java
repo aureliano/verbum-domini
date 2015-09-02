@@ -11,5 +11,7 @@ public interface IQuerier {
 	
 	public abstract Map<String, Object> get(IBean bean);
 	
-	public abstract <T extends IBean> List<Map<String, Object>> find(Class<T> type, String filterName, Object filterValue);
+	public abstract <T extends IBean> List<Map<String, Object>> find(Class<T> type, int offset, int limit);
+	
+	public abstract <T extends IBean> List<Map<String, Object>> find(Class<T> type, String filterName, Object filterValue, int offset, int limit);
 }

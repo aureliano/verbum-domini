@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.eclipse.persistence.config.ResultSetConcurrency;
+import org.eclipse.persistence.config.ResultSetType;
+
 import com.github.aureliano.verbum_domini.AppConfiguration;
 import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.IBean;
@@ -91,15 +94,60 @@ public class SqlQuerier implements IQuerier {
 	}
 
 	@Override
-	public <T extends IBean> List<Map<String, Object>> find(Class<T> type, String filterName, Object filterValue) {
+	public <T extends IBean> List<Map<String, Object>> find(Class<T> type, int offset, int limit) {
+		List<Map<String, Object>> list = null;
+		String sql = this.queries.getProperty(this.beanKey(type) + ".relational." + this.databaseName + ".find.all");
+		
+		try (
+			PreparedStatement ps = ConnectionSingleton.instance()
+				.getConnection().prepareStatement(
+					sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		) {
+			ps.setFetchSize(limit);
+			ps.setMaxRows(limit);
+			ps.setFetchDirection(ResultSet.FETCH_FORWARD);
+			
+			ps.setInt(1, offset);
+			ps.setInt(2, limit);
+			ResultSet rs = ps.executeQuery();
+			
+			list = new ArrayList<>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columns = metaData.getColumnCount();
+			
+			while (rs.next()) {
+				Map <String, Object> map = new HashMap<>();
+				for (int i = 1; i <= columns; i++) {
+					map.put(metaData.getColumnName(i), rs.getObject(i));
+				}
+				list.add(map);
+			}
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public <T extends IBean> List<Map<String, Object>> find(Class<T> type, String filterName,
+			Object filterValue, int offset, int limit) {
+		
 		List<Map<String, Object>> list = null;
 		String sql = this.queries.getProperty(this.beanKey(type) + ".relational." + this.databaseName + ".find.by." + filterName);
 		
 		try (
 			PreparedStatement ps = ConnectionSingleton.instance()
-				.getConnection().prepareStatement(sql);
+				.getConnection().prepareStatement(
+					sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		) {
+			ps.setFetchSize(limit);
+			ps.setMaxRows(limit);
+			ps.setFetchDirection(ResultSet.FETCH_FORWARD);
+			
 			ps.setObject(1, filterValue);
+			ps.setInt(2, offset);
+			ps.setInt(3, limit);
 			ResultSet rs = ps.executeQuery();
 			
 			list = new ArrayList<>();
