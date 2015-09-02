@@ -61,7 +61,7 @@ public class SqlQuerier implements IQuerier {
 	@Override
 	public Map<String, Object> get(IBean bean) {
 		Map<String, Object> map = null;
-		String sql = this.queries.getProperty(this.beanKey(bean.getClass()) + ".relational. " + this.databaseName + ".find.by.id");
+		String sql = this.queries.getProperty(this.beanKey(bean.getClass()) + ".relational." + this.databaseName + ".find.by.id");
 		
 		try (
 			PreparedStatement ps = ConnectionSingleton.instance()
@@ -77,7 +77,7 @@ public class SqlQuerier implements IQuerier {
 			
 			while (rs.next()) {
 				for (int i = 1; i <= columns; i++) {
-					map.put(metaData.getColumnName(i), rs.getObject(i));
+					map.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
 				}
 				
 				if (++rows > 1) {
@@ -118,7 +118,7 @@ public class SqlQuerier implements IQuerier {
 			while (rs.next()) {
 				Map <String, Object> map = new HashMap<>();
 				for (int i = 1; i <= columns; i++) {
-					map.put(metaData.getColumnName(i), rs.getObject(i));
+					map.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
 				}
 				list.add(map);
 			}
@@ -157,7 +157,7 @@ public class SqlQuerier implements IQuerier {
 			while (rs.next()) {
 				Map <String, Object> map = new HashMap<>();
 				for (int i = 1; i <= columns; i++) {
-					map.put(metaData.getColumnName(i), rs.getObject(i));
+					map.put(metaData.getColumnName(i).toLowerCase(), rs.getObject(i));
 				}
 				list.add(map);
 			}
