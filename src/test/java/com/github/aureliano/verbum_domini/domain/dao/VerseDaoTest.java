@@ -20,6 +20,7 @@ public class VerseDaoTest {
 		VerseBean bean = this.dao.get(1);
 		Assert.assertEquals(new Integer(1), bean.getId());
 		Assert.assertEquals("1", bean.getNumber());
+		Assert.assertEquals("Something 1", bean.getText());
 		Assert.assertEquals(new Integer(1), bean.getChapter().getId());
 	}
 	
