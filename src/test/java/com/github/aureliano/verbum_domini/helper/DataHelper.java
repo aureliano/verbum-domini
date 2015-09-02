@@ -1,5 +1,7 @@
 package com.github.aureliano.verbum_domini.helper;
 
+import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
+
 public final class DataHelper {
 
 	private static DataHelper instance;
@@ -23,6 +25,7 @@ public final class DataHelper {
 			return;
 		}
 		
+		ConnectionSingleton.instance().startUp();
 		this.createTables();
 		this.createData();
 		

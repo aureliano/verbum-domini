@@ -16,6 +16,6 @@
     <url-pattern>/apirest/*</url-pattern>
   </servlet-mapping>
   <listener>
-    <listener-class>com.github.aureliano.verbum_domini.web.PersistenceManagerServletContextListener</listener-class>
+    <listener-class>com.github.aureliano.verbum_domini.web.DatabaseConnectionServletContextListener</listener-class>
   </listener>
 </web-app>

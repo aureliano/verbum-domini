@@ -2,6 +2,7 @@ package com.github.aureliano.verbum_domini.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import com.github.aureliano.verbum_domini.AppConfiguration;
 import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
@@ -13,7 +14,7 @@ public class ConnectionSingleton {
 	private Connection connection;
 	
 	private ConnectionSingleton() {
-		this.createConnection();
+		super();
 	}
 	
 	public static ConnectionSingleton instance() {
@@ -26,6 +27,24 @@ public class ConnectionSingleton {
 	
 	public Connection getConnection() {
 		return this.connection;
+	}
+	
+	public void startUp() {
+		if (!this.isInitialized()) {
+			this.createConnection();
+		}
+	}
+	
+	public void shutDown() {
+		try {
+			this.connection.close();
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
+	}
+	
+	public boolean isInitialized() {
+		return (this.connection != null);
 	}
 	
 	private void createConnection() {

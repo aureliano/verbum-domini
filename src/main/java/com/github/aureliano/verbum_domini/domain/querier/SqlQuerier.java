@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.eclipse.persistence.config.ResultSetConcurrency;
-import org.eclipse.persistence.config.ResultSetType;
-
 import com.github.aureliano.verbum_domini.AppConfiguration;
 import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.IBean;
@@ -23,10 +20,12 @@ public class SqlQuerier implements IQuerier {
 
 	private static SqlQuerier instance;
 	
+	private ConnectionSingleton connection;
 	private Properties queries;
 	private String databaseName;
 	
 	private SqlQuerier() {
+		this.connection = ConnectionSingleton.instance();
 		this.queries = PropertyHelper.loadProperties("domain-queries.properties");
 		this.databaseName = AppConfiguration.instance().getProperty("database.application.name");
 	}
@@ -45,8 +44,7 @@ public class SqlQuerier implements IQuerier {
 		String sql = this.queries.getProperty(this.beanKey(type) + ".relational." + this.databaseName + ".count");
 		
 		try (
-			PreparedStatement ps = ConnectionSingleton.instance()
-				.getConnection().prepareStatement(sql);
+			PreparedStatement ps = this.connection.getConnection().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 		) {
 			rs.next();
