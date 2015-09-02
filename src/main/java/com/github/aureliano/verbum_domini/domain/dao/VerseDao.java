@@ -1,23 +1,21 @@
 package com.github.aureliano.verbum_domini.domain.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
+import com.github.aureliano.verbum_domini.db.DatabaseFacade;
+import com.github.aureliano.verbum_domini.domain.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.domain.bean.VerseBean;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
 import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public class VerseDao implements IDao<VerseBean> {
 
-	private PersistenceManager persistenceManager;
+	private DatabaseFacade databaseFacade;
 	
 	public VerseDao() {
-		this.persistenceManager = PersistenceManager.instance();
+		this.databaseFacade = DatabaseFacade.instance();
 	}
 
 	@Override
@@ -39,44 +37,55 @@ public class VerseDao implements IDao<VerseBean> {
 	public Pagination<VerseBean> list(VerseBean filter, ServiceParams params) {
 		Pagination<VerseBean> pagination = new Pagination<VerseBean>();
 		
-		Session session = this.persistenceManager.openSession();
-		pagination.setSize(this.countCriteriaResult(this.createDefaultCriteria(session, filter)));
+		List<Map<String, Object>> data = null;
+		int offset = params.getStart() - 1;
+		int limit = params.getPages() * MAX_ELEMENTS_BY_QUERY;
 		
-		List<VerseBean> books = this.createDefaultCriteria(session, filter)
-				.setFirstResult(params.getStart() - 1)
-				.setMaxResults(params.getPages() * MAX_ELEMENTS_BY_QUERY)
-				.list();
-		pagination.setElements(books);
+		if ((filter == null) || (filter.getChapter() == null)) {
+			data = this.databaseFacade.find(VerseBean.class, offset, limit);
+			pagination.setSize(this.databaseFacade.count(VerseBean.class));
+		} else {
+			data = this.databaseFacade.find(VerseBean.class, "chapter", filter.getChapter().getId(), offset, limit);
+			pagination.setSize(this.databaseFacade.countFindFilter(VerseBean.class, "chapter", filter.getChapter().getId()));
+		}
 		
-		session.close();
+		pagination.setElements(this.parse(data));
+		
 		return pagination;
 	}
 
 	@Override
-	public VerseBean load(Serializable id) {
-		return (VerseBean) this.persistenceManager.openSession().load(VerseBean.class, id);
-	}
-
-	@Override
 	public VerseBean get(Serializable id) {
-		return (VerseBean) this.persistenceManager.openSession().get(VerseBean.class, id);
+		VerseBean bean = new VerseBean();
+		bean.setId((Integer) id);
+		
+		return this.parse(this.databaseFacade.get(bean));
 	}
 	
-	private Criteria createDefaultCriteria(Session session, VerseBean verse) {
-		Criteria criteria = session.createCriteria(VerseBean.class, "verse");
-		
-		if (verse == null) {
-			return criteria;
+	private List<VerseBean> parse(List<Map<String, Object>> data) {
+		List<VerseBean> list = new ArrayList<VerseBean>(data.size());
+		for (Map<String, Object> map : data) {
+			list.add(this.parse(map));
 		}
 		
-		if (verse.getChapter() != null) {
-			criteria.add(Restrictions.eq("chapter", verse.getChapter()));
-		}
-		
-		return criteria;
+		return list;
 	}
 	
-	private int countCriteriaResult(Criteria criteria) {
-		return (((Number) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue());
+	private VerseBean parse(Map<String, Object> data) {
+		if (data == null) {
+			return null; 
+		}
+		
+		VerseBean bean = new VerseBean();
+		
+		bean.setId((Integer) data.get("id"));
+		bean.setNumber((String) data.get("number"));
+		bean.setText((String) data.get("text"));
+		System.out.println(data);
+		ChapterBean chapter = new ChapterBean();
+		chapter.setId((Integer) data.get("chapter_fk"));
+		bean.setChapter(chapter);
+		
+		return bean;
 	}
 }

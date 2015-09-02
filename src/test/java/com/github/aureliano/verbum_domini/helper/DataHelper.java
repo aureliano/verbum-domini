@@ -38,7 +38,7 @@ public final class DataHelper {
 		BibleDataHelper.createTable();
 		BookDataHelper.createTable();
 		ChapterDataHelper.createTable();
-		//VerseDataHelper.createTable();
+		VerseDataHelper.createTable();
 		//AnnotationDataHelper.createTable();
 	}
 	
@@ -46,7 +46,7 @@ public final class DataHelper {
 		BibleDataHelper.createBibles();
 		BookDataHelper.createBooks();
 		ChapterDataHelper.createChapters();
-		//VerseDataHelper.createChapters();
+		VerseDataHelper.createChapters();
 		//AnnotationDataHelper.createAnnotations();
 	}
 }
