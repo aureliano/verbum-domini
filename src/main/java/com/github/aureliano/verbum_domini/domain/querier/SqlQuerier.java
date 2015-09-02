@@ -171,6 +171,4 @@ public class SqlQuerier implements IQuerier {
 	private String beanKey(Class<?> type) {
 		return type.getSimpleName().replaceFirst("Bean$", "").toLowerCase();
 	}
-	// http://stackoverflow.com/questions/2771439/jdbc-pagination
-	// http://java.avdiel.com/Tutorials/JDBCPaging.html
 }
