@@ -15,4 +15,3 @@ target
 Gemfile.lock
 
 src/main/resources/app-configuration.properties
-src/main/resources/hibernate.cfg.xml
