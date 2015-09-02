@@ -5,14 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
 import com.github.aureliano.verbum_domini.domain.bean.BookBean;
 import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
 
 public final class BookDataHelper {
 
