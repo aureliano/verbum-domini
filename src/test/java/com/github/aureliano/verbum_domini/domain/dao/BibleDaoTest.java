@@ -5,7 +5,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
-import com.github.aureliano.verbum_domini.domain.dao.BibleDao;
 import com.github.aureliano.verbum_domini.helper.DataHelper;
 import com.github.aureliano.verbum_domini.web.ServiceParams;
 
@@ -19,8 +18,8 @@ public class BibleDaoTest {
 	}
 	
 	@Test
-	public void testLoad() {
-		BibleBean bean = this.dao.load(1);
+	public void testGet() {
+		BibleBean bean = this.dao.get(1);
 		Assert.assertEquals("Libreria Editrice Vaticana", bean.getCopyright());
 		Assert.assertEquals("Bibliorum Sacrorum", bean.getEdition());
 		Assert.assertEquals("latin", bean.getLanguage());
@@ -43,18 +42,6 @@ public class BibleDaoTest {
 		params.withPages(1).withStart(2);
 		
 		Assert.assertEquals(1, this.dao.list(params).getElements().size());
-	}
-	
-	@Test
-	public void testListFilter() {
-		BibleBean filter = new BibleBean();
-		Assert.assertEquals(new Integer(2), this.dao.list(filter).getSize());
-		
-		filter.setLanguage("english");
-		Assert.assertEquals(new Integer(1), this.dao.list(filter).getSize());
-		
-		filter.setLanguage("french");
-		Assert.assertEquals(new Integer(0), this.dao.list(filter).getSize());
 	}
 	
 	private void prepareData() {

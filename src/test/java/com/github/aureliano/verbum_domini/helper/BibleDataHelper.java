@@ -1,10 +1,13 @@
 package com.github.aureliano.verbum_domini.helper;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
+import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
+import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
 
 public final class BibleDataHelper {
 
@@ -12,17 +15,47 @@ public final class BibleDataHelper {
 		super();
 	}
 	
+	public static void createTable() {
+		Connection connection = ConnectionSingleton.instance().getConnection();
+		try (
+			Statement statement = connection.createStatement();
+		) {
+			statement.executeUpdate(FileHelper.readFile("hsqldb/bible-schema.sql"));
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
+	}
+	
 	public static void createBibles() {
-		Session session = PersistenceManager.instance().openSession();
-		Transaction transaction = session.beginTransaction();
-		
 		BibleBean latin = prepareLatin();
-		session.saveOrUpdate(latin);
+		save(latin);
 		
 		BibleBean english = prepareEnglish();
-		session.saveOrUpdate(english);
+		save(english);
+	}
+	
+	private static void save(BibleBean bean) {
+		Connection connection = ConnectionSingleton.instance().getConnection();
 		
-		transaction.commit();
+		try (
+			PreparedStatement ps = connection.prepareStatement("insert into bible(" +
+				"copyright,edition, eletronic_transcription_source, eletronic_transcription_source_url," +
+				"id,language,name,printed_source,url) values(?,?,?,?,?,?,?,?,?)");
+		) {
+			ps.setString(1, bean.getCopyright());
+			ps.setString(2, bean.getEdition());
+			ps.setString(3, bean.getEletronicTranscriptionSource());
+			ps.setString(4, bean.getEletronicTranscriptionSourceUrl());
+			ps.setInt(5, bean.getId());
+			ps.setString(6, bean.getLanguage());
+			ps.setString(7, bean.getName());
+			ps.setString(8, bean.getPrintedSource());
+			ps.setString(9, bean.getUrl());
+			
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
 	}
 	
 	private static BibleBean prepareLatin() {

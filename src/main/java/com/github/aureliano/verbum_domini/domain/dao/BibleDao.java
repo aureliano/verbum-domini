@@ -1,33 +1,28 @@
 package com.github.aureliano.verbum_domini.domain.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-
+import com.github.aureliano.verbum_domini.db.DatabaseFacade;
 import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
 import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public class BibleDao implements IDao<BibleBean> {
 
-	private PersistenceManager persistenceManager;
+	private DatabaseFacade databaseFacade;
 	
 	public BibleDao() {
-		this.persistenceManager = PersistenceManager.instance();
-	}
-	
-	@Override
-	public BibleBean load(Serializable id) {
-		return (BibleBean) this.persistenceManager.openSession().load(BibleBean.class, id);
+		this.databaseFacade = DatabaseFacade.instance();
 	}
 	
 	@Override
 	public BibleBean get(Serializable id) {
-		return (BibleBean) this.persistenceManager.openSession().get(BibleBean.class, id);
+		BibleBean bean = new BibleBean();
+		bean.setId((Integer) id);
+		
+		return this.parse(this.databaseFacade.get(bean));
 	}
 	
 	@Override
@@ -49,34 +44,45 @@ public class BibleDao implements IDao<BibleBean> {
 	public Pagination<BibleBean> list(BibleBean filter, ServiceParams params) {
 		Pagination<BibleBean> pagination = new Pagination<BibleBean>();
 		
-		Session session = this.persistenceManager.openSession();
-		pagination.setSize(this.countCriteriaResult(this.createDefaultCriteria(session, filter)));
+		pagination.setSize(this.databaseFacade.count(BibleBean.class));
 		
-		List<BibleBean> bibles = this.createDefaultCriteria(session, filter)
-				.setFirstResult(params.getStart() - 1)
-				.setMaxResults(params.getPages() * MAX_ELEMENTS_BY_QUERY)
-				.list();
-		pagination.setElements(bibles);
+		List<Map<String, Object>> data = null;
+		int offset = params.getStart() - 1;
+		int limit = params.getPages() * MAX_ELEMENTS_BY_QUERY;
 		
-		session.close();
+		data = this.databaseFacade.find(BibleBean.class, offset, limit);
+		
+		pagination.setElements(this.parse(data));
+		
 		return pagination;
 	}
 	
-	private Criteria createDefaultCriteria(Session session, BibleBean bible) {
-		Criteria criteria = session.createCriteria(BibleBean.class);
-		
-		if (bible == null) {
-			return criteria;
+	private List<BibleBean> parse(List<Map<String, Object>> data) {
+		List<BibleBean> list = new ArrayList<BibleBean>(data.size());
+		for (Map<String, Object> map : data) {
+			list.add(this.parse(map));
 		}
 		
-		if (bible.getLanguage() != null) {
-			criteria.add(Restrictions.eq("language", bible.getLanguage().toLowerCase()));
-		}
-		
-		return criteria;
+		return list;
 	}
 	
-	private int countCriteriaResult(Criteria criteria) {
-		return (((Number) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue());
+	private BibleBean parse(Map<String, Object> data) {
+		if (data == null) {
+			return null; 
+		}
+		
+		BibleBean bean = new BibleBean();
+		
+		bean.setId((Integer) data.get("id"));
+		bean.setCopyright((String) data.get("copyright"));
+		bean.setEdition((String) data.get("edition"));
+		bean.setEletronicTranscriptionSource((String) data.get("eletronic_transcription_source"));
+		bean.setEletronicTranscriptionSourceUrl((String) data.get("eletronic_transcription_source_url"));
+		bean.setLanguage((String) data.get("language"));
+		bean.setName((String) data.get("name"));
+		bean.setPrintedSource((String) data.get("printed_source"));
+		bean.setUrl((String) data.get("url"));
+		
+		return bean;
 	}
 }

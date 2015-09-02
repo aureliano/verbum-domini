@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.helper;
 
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
 
 public final class DataHelper {
 
@@ -25,17 +24,29 @@ public final class DataHelper {
 			return;
 		}
 		
-		PersistenceManager.instance().startUp();
-		BibleDataHelper.createBibles();
-		BookDataHelper.createBooks();
-		ChapterDataHelper.createChapters();
-		VerseDataHelper.createChapters();
-		AnnotationDataHelper.createAnnotations();
+		this.createTables();
+		this.createData();
 		
 		this.dataHelpersInitialized = true;
 	}
 	
 	public boolean isDataHelpersInitialized() {
 		return this.dataHelpersInitialized;
+	}
+	
+	private void createTables() {
+		BibleDataHelper.createTable();
+		//BookDataHelper.createTable();
+		//ChapterDataHelper.createTable();
+		//VerseDataHelper.createTable();
+		//AnnotationDataHelper.createTable();
+	}
+	
+	private void createData() {
+		BibleDataHelper.createBibles();
+		//BookDataHelper.createBooks();
+		//ChapterDataHelper.createChapters();
+		//VerseDataHelper.createChapters();
+		//AnnotationDataHelper.createAnnotations();
 	}
 }
