@@ -90,7 +90,7 @@ public class SqlQuerier implements IQuerier {
 			throw new VerbumDominiException(ex);
 		}
 		
-		return map;
+		return (map.isEmpty() ? null : map);
 	}
 
 	@Override
