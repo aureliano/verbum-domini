@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import com.github.aureliano.verbum_domini.AppConfiguration;
 import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
 
 public class ConnectionSingleton {
 
 	private static ConnectionSingleton instance;
+	private static final Logger logger = Logger.getLogger(ConnectionSingleton.class);
 	
 	private Connection connection;
 	
@@ -38,6 +41,7 @@ public class ConnectionSingleton {
 	public void shutDown() {
 		try {
 			this.connection.close();
+			logger.info("Connection successfuly closed");
 		} catch (SQLException ex) {
 			throw new VerbumDominiException(ex);
 		}
@@ -63,12 +67,12 @@ public class ConnectionSingleton {
 		String password = config.getProperty("jdbc.connection.password");
 		
 		try {
-			System.out.println("Loading driver class " + driver);
+			logger.info("Loading driver class " + driver);
 			Class.forName(driver);
 			
-			System.out.println("Establishing connection to " + url);
-			System.out.println("User: " + user);
-			System.out.println("Password: " + ((password == null) ? "not provided" : password.replaceAll(".", "*")));
+			logger.info("Establishing connection to " + url);
+			logger.info("User: " + user);
+			logger.info("Password: " + ((password == null) ? "not provided" : password.replaceAll(".", "*")));
 			this.connection = DriverManager.getConnection(url, user, password);
 		} catch (Exception ex) {
 			throw new VerbumDominiException(ex);
