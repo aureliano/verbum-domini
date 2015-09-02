@@ -167,6 +167,27 @@ public class SqlQuerier implements IQuerier {
 		
 		return list;
 	}
+
+	@Override
+	public <T extends IBean> Integer countFindFilter(Class<T> type, String filterName, Object filterValue) {
+		Integer count = null;
+		String sql = this.queries.getProperty(this.beanKey(type) + ".relational." + this.databaseName + ".find.by." + filterName + ".count");
+		
+		try (
+			PreparedStatement ps = ConnectionSingleton.instance()
+				.getConnection().prepareStatement(sql);
+		) {
+			ps.setObject(1, filterValue);
+			ResultSet rs = ps.executeQuery();
+			
+			rs.next();
+			count = rs.getInt(1);
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
+		
+		return count;
+	}
 	
 	private String beanKey(Class<?> type) {
 		return type.getSimpleName().replaceFirst("Bean$", "").toLowerCase();

@@ -14,4 +14,6 @@ public interface IQuerier {
 	public abstract <T extends IBean> List<Map<String, Object>> find(Class<T> type, int offset, int limit);
 	
 	public abstract <T extends IBean> List<Map<String, Object>> find(Class<T> type, String filterName, Object filterValue, int offset, int limit);
+	
+	public abstract <T extends IBean> Integer countFindFilter(Class<T> type, String filterName, Object filterValue);
 }

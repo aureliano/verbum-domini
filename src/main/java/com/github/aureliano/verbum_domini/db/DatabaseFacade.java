@@ -23,6 +23,10 @@ public class DatabaseFacade {
 		return this.querier.count(type);
 	}
 	
+	public <T extends IBean> Integer countFindFilter(Class<T> type, String filterName, Object filterValue) {
+		return this.querier.countFindFilter(type, filterName, filterValue);
+	}
+	
 	public Map<String, Object> get(IBean bean) {
 		return this.querier.get(bean);
 	}
