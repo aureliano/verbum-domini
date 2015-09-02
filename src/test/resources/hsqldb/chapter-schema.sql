@@ -1,0 +1,5 @@
+CREATE TABLE chapter(
+  id INTEGER PRIMARY KEY NOT NULL,
+  number VARCHAR(5) NOT NULL,
+  book_fk INTEGER NOT NULL
+)

@@ -37,7 +37,7 @@ public final class DataHelper {
 	private void createTables() {
 		BibleDataHelper.createTable();
 		BookDataHelper.createTable();
-		//ChapterDataHelper.createTable();
+		ChapterDataHelper.createTable();
 		//VerseDataHelper.createTable();
 		//AnnotationDataHelper.createTable();
 	}
@@ -45,7 +45,7 @@ public final class DataHelper {
 	private void createData() {
 		BibleDataHelper.createBibles();
 		BookDataHelper.createBooks();
-		//ChapterDataHelper.createChapters();
+		ChapterDataHelper.createChapters();
 		//VerseDataHelper.createChapters();
 		//AnnotationDataHelper.createAnnotations();
 	}

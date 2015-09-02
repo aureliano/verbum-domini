@@ -19,11 +19,11 @@ public class ChapterDaoTest {
 	}
 	
 	@Test
-	public void testLoad() {
-		ChapterBean bean = this.dao.load(1);
+	public void testGet() {
+		ChapterBean bean = this.dao.get(1);
 		Assert.assertEquals(new Integer(1), bean.getId());
 		Assert.assertEquals("1", bean.getNumber());
-		Assert.assertEquals("Genesis", bean.getBook().getName());
+		Assert.assertEquals(new Integer(1), bean.getBook().getId());
 	}
 	
 	@Test

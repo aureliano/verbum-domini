@@ -1,11 +1,14 @@
 package com.github.aureliano.verbum_domini.helper;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
+import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.BookBean;
 import com.github.aureliano.verbum_domini.domain.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.orm.PersistenceManager;
+import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
 
 public final class ChapterDataHelper {
 
@@ -13,21 +16,46 @@ public final class ChapterDataHelper {
 		super();
 	}
 	
+	public static void createTable() {
+		Connection connection = ConnectionSingleton.instance().getConnection();
+		try (
+			Statement statement = connection.createStatement();
+		) {
+			statement.executeUpdate(FileHelper.readFile("hsqldb/chapter-schema.sql"));
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
+	}
+	
 	public static void createChapters() {
-		Session session = PersistenceManager.instance().openSession();
-		Transaction transaction = session.beginTransaction();
 		int chapterId = 0;
 		
 		for (int i = 0; i < 10; i++) {
-			BookBean book = (BookBean) session.load(BookBean.class, (i + 1));
+			BookBean book = new BookBean();
+			book.setId(i + 1);
 
 			for (byte j = 1; j <= 5; j++) {
 				ChapterBean chapter = prepareChapter(++chapterId, String.valueOf(j), book);
-				session.saveOrUpdate(chapter);
+				save(chapter);
 			}
 		}
+	}
+	
+	private static void save(ChapterBean bean) {
+		Connection connection = ConnectionSingleton.instance().getConnection();
 		
-		transaction.commit();
+		try (
+			PreparedStatement ps = connection.prepareStatement("insert into chapter(" +
+				"id,number,book_fk) values(?,?,?)");
+		) {
+			ps.setInt(1, bean.getId());
+			ps.setString(2, bean.getNumber());
+			ps.setInt(3, bean.getBook().getId());
+			
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
 	}
 	
 	private static ChapterBean prepareChapter(Integer id, String number, BookBean book) {
