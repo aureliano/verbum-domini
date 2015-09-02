@@ -1,10 +1,17 @@
 package com.github.aureliano.verbum_domini.helper;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
 import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
 import com.github.aureliano.verbum_domini.domain.bean.BookBean;
+import com.github.aureliano.verbum_domini.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.orm.PersistenceManager;
 
 public final class BookDataHelper {
@@ -13,26 +20,51 @@ public final class BookDataHelper {
 		super();
 	}
 	
+	public static void createTable() {
+		Connection connection = ConnectionSingleton.instance().getConnection();
+		try (
+			Statement statement = connection.createStatement();
+		) {
+			statement.executeUpdate(FileHelper.readFile("hsqldb/book-schema.sql"));
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
+	}
+	
 	public static void createBooks() {
 		String[] names = new String[] {
 			"Genesis", "Exodus", "Leviticus", "Numeri", "Deuteronomii"
 		};
 		
-		Session session = PersistenceManager.instance().openSession();
 		int[] ids = new int[] { 1, 2 };
 		int bookId = 0;
-		Transaction transaction = session.beginTransaction();
 		
 		for (int id : ids) {
-			BibleBean bible = (BibleBean) session.load(BibleBean.class, id);
+			BibleBean bible = new BibleBean();
+			bible.setId(id);
 			
 			for (String name : names) {
 				BookBean book = prepareBook(++bookId, name, bible);
-				session.saveOrUpdate(book);
+				save(book);
 			}
 		}
+	}
+	
+	private static void save(BookBean bean) {
+		Connection connection = ConnectionSingleton.instance().getConnection();
 		
-		transaction.commit();
+		try (
+			PreparedStatement ps = connection.prepareStatement("insert into book(" +
+				"id,name,bible_fk) values(?,?,?)");
+		) {
+			ps.setInt(1, bean.getId());
+			ps.setString(2, bean.getName());
+			ps.setInt(3, bean.getBible().getId());
+			
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			throw new VerbumDominiException(ex);
+		}
 	}
 	
 	private static BookBean prepareBook(Integer id, String name, BibleBean bible) {

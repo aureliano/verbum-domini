@@ -20,11 +20,11 @@ public class BookDaoTest {
 	}
 	
 	@Test
-	public void testLoad() {
-		BookBean bean = this.dao.load(1);
+	public void testGet() {
+		BookBean bean = this.dao.get(1);
 		Assert.assertEquals(new Integer(1), bean.getId());
 		Assert.assertEquals("Genesis", bean.getName());
-		Assert.assertEquals("Nova Vulgata", bean.getBible().getName());
+		Assert.assertEquals(new Integer(1), bean.getBible().getId());
 	}
 	
 	@Test
