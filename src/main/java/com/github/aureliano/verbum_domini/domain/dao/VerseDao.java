@@ -81,7 +81,6 @@ public class VerseDao implements IDao<VerseBean> {
 		bean.setId((Integer) data.get("id"));
 		bean.setNumber((String) data.get("number"));
 		bean.setText((String) data.get("text"));
-		System.out.println(data);
 		ChapterBean chapter = new ChapterBean();
 		chapter.setId((Integer) data.get("chapter_fk"));
 		bean.setChapter(chapter);
