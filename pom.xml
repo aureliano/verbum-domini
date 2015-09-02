@@ -98,7 +98,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.3-1102-jdbc41</version>
+			<version>9.4-1202-jdbc41</version>
 		</dependency>
 
 		<dependency>
