@@ -3,14 +3,14 @@ package com.github.aureliano.verbum_domini.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.aureliano.verbum_domini.domain.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.domain.bean.VerseBean;
-import com.github.aureliano.verbum_domini.domain.dao.ChapterDao;
-import com.github.aureliano.verbum_domini.domain.dao.Pagination;
-import com.github.aureliano.verbum_domini.domain.dao.VerseDao;
+import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
+import com.github.aureliano.verbum_domini.core.bean.VerseBean;
+import com.github.aureliano.verbum_domini.core.relational.bean.VerseBeanImpl;
+import com.github.aureliano.verbum_domini.core.relational.dao.DaoFactory;
+import com.github.aureliano.verbum_domini.core.web.Pagination;
+import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Verse;
 import com.github.aureliano.verbum_domini.model.Verses;
-import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public final class VersesService {
 
@@ -19,7 +19,8 @@ public final class VersesService {
 	}
 	
 	public static Verses fetchAll(Long start, Long pages) {
-		Pagination<VerseBean> beans = new VerseDao().list(new ServiceParams().withStart(start).withPages(pages));
+		Pagination<VerseBean> beans = DaoFactory.createDao(VerseBean.class)
+				.list(new ServiceParams().withStart(start).withPages(pages));
 		List<Verse> verses = new ArrayList<Verse>();
 		
 		for (VerseBean bean : beans.getElements()) {
@@ -41,8 +42,8 @@ public final class VersesService {
 			return null;
 		}
 		
-		Pagination<VerseBean> beans = new VerseDao()
-			.list(filter, new ServiceParams().withStart(start).withPages(pages));
+		Pagination<VerseBean> beans = DaoFactory.createDao(VerseBean.class)
+				.list(filter, new ServiceParams().withStart(start).withPages(pages));
 		
 		List<Verse> verses = new ArrayList<Verse>();
 		
@@ -58,13 +59,13 @@ public final class VersesService {
 			return null;
 		}
 		
-		VerseBean verse = new VerseDao().get(Integer.parseInt(id));
+		VerseBean verse = DaoFactory.createDao(VerseBean.class).get(Integer.parseInt(id));
 		return (verse == null) ? null : verse.toResource();
 	}
 	
 	private static VerseBean createFilter(String id) {
-		ChapterBean chapter = new ChapterDao().get(Integer.parseInt(id));
-		VerseBean verse = new VerseBean();
+		ChapterBean chapter = DaoFactory.createDao(ChapterBean.class).get(Integer.parseInt(id));
+		VerseBean verse = new VerseBeanImpl();
 		verse.setChapter(chapter);
 		
 		return verse;

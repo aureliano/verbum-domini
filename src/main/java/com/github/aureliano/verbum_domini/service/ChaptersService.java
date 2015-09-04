@@ -3,14 +3,14 @@ package com.github.aureliano.verbum_domini.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.aureliano.verbum_domini.domain.bean.BookBean;
-import com.github.aureliano.verbum_domini.domain.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.domain.dao.BookDao;
-import com.github.aureliano.verbum_domini.domain.dao.ChapterDao;
-import com.github.aureliano.verbum_domini.domain.dao.Pagination;
+import com.github.aureliano.verbum_domini.core.bean.BookBean;
+import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
+import com.github.aureliano.verbum_domini.core.relational.bean.ChapterBeanImpl;
+import com.github.aureliano.verbum_domini.core.relational.dao.DaoFactory;
+import com.github.aureliano.verbum_domini.core.web.Pagination;
+import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
-import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public final class ChaptersService {
 
@@ -19,7 +19,8 @@ public final class ChaptersService {
 	}
 	
 	public static Chapters fetchAll(Long start, Long pages) {
-		Pagination<ChapterBean> beans = new ChapterDao().list(new ServiceParams().withStart(start).withPages(pages));
+		Pagination<ChapterBean> beans = DaoFactory.createDao(ChapterBean.class)
+				.list(new ServiceParams().withStart(start).withPages(pages));
 		List<Chapter> chapters = new ArrayList<Chapter>();
 		
 		for (ChapterBean bean : beans.getElements()) {
@@ -39,8 +40,8 @@ public final class ChaptersService {
 			return null;
 		}
 		
-		Pagination<ChapterBean> beans = new ChapterDao()
-			.list(filter, new ServiceParams().withStart(start).withPages(pages));
+		Pagination<ChapterBean> beans = DaoFactory.createDao(ChapterBean.class)
+				.list(filter, new ServiceParams().withStart(start).withPages(pages));
 		
 		List<Chapter> chapters = new ArrayList<Chapter>();
 		
@@ -56,13 +57,13 @@ public final class ChaptersService {
 			return null;
 		}
 		
-		ChapterBean chapter = new ChapterDao().get(Integer.parseInt(id));
+		ChapterBean chapter = DaoFactory.createDao(ChapterBean.class).get(Integer.parseInt(id));
 		return (chapter == null) ? null : chapter.toResource();
 	}
 	
 	private static ChapterBean createFilter(String id) {
-		BookBean book = new BookDao().get(Integer.parseInt(id));
-		ChapterBean chapter = new ChapterBean();
+		BookBean book = DaoFactory.createDao(BookBean.class).get(Integer.parseInt(id));
+		ChapterBean chapter = new ChapterBeanImpl();
 		chapter.setBook(book);
 		
 		return chapter;

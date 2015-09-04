@@ -3,14 +3,14 @@ package com.github.aureliano.verbum_domini.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.aureliano.verbum_domini.domain.bean.BibleBean;
-import com.github.aureliano.verbum_domini.domain.bean.BookBean;
-import com.github.aureliano.verbum_domini.domain.dao.BibleDao;
-import com.github.aureliano.verbum_domini.domain.dao.BookDao;
-import com.github.aureliano.verbum_domini.domain.dao.Pagination;
+import com.github.aureliano.verbum_domini.core.bean.BibleBean;
+import com.github.aureliano.verbum_domini.core.bean.BookBean;
+import com.github.aureliano.verbum_domini.core.relational.bean.BookBeanImpl;
+import com.github.aureliano.verbum_domini.core.relational.dao.DaoFactory;
+import com.github.aureliano.verbum_domini.core.web.Pagination;
+import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
-import com.github.aureliano.verbum_domini.web.ServiceParams;
 
 public final class BooksService {
 
@@ -19,7 +19,8 @@ public final class BooksService {
 	}
 	
 	public static Books fetchAll(Long start, Long pages) {
-		Pagination<BookBean> beans = new BookDao().list(new ServiceParams().withStart(start).withPages(pages));
+		Pagination<BookBean> beans = DaoFactory.createDao(BookBean.class)
+				.list(new ServiceParams().withStart(start).withPages(pages));
 		List<Book> books = new ArrayList<Book>();
 		
 		for (BookBean bean : beans.getElements()) {
@@ -39,8 +40,8 @@ public final class BooksService {
 			return null;
 		}
 		
-		Pagination<BookBean> beans = new BookDao()
-			.list(filter, new ServiceParams().withStart(start).withPages(pages));
+		Pagination<BookBean> beans = DaoFactory.createDao(BookBean.class)
+				.list(filter, new ServiceParams().withStart(start).withPages(pages));
 		
 		List<Book> books = new ArrayList<Book>();
 		
@@ -56,13 +57,13 @@ public final class BooksService {
 			return null;
 		}
 		
-		BookBean book = new BookDao().get(Integer.parseInt(id));
+		BookBean book = DaoFactory.createDao(BookBean.class).get(Integer.parseInt(id));
 		return (book == null) ? null : book.toResource();
 	}
 	
 	private static BookBean createFilter(String id) {
-		BibleBean bible = new BibleDao().get(Integer.parseInt(id));
-		BookBean book = new BookBean();
+		BibleBean bible = DaoFactory.createDao(BibleBean.class).get(Integer.parseInt(id));
+		BookBean book = new BookBeanImpl();
 		book.setBible(bible);
 		
 		return book;

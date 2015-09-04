@@ -3,23 +3,24 @@ package com.github.aureliano.verbum_domini.web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.github.aureliano.verbum_domini.db.ConnectionSingleton;
+import com.github.aureliano.verbum_domini.core.AppConfiguration;
+import com.github.aureliano.verbum_domini.core.PersistenceManager;
 
 public class DatabaseConnectionServletContextListener implements ServletContextListener {
 
-	private ConnectionSingleton connectionSingleton;
+	private PersistenceManager persistenceManager;
 	
 	public DatabaseConnectionServletContextListener() {
-		this.connectionSingleton = ConnectionSingleton.instance();
+		persistenceManager = AppConfiguration.instance().getPersistenceManager();
 	}
 	
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		this.connectionSingleton.startUp();
+		this.persistenceManager.startUp();
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		this.connectionSingleton.shutDown();
+		this.persistenceManager.shutDown();
 	}
 }
