@@ -11,6 +11,7 @@ import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Annotation;
 import com.github.aureliano.verbum_domini.model.Annotations;
+import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
 
 public final class AnnotationsService {
 
@@ -24,7 +25,7 @@ public final class AnnotationsService {
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		
 		for (AnnotationBean bean : beans.getElements()) {
-			Annotation resource = bean.toResource();
+			Annotation resource = ResourceToEntityParser.parse(Annotation.class, bean);
 			resource.setText(null);
 			annotations.add(resource);
 		}
@@ -48,7 +49,7 @@ public final class AnnotationsService {
 		List<Annotation> annotations = new ArrayList<Annotation>();
 		
 		for (AnnotationBean bean : beans.getElements()) {
-			Annotation resource = bean.toResource();
+			Annotation resource = ResourceToEntityParser.parse(Annotation.class, bean);
 			resource.setText(null);
 			annotations.add(resource);
 		}
@@ -61,8 +62,8 @@ public final class AnnotationsService {
 			return null;
 		}
 		
-		AnnotationBean verse = DaoFactory.createDao(AnnotationBean.class).get(Integer.parseInt(id));
-		return (verse == null) ? null : verse.toResource();
+		AnnotationBean annotation = DaoFactory.createDao(AnnotationBean.class).get(Integer.parseInt(id));
+		return (annotation == null) ? null : ResourceToEntityParser.parse(Annotation.class, annotation);
 	}
 	
 	private static AnnotationBean createFilter(String id) {

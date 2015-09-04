@@ -11,6 +11,7 @@ import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
+import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
 
 public final class BooksService {
 
@@ -24,7 +25,7 @@ public final class BooksService {
 		List<Book> books = new ArrayList<Book>();
 		
 		for (BookBean bean : beans.getElements()) {
-			books.add(bean.toResource());
+			books.add(ResourceToEntityParser.parse(Book.class, bean));
 		}
 		
 		return new Books().withBooks(books).withSize(beans.getSize());
@@ -46,7 +47,7 @@ public final class BooksService {
 		List<Book> books = new ArrayList<Book>();
 		
 		for (BookBean bean : beans.getElements()) {
-			books.add(bean.toResource());
+			books.add(ResourceToEntityParser.parse(Book.class, bean));
 		}
 		
 		return new Books().withBooks(books).withSize(beans.getSize());
@@ -58,7 +59,7 @@ public final class BooksService {
 		}
 		
 		BookBean book = DaoFactory.createDao(BookBean.class).get(Integer.parseInt(id));
-		return (book == null) ? null : book.toResource();
+		return (book == null) ? null : ResourceToEntityParser.parse(Book.class, book);
 	}
 	
 	private static BookBean createFilter(String id) {

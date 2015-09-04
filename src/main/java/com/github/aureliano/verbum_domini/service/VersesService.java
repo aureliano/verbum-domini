@@ -11,6 +11,7 @@ import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Verse;
 import com.github.aureliano.verbum_domini.model.Verses;
+import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
 
 public final class VersesService {
 
@@ -24,7 +25,7 @@ public final class VersesService {
 		List<Verse> verses = new ArrayList<Verse>();
 		
 		for (VerseBean bean : beans.getElements()) {
-			Verse resource = bean.toResource();
+			Verse resource = ResourceToEntityParser.parse(Verse.class, bean);
 			resource.setText(null);
 			verses.add(resource);
 		}
@@ -48,7 +49,7 @@ public final class VersesService {
 		List<Verse> verses = new ArrayList<Verse>();
 		
 		for (VerseBean bean : beans.getElements()) {
-			verses.add(bean.toResource());
+			verses.add(ResourceToEntityParser.parse(Verse.class, bean));
 		}
 		
 		return new Verses().withVerses(verses).withSize(beans.getSize());
@@ -60,7 +61,7 @@ public final class VersesService {
 		}
 		
 		VerseBean verse = DaoFactory.createDao(VerseBean.class).get(Integer.parseInt(id));
-		return (verse == null) ? null : verse.toResource();
+		return (verse == null) ? null : ResourceToEntityParser.parse(Verse.class, verse);
 	}
 	
 	private static VerseBean createFilter(String id) {

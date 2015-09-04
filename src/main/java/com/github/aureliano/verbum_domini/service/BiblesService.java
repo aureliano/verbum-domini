@@ -9,6 +9,7 @@ import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
+import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
 
 public final class BiblesService {
 
@@ -22,7 +23,7 @@ public final class BiblesService {
 		List<Bible> bibles = new ArrayList<Bible>();
 		
 		for (BibleBean bean : beans.getElements()) {
-			bibles.add(bean.toResource());
+			bibles.add(ResourceToEntityParser.parse(Bible.class, bean));
 		}
 		
 		return new Bibles().withBibles(bibles).withSize(beans.getSize());
@@ -34,6 +35,6 @@ public final class BiblesService {
 		}
 		
 		BibleBean bean = DaoFactory.createDao(BibleBean.class).get(Integer.parseInt(id));
-		return (bean == null) ? null : bean.toResource();
+		return (bean == null) ? null : ResourceToEntityParser.parse(Bible.class, bean);
 	}
 }

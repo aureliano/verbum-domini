@@ -11,6 +11,7 @@ import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
+import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
 
 public final class ChaptersService {
 
@@ -24,7 +25,7 @@ public final class ChaptersService {
 		List<Chapter> chapters = new ArrayList<Chapter>();
 		
 		for (ChapterBean bean : beans.getElements()) {
-			chapters.add(bean.toResource());
+			chapters.add(ResourceToEntityParser.parse(Chapter.class, bean));
 		}
 		
 		return new Chapters().withChapters(chapters).withSize(beans.getSize());
@@ -46,7 +47,7 @@ public final class ChaptersService {
 		List<Chapter> chapters = new ArrayList<Chapter>();
 		
 		for (ChapterBean bean : beans.getElements()) {
-			chapters.add(bean.toResource());
+			chapters.add(ResourceToEntityParser.parse(Chapter.class, bean));
 		}
 		
 		return new Chapters().withChapters(chapters).withSize(beans.getSize());
@@ -58,7 +59,7 @@ public final class ChaptersService {
 		}
 		
 		ChapterBean chapter = DaoFactory.createDao(ChapterBean.class).get(Integer.parseInt(id));
-		return (chapter == null) ? null : chapter.toResource();
+		return (chapter == null) ? null : ResourceToEntityParser.parse(Chapter.class, chapter);
 	}
 	
 	private static ChapterBean createFilter(String id) {
