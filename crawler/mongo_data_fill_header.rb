@@ -19,13 +19,8 @@ end
 @coll_verse = load_collection 'verse'
 @coll_annotation = load_collection 'annotation'
 
-def fetch_last_id(collection)
-  data = collection.find().sort(:_id => -1).limit(1).first
-  (data.nil?) ? 0 : data['_id']
-end
-
-@bible_id = fetch_last_id @coll_bible
-@book_id = fetch_last_id @coll_book
-@chapter_id = fetch_last_id @coll_chapter
-@verse_id = fetch_last_id @coll_verse
-@annotation_id = fetch_last_id @coll_annotation
+@bible_id = @coll_bible.find().count()
+@book_id = @coll_book.find().count()
+@chapter_id = @coll_chapter.find().count()
+@verse_id = @coll_verse.find().count()
+@annotation_id = @coll_annotation.find().count()
