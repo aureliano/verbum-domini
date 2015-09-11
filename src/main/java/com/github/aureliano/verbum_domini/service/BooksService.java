@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.BookBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.dao.DaoFactory;
+import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Book;

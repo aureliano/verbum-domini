@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.AnnotationBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.dao.DaoFactory;
+import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.github.aureliano.verbum_domini.model.Annotation;

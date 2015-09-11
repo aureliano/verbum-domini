@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.BookBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.ChapterBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
 import com.github.aureliano.verbum_domini.model.Chapter;
 
 public class ChapterParserTest {

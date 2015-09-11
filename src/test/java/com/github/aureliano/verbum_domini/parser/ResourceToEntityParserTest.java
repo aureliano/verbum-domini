@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.core.bean.IBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.AnnotationBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.BibleBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.BookBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.ChapterBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.VerseBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
 import com.github.aureliano.verbum_domini.model.Annotation;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Book;

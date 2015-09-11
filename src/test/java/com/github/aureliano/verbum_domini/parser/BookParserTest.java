@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.BibleBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.BookBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
 import com.github.aureliano.verbum_domini.model.Book;
 
 public class BookParserTest {

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.BibleBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
 import com.github.aureliano.verbum_domini.model.Bible;
 
 public class BibleParserTest {

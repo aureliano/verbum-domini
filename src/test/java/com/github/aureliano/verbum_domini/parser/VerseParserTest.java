@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
-import com.github.aureliano.verbum_domini.core.relational.bean.ChapterBeanImpl;
-import com.github.aureliano.verbum_domini.core.relational.bean.VerseBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
 import com.github.aureliano.verbum_domini.model.Verse;
 
 public class VerseParserTest {
