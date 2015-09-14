@@ -32,7 +32,7 @@ public class BiblesResource {
 	@Path("{bibleId}")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getBibles(
+	public Response getBibleById(
 			@PathParam("bibleId") String bibleId) {
 		
 		Bible bible = BiblesService.fetchById(bibleId);
