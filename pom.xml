@@ -24,29 +24,6 @@
 			</plugin>
 			
 			<plugin>
-				<groupId>org.raml.plugins</groupId>
-				<artifactId>raml-jaxrs-maven-plugin</artifactId>
-				<version>1.3.3</version>
-				<configuration>
-					<sourceDirectory>${basedir}/src/main/resources</sourceDirectory>
-					<basePackageName>com.github.aureliano.verbum_domini</basePackageName>
-					<jaxrsVersion>2.0</jaxrsVersion>
-					<useJsr303Annotations>false</useJsr303Annotations>
-					<jsonMapper>jackson2</jsonMapper>
-					<removeOldOutput>true</removeOldOutput>
-					<skip>true</skip>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<phase>generate-sources</phase>
-					</execution>
-				</executions>
-			</plugin>
-			
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
