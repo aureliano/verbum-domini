@@ -39,15 +39,9 @@ public class ChaptersResource {
 	public Response getChapterById(
 			@PathParam("chapterId") String chapterId) {
 		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
-			return Response.status(404).build();
-		}
-		
-		return Response.status(200).entity(chapter).build();
+		return fetchChapterById(chapterId);
 	}
-	
+
 	@Path("{chapterId}/verses")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -114,5 +108,15 @@ public class ChaptersResource {
 		}
 		
 		return AnnotationsResource.fetchAnnotationById(annotationId);
+	}
+	
+	public static Response fetchChapterById(String chapterId) {
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		return Response.status(200).entity(chapter).build();
 	}
 }
