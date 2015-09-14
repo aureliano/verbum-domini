@@ -2,11 +2,13 @@ package com.github.aureliano.verbum_domini.resource.bible;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 import com.github.aureliano.verbum_domini.service.BiblesService;
 
@@ -23,12 +25,22 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Response.ResponseBuilder responseBuilder = Response
-			.status(200);
-		
 		Bibles bibles = BiblesService.fetchAll(start, pages);
-		responseBuilder.entity(bibles);
+		return Response.status(200).entity(bibles).build();
+	}
+	
+	@Path("{bibleId}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getBibles(
+			@PathParam("bibleId") String bibleId) {
 		
-		return responseBuilder.build();
+		Bible bible = BiblesService.fetchById(bibleId);
+		
+		if (bible == null) {
+			return Response.status(404).build();
+		}
+		
+		return Response.status(200).entity(bible).build();
 	}
 }
