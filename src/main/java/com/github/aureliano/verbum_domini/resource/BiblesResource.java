@@ -1,4 +1,4 @@
-package com.github.aureliano.verbum_domini.resource.bible;
+package com.github.aureliano.verbum_domini.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
