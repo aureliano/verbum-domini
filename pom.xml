@@ -141,11 +141,13 @@
 		</dependency>
 		
 		<!-- Change this dependency if you want to use another database manager system -->
+		<!-- Uncomment this dependency if you want to use relational database
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.4-1202-jdbc41</version>
 		</dependency>
+		-->
 		
 		<dependency>
 			<groupId>log4j</groupId>
