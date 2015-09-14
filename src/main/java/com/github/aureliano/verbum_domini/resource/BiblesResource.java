@@ -12,10 +12,13 @@ import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
+import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
+import com.github.aureliano.verbum_domini.model.Verses;
 import com.github.aureliano.verbum_domini.service.BiblesService;
 import com.github.aureliano.verbum_domini.service.BooksService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
+import com.github.aureliano.verbum_domini.service.VersesService;
 
 @Path("bibles")
 public class BiblesResource {
@@ -129,5 +132,68 @@ public class BiblesResource {
 		}
 		
 		return ChaptersResource.fetchChapterById(chapterId);
+	}
+	
+	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}/verses")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getVersesByChapterAndBookFromBible(
+			@PathParam("bibleId") String bibleId,
+			@PathParam("bookId") String bookId,
+			@PathParam("chapterId") String chapterId,
+			@QueryParam("start") Long start,
+			@QueryParam("pages") Long pages) {
+		
+		Bible bible = BiblesService.fetchById(bibleId);
+		
+		if (bible == null) {
+			return Response.status(404).build();
+		}
+		
+		Book book = BooksService.fetchBookById(bookId);
+		
+		if (book == null) {
+			return Response.status(404).build();
+		}
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		
+		Verses verses = VersesService.fetchVersesByChapter(chapterId, start, pages);
+		return Response.status(200).entity(verses).build();
+	}
+	
+	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}/verses/{verseId}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getVerseByIdAndChapterFromBook(
+			@PathParam("bibleId") String bibleId,
+			@PathParam("bookId") String bookId,
+			@PathParam("chapterId") String chapterId,
+			@PathParam("verseId") String verseId) {
+		
+		Bible bible = BiblesService.fetchById(bibleId);
+		
+		if (bible == null) {
+			return Response.status(404).build();
+		}
+		
+		Book book = BooksService.fetchBookById(bookId);
+		
+		if (book == null) {
+			return Response.status(404).build();
+		}
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		return VersesResource.fetchVerseById(verseId);
 	}
 }
