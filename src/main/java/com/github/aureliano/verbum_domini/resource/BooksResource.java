@@ -8,11 +8,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.github.aureliano.verbum_domini.model.Annotation;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
 import com.github.aureliano.verbum_domini.model.Verses;
+import com.github.aureliano.verbum_domini.service.AnnotationsService;
 import com.github.aureliano.verbum_domini.service.BooksService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
 import com.github.aureliano.verbum_domini.service.VersesService;
@@ -124,6 +126,55 @@ public class BooksResource {
 		}
 		
 		return VersesResource.fetchVerseById(verseId);
+	}
+	
+	@Path("{bookId}/chapters/{chapterId}/annotations")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getAnnotationsByChapterFromBook(
+			@PathParam("bookId") String bookId,
+			@PathParam("chapterId") String chapterId,
+			@QueryParam("start") Long start,
+			@QueryParam("pages") Long pages) {
+		
+		Book book = BooksService.fetchBookById(bookId);
+		
+		if (book == null) {
+			return Response.status(404).build();
+		}
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		
+		Annotations annotations = AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages);
+		return Response.status(200).entity(annotations).build();
+	}
+	
+	@Path("{bookId}/chapters/{chapterId}/annotations/{annotationId}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getAnnotationByIdAndChapterFromBook(
+			@PathParam("bookId") String bookId,
+			@PathParam("chapterId") String chapterId,
+			@PathParam("annotationId") String annotationId) {
+		
+		Book book = BooksService.fetchBookById(bookId);
+		
+		if (book == null) {
+			return Response.status(404).build();
+		}
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		return AnnotationsResource.fetchAnnotationById(annotationId);
 	}
 	
 	public static Response fetchBookById(String bookId) {
