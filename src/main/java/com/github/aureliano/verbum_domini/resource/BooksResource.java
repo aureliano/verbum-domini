@@ -12,8 +12,10 @@ import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
+import com.github.aureliano.verbum_domini.model.Verses;
 import com.github.aureliano.verbum_domini.service.BooksService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
+import com.github.aureliano.verbum_domini.service.VersesService;
 
 @Path("books")
 public class BooksResource {
@@ -97,8 +99,8 @@ public class BooksResource {
 		}
 		
 		
-		Chapters chapters = ChaptersService.fetchChaptersByBook(bookId, start, pages);
-		return Response.status(200).entity(chapters).build();
+		Verses verses = VersesService.fetchVersesByChapter(chapterId, start, pages);
+		return Response.status(200).entity(verses).build();
 	}
 	
 	@Path("{bookId}/chapters/{chapterId}/verses/{verseId}")
