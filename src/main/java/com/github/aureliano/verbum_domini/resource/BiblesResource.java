@@ -10,9 +10,12 @@ import javax.ws.rs.core.Response;
 
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
+import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
+import com.github.aureliano.verbum_domini.model.Chapters;
 import com.github.aureliano.verbum_domini.service.BiblesService;
 import com.github.aureliano.verbum_domini.service.BooksService;
+import com.github.aureliano.verbum_domini.service.ChaptersService;
 
 @Path("bibles")
 public class BiblesResource {
@@ -78,5 +81,53 @@ public class BiblesResource {
 		}
 		
 		return BooksResource.fetchBookById(bookId);
+	}
+	
+	@Path("{bibleId}/books/{bookId}/chapters")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChaptersByBookFromBible(
+			@PathParam("bibleId") String bibleId,
+			@PathParam("bookId") String bookId,
+			@QueryParam("start") Long start,
+			@QueryParam("pages") Long pages) {
+		
+		Bible bible = BiblesService.fetchById(bibleId);
+		
+		if (bible == null) {
+			return Response.status(404).build();
+		}
+		
+		Book book = BooksService.fetchBookById(bookId);
+		
+		if (book == null) {
+			return Response.status(404).build();
+		}
+		
+		Chapters chapters = ChaptersService.fetchChaptersByBook(bookId, start, pages);
+		return Response.status(200).entity(chapters).build();
+	}
+	
+	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChapterByIdAndBookFromBible(
+			@PathParam("bibleId") String bibleId,
+			@PathParam("bookId") String bookId,
+			@PathParam("chapterId") String chapterId) {
+		
+		Bible bible = BiblesService.fetchById(bibleId);
+		
+		if (bible == null) {
+			return Response.status(404).build();
+		}
+		
+		Book book = BooksService.fetchBookById(bookId);
+		
+		if (book == null) {
+			return Response.status(404).build();
+		}
+		
+		return ChaptersResource.fetchChapterById(chapterId);
 	}
 }
