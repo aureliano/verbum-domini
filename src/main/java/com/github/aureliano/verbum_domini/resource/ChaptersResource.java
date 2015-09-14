@@ -62,7 +62,7 @@ public class ChaptersResource {
 			return Response.status(404).build();
 		}
 		
-		Verses verses = VersesService.fetchAll(start, pages);
+		Verses verses = VersesService.fetchVersesByChapter(chapterId, start, pages);
 		return Response.status(200).entity(verses).build();
 	}
 	
@@ -96,7 +96,7 @@ public class ChaptersResource {
 			return Response.status(404).build();
 		}
 		
-		Annotations annotations = AnnotationsService.fetchAll(start, pages);
+		Annotations annotations = AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages);
 		return Response.status(200).entity(annotations).build();
 	}
 	
