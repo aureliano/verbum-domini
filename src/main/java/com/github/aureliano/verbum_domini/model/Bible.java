@@ -3,6 +3,8 @@ package com.github.aureliano.verbum_domini.model;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 	"eletronicTranscriptionSourceUrl",
 	"copyright"
 })
+@XmlRootElement
 public class Bible {
 
 	/**
