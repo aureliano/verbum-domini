@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 	"size",
 	"chapters"
 })
+@XmlRootElement
 public class Chapters {
 
 	/**
@@ -31,8 +34,10 @@ public class Chapters {
 	 */
 	@JsonProperty("size")
 	private Integer size;
+	
 	@JsonProperty("chapters")
 	private List<Chapter> chapters = new ArrayList<Chapter>();
+	
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
