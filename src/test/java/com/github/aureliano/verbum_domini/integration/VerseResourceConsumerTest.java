@@ -19,11 +19,16 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.aureliano.verbum_domini.helper.AppHelper;
+import com.github.aureliano.verbum_domini.helper.DataHelper;
 import com.github.aureliano.verbum_domini.model.Verse;
 import com.github.aureliano.verbum_domini.model.Verses;
 
 public class VerseResourceConsumerTest {
 
+	public VerseResourceConsumerTest() {
+		DataHelper.instance().initializeDataHelpers();
+	}
+	
 	@Test
 	public void testGetVersesAsXml() throws JAXBException {
 		Client client = ClientBuilder.newClient();

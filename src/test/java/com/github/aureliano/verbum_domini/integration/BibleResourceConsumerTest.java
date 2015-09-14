@@ -19,10 +19,15 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.aureliano.verbum_domini.helper.AppHelper;
+import com.github.aureliano.verbum_domini.helper.DataHelper;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 
 public class BibleResourceConsumerTest {
+	
+	public BibleResourceConsumerTest() {
+		DataHelper.instance().initializeDataHelpers();
+	}
 	
 	@Test
 	public void testGetBiblesAsXml() throws JAXBException {
