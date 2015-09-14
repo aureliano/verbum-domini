@@ -35,6 +35,10 @@ public class AnnotationsResource {
 	public Response getAnnotationById(
 			@PathParam("annotationId") String annotationId) {
 		
+		return fetchAnnotationById(annotationId);
+	}
+	
+	public static Response fetchAnnotationById(String annotationId) {
 		Annotation annotation = AnnotationsService.fetchAnnotationById(annotationId);
 		
 		if (annotation == null) {

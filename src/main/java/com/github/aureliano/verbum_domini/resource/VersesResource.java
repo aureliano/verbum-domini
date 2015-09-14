@@ -35,6 +35,10 @@ public class VersesResource {
 	public Response getVerseById(
 			@PathParam("verseId") String verseId) {
 		
+		return fetchVerseById(verseId);
+	}
+	
+	public static Response fetchVerseById(String verseId) {
 		Verse verse = VersesService.fetchVerseById(verseId);
 		
 		if (verse == null) {

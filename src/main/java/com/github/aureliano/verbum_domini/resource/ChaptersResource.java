@@ -8,9 +8,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
+import com.github.aureliano.verbum_domini.model.Verses;
+import com.github.aureliano.verbum_domini.service.AnnotationsService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
+import com.github.aureliano.verbum_domini.service.VersesService;
 
 @Path("chapters")
 public class ChaptersResource {
@@ -42,5 +46,73 @@ public class ChaptersResource {
 		}
 		
 		return Response.status(200).entity(chapter).build();
+	}
+	
+	@Path("{chapterId}/verses")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChapterVerses(
+			@PathParam("chapterId") String chapterId,
+			@QueryParam("start") Long start,
+			@QueryParam("pages") Long pages) {
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		Verses verses = VersesService.fetchAll(start, pages);
+		return Response.status(200).entity(verses).build();
+	}
+	
+	@Path("{chapterId}/verses/{verseId}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChapterVerseById(
+			@PathParam("chapterId") String chapterId,
+			@PathParam("verseId") String verseId) {
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		return VersesResource.fetchVerseById(verseId);
+	}
+	
+	@Path("{chapterId}/annotations")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChapterAnnotations(
+			@PathParam("chapterId") String chapterId,
+			@QueryParam("start") Long start,
+			@QueryParam("pages") Long pages) {
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		Annotations annotations = AnnotationsService.fetchAll(start, pages);
+		return Response.status(200).entity(annotations).build();
+	}
+	
+	@Path("{chapterId}/annotations/{annotationId}")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChapterAnnotationById(
+			@PathParam("chapterId") String chapterId,
+			@PathParam("annotationId") String annotationId) {
+		
+		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
+		
+		if (chapter == null) {
+			return Response.status(404).build();
+		}
+		
+		return AnnotationsResource.fetchAnnotationById(annotationId);
 	}
 }
