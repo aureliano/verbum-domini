@@ -35,6 +35,10 @@ public class BooksResource {
 	public Response getBookById(
 			@PathParam("bookId") String bookId) {
 		
+		return fetchBookById(bookId);
+	}
+	
+	public static Response fetchBookById(String bookId) {
 		Book book = BooksService.fetchBookById(bookId);
 		
 		if (book == null) {
