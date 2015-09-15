@@ -68,6 +68,12 @@
 					</connectors>
 					<stopKey>stop</stopKey>
 					<stopPort>9091</stopPort>
+					<systemProperties>
+						<systemProperty>
+							<name>APP_ENVIRONMENT</name>
+							<value>TEST</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
 				<executions>
 					<execution>
