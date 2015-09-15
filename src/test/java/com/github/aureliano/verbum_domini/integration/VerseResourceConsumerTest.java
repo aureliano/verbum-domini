@@ -40,7 +40,7 @@ public class VerseResourceConsumerTest {
 		Unmarshaller u = JAXBContext.newInstance(Verses.class).createUnmarshaller();
 		Verses verses = (Verses) u.unmarshal(new StringReader(content));
 		
-		assertEquals(new Integer(140005), verses.getSize());
+		assertEquals(new Integer(250), verses.getSize());
 		assertEquals(25, verses.getVerses().size());
 	}
 
@@ -57,7 +57,8 @@ public class VerseResourceConsumerTest {
 		
 		assertEquals(new Integer(1), verse.getVerseId());
 		assertEquals(new Integer(1), verse.getChapterId());
-		assertEquals("1L", verse.getNumber());
+		assertEquals("1", verse.getNumber());
+		assertEquals("Something 1", verse.getText());
 	}
 	
 	@Test
@@ -71,7 +72,7 @@ public class VerseResourceConsumerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		Verses verses = mapper.readValue(content, Verses.class);
 		
-		assertEquals(new Integer(140005), verses.getSize());
+		assertEquals(new Integer(250), verses.getSize());
 		assertEquals(25, verses.getVerses().size());
 	}
 	
@@ -88,6 +89,7 @@ public class VerseResourceConsumerTest {
 		
 		assertEquals(new Integer(1), verse.getVerseId());
 		assertEquals(new Integer(1), verse.getChapterId());
-		assertEquals("1L", verse.getNumber());
+		assertEquals("1", verse.getNumber());
+		assertEquals("Something 1", verse.getText());
 	}
 }

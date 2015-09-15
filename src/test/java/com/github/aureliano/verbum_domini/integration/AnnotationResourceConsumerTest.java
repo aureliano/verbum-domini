@@ -40,7 +40,7 @@ public class AnnotationResourceConsumerTest {
 		Unmarshaller u = JAXBContext.newInstance(Annotations.class).createUnmarshaller();
 		Annotations annotations = (Annotations) u.unmarshal(new StringReader(content));
 		
-		assertEquals(new Integer(6764), annotations.getSize());
+		assertEquals(new Integer(250), annotations.getSize());
 		assertEquals(25, annotations.getAnnotations().size());
 	}
 
@@ -56,8 +56,9 @@ public class AnnotationResourceConsumerTest {
 		Annotation annotation = (Annotation) u.unmarshal(new StringReader(content));
 		
 		assertEquals(new Integer(1), annotation.getAnnotationId());
-		assertEquals(new Integer(4563), annotation.getChapterId());
+		assertEquals(new Integer(1), annotation.getChapterId());
 		assertEquals("1", annotation.getNumber());
+		assertEquals("Something 1", annotation.getText());
 	}
 	
 	@Test
@@ -71,7 +72,7 @@ public class AnnotationResourceConsumerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		Annotations annotations = mapper.readValue(content, Annotations.class);
 		
-		assertEquals(new Integer(6764), annotations.getSize());
+		assertEquals(new Integer(250), annotations.getSize());
 		assertEquals(25, annotations.getAnnotations().size());
 	}
 	
@@ -87,7 +88,8 @@ public class AnnotationResourceConsumerTest {
 		Annotation annotation = mapper.readValue(content, Annotation.class);
 		
 		assertEquals(new Integer(1), annotation.getAnnotationId());
-		assertEquals(new Integer(4563), annotation.getChapterId());
+		assertEquals(new Integer(1), annotation.getChapterId());
 		assertEquals("1", annotation.getNumber());
+		assertEquals("Something 1", annotation.getText());
 	}
 }

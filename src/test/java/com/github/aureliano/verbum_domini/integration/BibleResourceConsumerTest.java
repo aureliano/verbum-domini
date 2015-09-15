@@ -40,8 +40,8 @@ public class BibleResourceConsumerTest {
 		Unmarshaller u = JAXBContext.newInstance(Bibles.class).createUnmarshaller();
 		Bibles bibles = (Bibles) u.unmarshal(new StringReader(content));
 		
-		assertEquals(new Integer(4), bibles.getSize());
-		assertEquals(4, bibles.getBibles().size());
+		assertEquals(new Integer(2), bibles.getSize());
+		assertEquals(2, bibles.getBibles().size());
 	}
 	
 	@Test
@@ -74,8 +74,8 @@ public class BibleResourceConsumerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		Bibles bibles = mapper.readValue(content, Bibles.class);
 		
-		assertEquals(new Integer(4), bibles.getSize());
-		assertEquals(4, bibles.getBibles().size());
+		assertEquals(new Integer(2), bibles.getSize());
+		assertEquals(2, bibles.getBibles().size());
 	}
 	
 	@Test

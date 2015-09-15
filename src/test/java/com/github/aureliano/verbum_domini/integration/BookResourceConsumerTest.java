@@ -40,8 +40,8 @@ public class BookResourceConsumerTest {
 		Unmarshaller u = JAXBContext.newInstance(Books.class).createUnmarshaller();
 		Books books = (Books) u.unmarshal(new StringReader(content));
 		
-		assertEquals(new Integer(295), books.getSize());
-		assertEquals(25, books.getBooks().size());
+		assertEquals(new Integer(10), books.getSize());
+		assertEquals(10, books.getBooks().size());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class BookResourceConsumerTest {
 		
 		assertEquals(new Integer(1), book.getBookId());
 		assertEquals(new Integer(1), book.getBibleId());
-		assertEquals("numeri", book.getName());
+		assertEquals("Genesis", book.getName());
 	}
 	
 	@Test
@@ -71,8 +71,8 @@ public class BookResourceConsumerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		Books books = mapper.readValue(content, Books.class);
 		
-		assertEquals(new Integer(295), books.getSize());
-		assertEquals(25, books.getBooks().size());
+		assertEquals(new Integer(10), books.getSize());
+		assertEquals(10, books.getBooks().size());
 	}
 	
 	@Test
@@ -88,6 +88,6 @@ public class BookResourceConsumerTest {
 		
 		assertEquals(new Integer(1), book.getBookId());
 		assertEquals(new Integer(1), book.getBibleId());
-		assertEquals("numeri", book.getName());
+		assertEquals("Genesis", book.getName());
 	}
 }

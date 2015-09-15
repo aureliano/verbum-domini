@@ -40,7 +40,7 @@ public class ChapterResourceConsumerTest {
 		Unmarshaller u = JAXBContext.newInstance(Chapters.class).createUnmarshaller();
 		Chapters chapters = (Chapters) u.unmarshal(new StringReader(content));
 		
-		assertEquals(new Integer(5959), chapters.getSize());
+		assertEquals(new Integer(50), chapters.getSize());
 		assertEquals(25, chapters.getChapters().size());
 	}
 
@@ -71,7 +71,7 @@ public class ChapterResourceConsumerTest {
 		ObjectMapper mapper = new ObjectMapper();
 		Chapters chapters = mapper.readValue(content, Chapters.class);
 		
-		assertEquals(new Integer(5959), chapters.getSize());
+		assertEquals(new Integer(50), chapters.getSize());
 		assertEquals(25, chapters.getChapters().size());
 	}
 	
