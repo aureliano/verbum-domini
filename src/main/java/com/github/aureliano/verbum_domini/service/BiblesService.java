@@ -7,6 +7,7 @@ import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
+import com.github.aureliano.verbum_domini.helper.ServiceHelper;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
@@ -36,5 +37,9 @@ public final class BiblesService {
 		
 		BibleBean bean = DaoFactory.createDao(BibleBean.class).get(Integer.parseInt(id));
 		return (bean == null) ? null : ResourceToEntityParser.parse(Bible.class, bean);
+	}
+	
+	public static boolean exist(String id) {
+		return ServiceHelper.exist(BibleBean.class, id);
 	}
 }

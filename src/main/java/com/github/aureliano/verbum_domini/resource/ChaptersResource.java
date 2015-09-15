@@ -50,9 +50,7 @@ public class ChaptersResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (!ChaptersService.exist(chapterId)) {
 			return Response.status(404).build();
 		}
 		
@@ -67,9 +65,7 @@ public class ChaptersResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("verseId") String verseId) {
 		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (!ChaptersService.exist(chapterId)) {
 			return Response.status(404).build();
 		}
 		
@@ -84,9 +80,7 @@ public class ChaptersResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (!ChaptersService.exist(chapterId)) {
 			return Response.status(404).build();
 		}
 		
@@ -101,9 +95,7 @@ public class ChaptersResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("annotationId") String annotationId) {
 		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (!ChaptersService.exist(chapterId)) {
 			return Response.status(404).build();
 		}
 		

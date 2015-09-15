@@ -11,7 +11,6 @@ import javax.ws.rs.core.Response;
 import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
-import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
 import com.github.aureliano.verbum_domini.model.Verses;
 import com.github.aureliano.verbum_domini.service.AnnotationsService;
@@ -53,9 +52,7 @@ public class BooksResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
+		if (!BooksService.exist(bookId)) {
 			return Response.status(404).build();
 		}
 		
@@ -70,9 +67,7 @@ public class BooksResource {
 			@PathParam("bookId") String bookId,
 			@PathParam("chapterId") String chapterId) {
 		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
+		if (!BooksService.exist(bookId)) {
 			return Response.status(404).build();
 		}
 		
@@ -88,18 +83,9 @@ public class BooksResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
+		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
 			return Response.status(404).build();
 		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
-			return Response.status(404).build();
-		}
-		
 		
 		Verses verses = VersesService.fetchVersesByChapter(chapterId, start, pages);
 		return Response.status(200).entity(verses).build();
@@ -113,15 +99,7 @@ public class BooksResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("verseId") String verseId) {
 		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
-			return Response.status(404).build();
-		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
 			return Response.status(404).build();
 		}
 		
@@ -137,18 +115,9 @@ public class BooksResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
+		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
 			return Response.status(404).build();
 		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
-			return Response.status(404).build();
-		}
-		
 		
 		Annotations annotations = AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages);
 		return Response.status(200).entity(annotations).build();
@@ -162,15 +131,7 @@ public class BooksResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("annotationId") String annotationId) {
 		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
-			return Response.status(404).build();
-		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
 			return Response.status(404).build();
 		}
 		

@@ -11,7 +11,6 @@ import javax.ws.rs.core.Response;
 import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
-import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
@@ -62,9 +61,7 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
+		if (!BiblesService.exist(bibleId)) {
 			return Response.status(404).build();
 		}
 		
@@ -79,9 +76,7 @@ public class BiblesResource {
 			@PathParam("bibleId") String bibleId,
 			@PathParam("bookId") String bookId) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
+		if (!BiblesService.exist(bibleId)) {
 			return Response.status(404).build();
 		}
 		
@@ -97,15 +92,7 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
-			return Response.status(404).build();
-		}
-		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
+		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId)))) {
 			return Response.status(404).build();
 		}
 		
@@ -121,15 +108,7 @@ public class BiblesResource {
 			@PathParam("bookId") String bookId,
 			@PathParam("chapterId") String chapterId) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
-			return Response.status(404).build();
-		}
-		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
+		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId)))) {
 			return Response.status(404).build();
 		}
 		
@@ -146,24 +125,10 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
+		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
+				|| (!ChaptersService.exist(chapterId)))) {
 			return Response.status(404).build();
 		}
-		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
-			return Response.status(404).build();
-		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
-			return Response.status(404).build();
-		}
-		
 		
 		Verses verses = VersesService.fetchVersesByChapter(chapterId, start, pages);
 		return Response.status(200).entity(verses).build();
@@ -178,21 +143,8 @@ public class BiblesResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("verseId") String verseId) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
-			return Response.status(404).build();
-		}
-		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
-			return Response.status(404).build();
-		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
+				|| (!ChaptersService.exist(chapterId)))) {
 			return Response.status(404).build();
 		}
 		
@@ -209,24 +161,10 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
+		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
+				|| (!ChaptersService.exist(chapterId)))) {
 			return Response.status(404).build();
 		}
-		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
-			return Response.status(404).build();
-		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
-			return Response.status(404).build();
-		}
-		
 		
 		Annotations annotations = AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages);
 		return Response.status(200).entity(annotations).build();
@@ -241,21 +179,8 @@ public class BiblesResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("annotationId") String annotationId) {
 		
-		Bible bible = BiblesService.fetchById(bibleId);
-		
-		if (bible == null) {
-			return Response.status(404).build();
-		}
-		
-		Book book = BooksService.fetchBookById(bookId);
-		
-		if (book == null) {
-			return Response.status(404).build();
-		}
-		
-		Chapter chapter = ChaptersService.fetchChapterById(chapterId);
-		
-		if (chapter == null) {
+		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
+				|| (!ChaptersService.exist(chapterId)))) {
 			return Response.status(404).build();
 		}
 		

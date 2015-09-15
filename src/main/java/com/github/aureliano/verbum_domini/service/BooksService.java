@@ -9,6 +9,7 @@ import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
+import com.github.aureliano.verbum_domini.helper.ServiceHelper;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.parser.ResourceToEntityParser;
@@ -60,6 +61,10 @@ public final class BooksService {
 		
 		BookBean book = DaoFactory.createDao(BookBean.class).get(Integer.parseInt(id));
 		return (book == null) ? null : ResourceToEntityParser.parse(Book.class, book);
+	}
+	
+	public static boolean exist(String id) {
+		return ServiceHelper.exist(BookBean.class, id);
 	}
 	
 	private static BookBean createFilter(String id) {
