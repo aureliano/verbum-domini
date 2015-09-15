@@ -12,7 +12,6 @@ import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 import com.github.aureliano.verbum_domini.model.Books;
-import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
 import com.github.aureliano.verbum_domini.model.Verses;
 import com.github.aureliano.verbum_domini.service.AnnotationsService;
