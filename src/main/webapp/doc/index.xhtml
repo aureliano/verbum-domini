@@ -6,82 +6,104 @@
 <head>
 	<title>Verbum Domini - API Documentation</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<meta charset="UTF-8"/>
+	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-		<div class="panel panel-default">
-			<div class="panel-heading" role="tab" id="headingOne">
-				<h4 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						Bibles
-					</a>
-				</h4>
-			</div>
-		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-			<div class="panel-body">
-        		
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
 			</div>
 		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingTwo">
-			<h4 class="panel-title">
-				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					Books
-				</a>
-			</h4>
-		</div>
-		<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-			<div class="panel-body">
-        		
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingThree">
-			<h4 class="panel-title">
-				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					Chapters
-				</a>
-			</h4>
-		</div>
-		<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-			<div class="panel-body">
-				
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingThree">
-			<h4 class="panel-title">
-				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					Verses
-				</a>
-			</h4>
-		</div>
-		<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-			<div class="panel-body">
-				
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading" role="tab" id="headingThree">
-			<h4 class="panel-title">
-				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					Annotations
-				</a>
-			</h4>
-		</div>
-		<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-			<div class="panel-body">
-				
-			</div>
-		</div>
-	</div>
-</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h3 class="text-center">About the API</h3>
+				<p class="text-justify">
+					This system is an <a href="https://en.wikipedia.org/wiki/Open_data">open data</a> <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTFul</a> <a href="https://en.wikipedia.org/wiki/Application_programming_interface">API</a>, which provides a set of services for retrieving data about bibles translations.
+				</p>
 
+				<h3 class="text-center">Consuming services</h3>
+				<p class="text-justify">
+					In order to consume data, all you need is a web browser or even build an application that feet your needs. Data returned by the services are provided as XML or JSON. You can choose beetwen then by just setting headder properties "Accept" and "Content-type. An example using cURL to consume service which return data as XML would be:
+					<br/>
+					<blockquote>curl --header "Accept:application/xml --header "Content-type:application/xml" http://path/to/service</blockquote>
+					<br/><br/>
+					For those using Java to create a client application to consume data it may be interesting to check that <a href="java_client_api.xhtml">Java interface</a> for searching through services.
+				</p>
+			</div>
+		</div>
+    <div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h3>Table of services</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<table class="table table-bordered">
+					<tr>
+						<th>Resource</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td><a href="bible.xhtml">Bible</a></td>
+						<td>
+							This resource provides a set of services in order to fetch data about bibles translations.
+							From this path you can also go throgh inner services that are described bellow:
+							<br/><br/>
+							<ol>
+								<li>Book</li>
+								<li>Chapter</li>
+								<li>Verse</li>
+								<li>Annotation</li>
+							</ol>
+						</td>
+					</tr>
+					<tr>
+						<td><a href="book">Book</a></td>
+						<td>
+							This resource provides a set of services in order to fetch data about books.
+							From this path you can also go throgh inner services that are described bellow:
+							<br/><br/>
+							<ol>
+								<li>Chapter</li>
+								<li>Verse</li>
+								<li>Annotation</li>
+							</ol>
+						</td>
+					</tr>
+					<tr>
+						<td><a href="chapter.xhtml">Chapter</a></td>
+						<td>
+							This resource provides a set of services in order to fetch data about chapters.
+							From this path you can also go throgh inner services that are described bellow:
+							<br/><br/>
+							<ol>
+								<li>Verse</li>
+								<li>Annotation</li>
+							</ol>
+						</td>
+					</tr>
+					<tr>
+						<td><a href="verse.xhtml">Verse</a></td>
+						<td>
+							This resource provides a set of services in order to fetch data about verses.
+						</td>
+					</tr>
+					<tr>
+						<td><a href="annotation.xhtml">Annotation</a></td>
+						<td>
+							This resource provides a set of services in order to fetch data about annotations.
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
 	
 	<script src="../js/jquery-1.11.3.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
