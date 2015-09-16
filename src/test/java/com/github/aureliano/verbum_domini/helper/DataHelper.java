@@ -1,6 +1,16 @@
 package com.github.aureliano.verbum_domini.helper;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.github.aureliano.verbum_domini.core.AppConfiguration;
+import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
+import com.github.aureliano.verbum_domini.core.bean.BibleBean;
+import com.github.aureliano.verbum_domini.core.bean.BookBean;
+import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
+import com.github.aureliano.verbum_domini.core.bean.IBean;
+import com.github.aureliano.verbum_domini.core.bean.VerseBean;
+import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 
 public final class DataHelper {
 
@@ -26,6 +36,8 @@ public final class DataHelper {
 		}
 		
 		AppConfiguration.instance().getPersistenceManager().startUp();
+		clearDatabase();
+		
 		BibleDataHelper.createBibles();
 		BookDataHelper.createBooks();
 		ChapterDataHelper.createChapters();
@@ -37,5 +49,17 @@ public final class DataHelper {
 	
 	public boolean isDataHelpersInitialized() {
 		return this.dataHelpersInitialized;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void clearDatabase() {
+		List<Class<? extends IBean>> entityTypes = Arrays.asList(
+			VerseBean.class, AnnotationBean.class,
+			ChapterBean.class, BookBean.class, BibleBean.class
+		);
+		
+		for (Class<? extends IBean> entityType : entityTypes) {
+			DaoFactory.createDao(entityType).deleteAll();
+		}
 	}
 }

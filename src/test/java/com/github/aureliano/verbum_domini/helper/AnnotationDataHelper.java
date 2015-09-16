@@ -16,22 +16,19 @@ public final class AnnotationDataHelper {
 		IDao<ChapterBean> chapterDao = DaoFactory.createDao(ChapterBean.class);
 		IDao<AnnotationBean> dao = DaoFactory.createDao(AnnotationBean.class);
 		
-		int annotationId = 0;
-		
 		for (int i = 0; i < 50; i++) {
 			ChapterBean chapter = (ChapterBean) chapterDao.load((i + 1));
 
 			for (byte j = 1; j <= 5; j++) {
-				AnnotationBean annotation = prepareAnnotation(++annotationId, String.valueOf(j), chapter);
+				AnnotationBean annotation = prepareAnnotation(String.valueOf(j), chapter);
 				dao.save(annotation);
 			}
 		}
 	}
 	
-	private static AnnotationBean prepareAnnotation(Integer id, String number, ChapterBean chapter) {
+	private static AnnotationBean prepareAnnotation(String number, ChapterBean chapter) {
 		AnnotationBean verse = new AnnotationBeanImpl();
 		
-		verse.setId(id);
 		verse.setNumber(number);
 		verse.setText("Something " + number);
 		verse.setChapter(chapter);

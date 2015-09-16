@@ -28,7 +28,6 @@ public final class BibleDataHelper {
 		bean.setEdition("Bibliorum Sacrorum");
 		bean.setEletronicTranscriptionSource(null);
 		bean.setEletronicTranscriptionSourceUrl(null);
-		bean.setId(1);
 		bean.setLanguage("latin");
 		bean.setName("Nova Vulgata");
 		bean.setPrintedSource(null);
@@ -44,7 +43,6 @@ public final class BibleDataHelper {
 		bean.setEdition(null);
 		bean.setEletronicTranscriptionSource("United States Conference of Catholic Bishops");
 		bean.setEletronicTranscriptionSourceUrl("http://www.nccbuscc.org/");
-		bean.setId(2);
 		bean.setLanguage("english");
 		bean.setName("THE NEW AMERICAN BIBLE");
 		bean.setPrintedSource("United States Conference of Catholic Bishops\n3211 4th Street, N.E., Washington, DC 20017-1194 (202) 541-3000\nNovember 11, 2002 Copyright (c) by United States Conference of Catholic Bishops");

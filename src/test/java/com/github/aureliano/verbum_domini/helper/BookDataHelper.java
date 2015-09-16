@@ -21,22 +21,20 @@ public final class BookDataHelper {
 		IDao<BibleBean> bibleDao = DaoFactory.createDao(BibleBean.class);
 		
 		int[] ids = new int[] { 1, 2 };
-		int bookId = 0;
 		
 		for (int id : ids) {
 			BibleBean bible = (BibleBean) bibleDao.load(id);
 			
 			for (String name : names) {
-				BookBean book = prepareBook(++bookId, name, bible);
+				BookBean book = prepareBook(name, bible);
 				dao.save(book);
 			}
 		}
 	}
 	
-	private static BookBean prepareBook(Integer id, String name, BibleBean bible) {
+	private static BookBean prepareBook(String name, BibleBean bible) {
 		BookBean book = new BookBeanImpl();
 		
-		book.setId(id);
 		book.setName(name);
 		book.setBible(bible);
 		

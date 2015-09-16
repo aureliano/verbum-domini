@@ -16,22 +16,19 @@ public final class ChapterDataHelper {
 		IDao<BookBean> bookDao = DaoFactory.createDao(BookBean.class);
 		IDao<ChapterBean> dao = DaoFactory.createDao(ChapterBean.class);
 		
-		int chapterId = 0;
-		
 		for (int i = 0; i < 10; i++) {
 			BookBean book = (BookBean) bookDao.load((i + 1));
 
 			for (byte j = 1; j <= 5; j++) {
-				ChapterBean chapter = prepareChapter(++chapterId, String.valueOf(j), book);
+				ChapterBean chapter = prepareChapter(String.valueOf(j), book);
 				dao.save(chapter);
 			}
 		}
 	}
 	
-	private static ChapterBean prepareChapter(Integer id, String number, BookBean book) {
+	private static ChapterBean prepareChapter(String number, BookBean book) {
 		ChapterBean chapter = new ChapterBeanImpl();
 		
-		chapter.setId(id);
 		chapter.setNumber(number);
 		chapter.setBook(book);
 		
