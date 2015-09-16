@@ -4,14 +4,12 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
-		<property name="hibernate.connection.url">jdbc:hsqldb:mem:verbum_domini</property>
-		<property name="hibernate.connection.username">sa</property>
-		<property name="hibernate.connection.password"></property>
-		<property name="hibernate.connection.pool_size">1</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://127.0.0.1:5432/verbum_domini_test</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">postgres</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="hibernate.show_sql">false</property>
-		<property name="hbm2ddl.auto">create</property>
 		
 		<mapping class="com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl"/>
 		<mapping class="com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl"/>
