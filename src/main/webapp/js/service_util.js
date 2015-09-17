@@ -27,6 +27,7 @@ function consumeJson(url, service, field_id) {
     $('#loading').hide();
   }).error(function(jqXHR, textStatus, errorThrown) {
     alert('Service ' + url + ' unavailable. Try again later. ' + errorThrown);
+  	$('#loading').hide();
   });
 }
 
@@ -47,5 +48,6 @@ function consumeXml(url, service, field_id) {
     $('#loading').hide();
   }).error(function(jqXHR, textStatus, errorThrown) {
     alert('Service ' + url + ' unavailable. Try again later. ' + errorThrown);
+  	$('#loading').hide();
   });
 }
