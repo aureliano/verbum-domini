@@ -7,7 +7,7 @@
 	<title>Verbum Domini - API Documentation</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta charset="UTF-8"/>
-	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<div class="container-fluid">
@@ -22,14 +22,14 @@
 			<div class="col-xs-8">
 				<h3 class="text-center">About the API</h3>
 				<p class="text-justify">
-					This system is an <a href="https://en.wikipedia.org/wiki/Open_data">open data</a> <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTFul</a> <a href="https://en.wikipedia.org/wiki/Application_programming_interface">API</a>, which provides a set of services for retrieving data about bibles translations.
+					This system is an <a href="https://en.wikipedia.org/wiki/Open_data">open data</a> <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTFul</a> <a href="https://en.wikipedia.org/wiki/Application_programming_interface">API</a>, which provides a set of services for retrieving data about bibles translations. Such API let you easily navigate through resources. The availability of those services promotes creation of applications for many platforms like Android, iOS, desktop applications or even web sites using your preferred set of development tools. And here you're gonna find some insights about this API.
 				</p>
 
 				<h3 class="text-center">Consuming services</h3>
 				<p class="text-justify">
-					In order to consume data, all you need is a web browser or even build an application that feet your needs. Data returned by the services are provided as XML or JSON. You can choose beetwen then by just setting headder properties "Accept" and "Content-type. An example using cURL to consume service which return data as XML would be:
+					In order to consume data, all you need is a web browser or even build an application that feet your needs. Data returned by the services are provided as XML or JSON. You can choose between then by just setting header property "Accept". An example using cURL to consume service which return data as XML would be:
 					<br/>
-					<blockquote>curl --header "Accept:application/xml --header "Content-type:application/xml" http://path/to/service</blockquote>
+					<blockquote>curl --header "Accept:application/xml" http://path/to/service</blockquote>
 					<br/><br/>
 					For those using Java to create a client application to consume data it may be interesting to check that <a href="java_client_api.xhtml">Java interface</a> for searching through services.
 				</p>
@@ -53,7 +53,7 @@
 						<td><a href="bible.xhtml">Bible</a></td>
 						<td>
 							This resource provides a set of services in order to fetch data about bibles translations.
-							From this path you can also go throgh inner services that are described bellow:
+							From this path you can also go through inner services that are described bellow:
 							<br/><br/>
 							<ol>
 								<li>Book</li>
@@ -67,7 +67,7 @@
 						<td><a href="book">Book</a></td>
 						<td>
 							This resource provides a set of services in order to fetch data about books.
-							From this path you can also go throgh inner services that are described bellow:
+							From this path you can also go through inner services that are described bellow:
 							<br/><br/>
 							<ol>
 								<li>Chapter</li>
@@ -80,7 +80,7 @@
 						<td><a href="chapter.xhtml">Chapter</a></td>
 						<td>
 							This resource provides a set of services in order to fetch data about chapters.
-							From this path you can also go throgh inner services that are described bellow:
+							From this path you can also go through inner services that are described bellow:
 							<br/><br/>
 							<ol>
 								<li>Verse</li>
@@ -104,8 +104,5 @@
 			</div>
 		</div>
 	</div>
-	
-	<script src="../js/jquery-1.11.3.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

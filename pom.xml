@@ -83,7 +83,7 @@
 							<goal>deploy-war</goal>
 						</goals>
 						<configuration>
-							<daemon>true</daemon>
+							<daemon>false</daemon>
 						</configuration>
 					</execution>
 					<execution>
