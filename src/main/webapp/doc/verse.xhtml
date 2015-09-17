@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+	<title>Verbum Domini - API Documentation</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta charset="UTF-8"/>
+	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<div class="container-fluid">
+		<div id="loading" style="display: none; position: fixed; top: 50%; left: 50%;">
+			<img src="/verbumdomini/img/loading.gif"/>
+		</div>
+	
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h3 class="text-left">Verse</h3>
+				<p class="text-justify">
+					The verse resource provides services for getting available chapter verses.
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h4 class="text-left">Services</h4>
+				<p class="text-justify">
+					The services you can access from here are listed bellow.
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+					</tr>
+					<tr>
+						<td><a href="#verses_service">Verses list</a></td>
+					</tr>
+					<tr>
+						<td><a href="#verse_service">Verse</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<br/><hr/><br/>
+				<h4 id="verses_service" class="text-left">Verses list</h4>
+				<p class="text-justify">
+					Fetch the verses list.
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<table class="table table-bordered">
+					<tr>
+						<td>URL</td><td>/verses</td>
+					</tr>
+					<tr>
+						<td>Method</td><td>GET</td>
+					</tr>
+					<tr>
+						<td>Content-type</td><td>application/xml, application/json</td>
+					</tr>
+					<tr>
+						<td>Results</td><td>200 OK, XML|JSON</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<h4>Parameters</h4>
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Type</th>
+						<th>Default</th>
+					</tr>
+					<tr>
+						<td>start</td>
+						<td>The first element to return (&gt; 0)</td>
+						<td>integer</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>pages</td>
+						<td>The number of pages to return (&gt; 0 &lt;= 2)</td>
+						<td>integer</td>
+						<td>1</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<h4>Headers</h4>
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Type</th>
+						<th>Default</th>
+					</tr>
+					<tr>
+						<td>Accept</td>
+						<td>The content-type that will be acceptable in response</td>
+						<td>string</td>
+						<td>application/xml</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h4>Examples</h4>
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingVersesXML">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseVersesXML" aria-expanded="false" aria-controls="collapseVersesXML" onclick="consumeService('/verses', 'verses', 'xml');">
+									Verses list as XML
+								</a>
+							</h4>
+						<input type="hidden" id="versesServiceLoaded_xml" value="false"/>
+						</div>
+						<div id="collapseVersesXML" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingVersesXML">
+							<div id="verses_xml" class="panel-body">
+				        		
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingVersesJSON">
+						<h4 class="panel-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseVersesJSON" aria-expanded="false" aria-controls="collapseVersesJSON" onclick="consumeService('/verses', 'verses', 'json');">
+								Verses list as JSON
+							</a>
+						</h4>
+						<input type="hidden" id="versesServiceLoaded_json" value="false"/>
+					</div>
+					<div id="collapseVersesJSON" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingVersesJSON">
+						<div id="verses_json" class="panel-body">
+			        		
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<br/><hr/><br/>
+				<h4 id="verse_service" class="text-left">Verse</h4>
+				<p class="text-justify">
+					Fetch a verse by id.
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<table class="table table-bordered">
+					<tr>
+						<td>URL</td><td>/verses/{verseId}</td>
+					</tr>
+					<tr>
+						<td>Method</td><td>GET</td>
+					</tr>
+					<tr>
+						<td>Content-type</td><td>application/xml, application/json</td>
+					</tr>
+					<tr>
+						<td>Results</td><td>200 OK, XML|JSON</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<h4>Parameters</h4>
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Type</th>
+						<th>Default</th>
+					</tr>
+					<tr>
+						<td colspan="4">No parameters</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-5">
+				<h4>Headers</h4>
+				<table class="table table-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Type</th>
+						<th>Default</th>
+					</tr>
+					<tr>
+						<td>Accept</td>
+						<td>The content-type that will be acceptable in response</td>
+						<td>string</td>
+						<td>application/xml</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h4>Examples</h4>
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="headingVerseIdXML">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseVerseIdXML" aria-expanded="false" aria-controls="collapseVerseIdXML" onclick="consumeService('/verses/1', 'verseId', 'xml');">
+									Verse as XML
+								</a>
+							</h4>
+						<input type="hidden" id="verseIdServiceLoaded_xml" value="false"/>
+						</div>
+						<div id="collapseVerseIdXML" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingVerseIdXML">
+							<div id="verseId_xml" class="panel-body">
+				        		
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="headingVerseIdJSON">
+						<h4 class="panel-title">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseVerseIdJSON" aria-expanded="false" aria-controls="collapseVerseIdJSON" onclick="consumeService('/verses/1', 'verseId', 'json');">
+								Verse as JSON
+							</a>
+						</h4>
+						<input type="hidden" id="verseIdServiceLoaded_json" value="false"/>
+					</div>
+					<div id="collapseVerseIdJSON" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingVerseIdJSON">
+						<div id="verseId_json" class="panel-body">
+			        		
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/verbumdomini/js/jquery-1.11.3.min.js"></script>
+	<script src="/verbumdomini/js/bootstrap.min.js"></script>
+	<script src="/verbumdomini/js/vkbeautify.0.99.00.beta.js"></script>
+	<script src="/verbumdomini/js/service_util.js"></script>
+</body>
+</html>
