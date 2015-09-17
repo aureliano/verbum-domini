@@ -20,13 +20,10 @@ function consumeJson(url, service, field_id) {
   var url = 'http://' + location.host + '/verbumdomini/apirest' + url;
   var dataField = service + '_' + type;
 
-  $.get(url, function(data) {
-    var xml = vkbeautify.xml(data, 2);
-    xml = xml.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-    $('#' + dataField).append('<pre>' + xml + '</pre>');
+  $.getJSON(url, function(data) {
+    $('#' + dataField).append('<pre>' + JSON.stringify(data, null, 2) + '</pre>');
     $(field_id).val('true');
-  }, 'text').done(function() {
+  }).done(function() {
     $('#loading').hide();
   }).error(function(jqXHR, textStatus, errorThrown) {
     alert('Service ' + url + ' unavailable. Try again later. ' + errorThrown);
@@ -40,10 +37,13 @@ function consumeXml(url, service, field_id) {
   var url = 'http://' + location.host + '/verbumdomini/apirest' + url;
   var dataField = service + '_' + type;
 
-  $.getJSON(url, function(data) {
-    $('#' + dataField).append('<pre>' + JSON.stringify(data, null, 2) + '</pre>');
+  $.get(url, function(data) {
+    var xml = vkbeautify.xml(data, 2);
+    xml = xml.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    $('#' + dataField).append('<pre>' + xml + '</pre>');
     $(field_id).val('true');
-  }).done(function() {
+  }, 'text').done(function() {
     $('#loading').hide();
   }).error(function(jqXHR, textStatus, errorThrown) {
     alert('Service ' + url + ' unavailable. Try again later. ' + errorThrown);
