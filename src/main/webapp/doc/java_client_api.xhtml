@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+	<title>Verbum Domini - Java client API</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta charset="UTF-8"/>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h3 class="text-center">Java client API</h3>
+				<p class="text-justify">
+					Java users have a client API in order to make usage experience easy. Download the verbum-domini-client API compacted with its dependencies and extract them. Add all JAR files into your project's classpath. If you use Maven, you can add it as your project's dependency.
+					<pre>&lt;dependency&gt;
+  &lt;groupId&gt;com.github.aureliano&lt;/groupId&gt;
+  &lt;artifactId&gt;verbum-domini-client&lt;/artifactId&gt;
+  &lt;version&gt;0.1.0&lt;/version&gt;
+&lt;/dependency&gt;</pre>
+					Then install it manually with this command.
+					<pre>mvn install:install-file -DgroupId=com.github.aureliano -DartifactId=verbum-domini-client -Dversion=0.1.0 -Dpackaging=jar -Dfile=/path/to/file</pre>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h4 class="text-center">Navigation by services</h4>
+				<p class="text-justify">
+					The Java client API verbum-domini-client has a starting point singleton class which will lead you through all available services. The first service is the bibles service from what you can navigate through nested services. Each service has a return type which abstracts an entity as a Java object. Services whose return type is a collection return a wrapped entity type. Those wrapped entities have two fields: elements and size. Where elements is a list of entities and the list size is the maximum elements per page length; and the size field is the total of elements you can fetch from server.
+				</p>
+
+				<p class="text-justify">
+					In order to fetch all available bibles from server you can do like the code bellow.
+					<pre>
+Bibles bibles = ApiMapService.instance()._bibles().httpGet();
+System.out.println("Total bibles: " + bibles.getSize());
+    
+for (Bible bible : bibles.getElements()) {
+  System.out.println("Id: " + bible.getBibleId());
+  System.out.println("Name: " + bible.getName());
+  System.out.println("Language: " + bible.getLanguage());
+}</pre>
+					Notice that only fields that are part of response will be filled in the object. The first line shows how to send a request to /bibles with method GET. Now if you want to get a specific bible you can do lake that.
+					<br/><br/><pre>
+Bible bible = ApiMapService.instance()._bibles()._bibleId("1").httpGet();
+
+System.out.println("Id: " + bible.getBibleId());
+System.out.println("Name: " + bible.getName());
+System.out.println("Language: " + bible.getLanguage());
+System.out.println("Edition: " + bible.getEdition());
+System.out.println("Copyright: " + bible.getCopyright());
+System.out.println("Eletronic transcription source: " + bible.getEletronicTranscriptionSource());
+System.out.println("Eletronic transcription source URL: " + bible.getEletronicTranscriptionSourceUrl());
+System.out.println("Printed source: " + bible.getPrintedSource());
+System.out.println("URL: " + bible.getUrl());</pre>
+					When a service has a big number of elements to return, its response is broken into pages. If the pagination size is 25 and the service returns 100 elements then you'll have to make 4 requests passing the pagination index as parameter.
+					<br/><br/><pre>
+BooksService service = ApiMapService.instance()._bibles()._bibleId("1")._books();
+Books books = service.httpGet();
+int elementsPerPage = books.getElements().size();
+int pages = Math.round((float) books.getSize() / elementsPerPage);
+
+System.out.println("Total books: " + books.getSize());
+System.out.println("Total gotten: " + books.getElements().size());
+
+// Page one already gotten
+for (int page = 2; page &lt;= pages; page++) {
+  int startingFrom = (page * elementsPerPage) + 1;
+  Books entity = service.withParameters(new BooksParameters().withStart(startingFrom)).httpGet();
+  books.getElements().addAll((Collection&lt;? extends Book&gt;) entity.getElements());
+}
+
+System.out.println("Total gotten: " + books.getElements().size());</pre>
+					There's also a parameter called pages that is useful to shorten the pagination process. Be careful, this parameter is used to be short and its default is 3. So you could reduce about two requests instead of making four.
+					<br/><br/><pre>
+// ...
+Books entity = service.withParameters(
+    new BooksParameters().withStart(startingFrom).withPages(3)).httpGet();
+// ...</pre>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h4 class="text-center">Navigation by entities</h4>
+				<p class="text-justify">
+					The easiest way for consuming data is using navigation by entities. Let's take a look in the code bellow that fetch a verse navigating through all services.
+					<pre>
+List&lt;Bible&gt; bibles = ApiMapService.instance().fetchBibles();
+  for (Bible bible : bibles) {
+    if (!bible.getName().equals("Nova Vulgata")) {
+      continue;
+    }
+
+  for (Book book : bible.fetchBooks()) {
+    if (!book.getName().equals("genesis")) {
+      continue;
+    }
+
+    List&lt;Verse&gt; verses = book.fetchChapters().get(0).fetchVerses();
+    for (Verse verse : verses) {
+      Verse completeVerse = ApiMapService.instance()
+          ._verses()._verseId(verse.getVerseId().toString()).httpGet();
+      System.out.println(completeVerse.getText());
+    }
+  }
+}</pre>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
