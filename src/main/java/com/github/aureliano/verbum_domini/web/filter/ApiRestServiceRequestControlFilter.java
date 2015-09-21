@@ -8,18 +8,15 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.core.web.ServiceRequestController;
+import com.github.aureliano.verbum_domini.core.web.ServiceRequestStatus;
+import com.github.aureliano.verbum_domini.helper.WebHelper;
 
-@WebFilter(
-	filterName = "ApiRestServiceRequestControlFilter",
-	displayName = "API Rest Service Request Control Filter",
-	description = "Prevent user abuses",
-	urlPatterns = "/verbumdomini/apirest/*"
-)
 public class ApiRestServiceRequestControlFilter implements Filter {
 
 	private static final Logger logger = Logger.getLogger(ApiRestServiceRequestControlFilter.class);
@@ -37,8 +34,22 @@ public class ApiRestServiceRequestControlFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		
-		logger.warn("API Rest Service request control filter is disabled!");
-		chain.doFilter(request, response);
+		String ipAddress = WebHelper.retrieveIPAddress(request);
+		ServiceRequestStatus status = this.serviceRequestController.track(ipAddress);
+		
+		if (ServiceRequestStatus.SUCCESS.equals(status)) {
+			chain.doFilter(request, response);
+			this.serviceRequestController.removeRequestThread(ipAddress);
+		} else {
+			logger.warn("Request denied. User: " + ipAddress + " Code: " + status);
+			
+			StringBuilder message = new StringBuilder()
+				.append("User request denied by politics against abuses control. ")
+				.append(WebHelper.buildPreventingAbuseMessage(status));
+			this.serviceRequestController.removeRequestThread(ipAddress);
+			
+			throw new WebApplicationException(message.toString(), Response.Status.FORBIDDEN);
+		}
 	}
 
 	@Override
@@ -47,7 +58,7 @@ public class ApiRestServiceRequestControlFilter implements Filter {
 		
 		logger.info("Application configuration for preventing users abuses.");
 		logger.info("Maximum requests per hour: " + this.serviceRequestController.getMaxRequestsPerHour());
-		logger.info("Delay between requests: " + this.serviceRequestController.getDelayBetweenRequests());
+		logger.info("Interval between requests: " + this.serviceRequestController.getDelayBetweenRequests());
 		logger.info("Maximum threads per user: " + this.serviceRequestController.getMaxThreadsPerUser());
 	}
 }
