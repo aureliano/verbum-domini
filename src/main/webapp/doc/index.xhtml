@@ -10,7 +10,19 @@
 	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+	<ui:insert name="header">
+		<ui:include src="/template/header.xhtml"/>
+	</ui:insert>
+	
 	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<ol class="breadcrumb">
+					<li class="active">API doc.</li>
+				</ol>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8 text-center">
@@ -35,7 +47,7 @@
 				</p>
 			</div>
 		</div>
-    <div class="row">
+    	<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8 text-center">
 				<h3>Table of services</h3>
@@ -101,6 +113,14 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<ui:insert name="footer" >
+					<ui:include src="/template/footer.xhtml"/>
+				</ui:insert>
 			</div>
 		</div>
 	</div>

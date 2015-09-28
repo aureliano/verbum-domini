@@ -10,6 +10,10 @@
 	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+	<ui:insert name="header">
+		<ui:include src="/template/header.xhtml"/>
+	</ui:insert>
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1"></div>
@@ -119,6 +123,14 @@ List&lt;Bible&gt; bibles = ApiMapService.instance().fetchBibles();
   }
 }</pre>
 				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<ui:insert name="footer" >
+					<ui:include src="/template/footer.xhtml"/>
+				</ui:insert>
 			</div>
 		</div>
 	</div>
