@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta charset="UTF-8"/>
 	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="/verbumdomini/css/verbum-domini.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<ui:insert name="header">
@@ -42,13 +43,11 @@
 				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
 			</div>
 		</div>
-
-		<hr/>
-
-		<ui:insert name="footer" >
-			<ui:include src="/template/footer.xhtml"/>
-		</ui:insert>
 	</div>
+
+	<ui:insert name="footer" >
+		<ui:include src="/template/footer.xhtml"/>
+	</ui:insert>
 	
 	<script src="/verbumdomini/js/jquery-1.11.3.min.js"></script>
 	<script src="/verbumdomini/js/bootstrap.min.js"></script>

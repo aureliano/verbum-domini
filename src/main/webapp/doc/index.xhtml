@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta charset="UTF-8"/>
 	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="/verbumdomini/css/verbum-domini.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<ui:insert name="header">
@@ -115,14 +116,10 @@
 				</table>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-1"></div>
-			<div class="col-xs-8">
-				<ui:insert name="footer" >
-					<ui:include src="/template/footer.xhtml"/>
-				</ui:insert>
-			</div>
-		</div>
 	</div>
+	
+	<ui:insert name="footer" >
+		<ui:include src="/template/footer.xhtml"/>
+	</ui:insert>
 </body>
 </html>
