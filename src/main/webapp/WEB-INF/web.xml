@@ -29,6 +29,14 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   <filter>
+    <filter-name>Extensions Filter</filter-name>
+    <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Extensions Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+  <filter>
     <filter-name>ApiRestServiceRequestControlFilter</filter-name>
     <filter-class>com.github.aureliano.verbum_domini.web.filter.ApiRestServiceRequestControlFilter</filter-class>
     <display-name>API Rest Service Request Control Filter</display-name>

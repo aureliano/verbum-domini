@@ -158,6 +158,12 @@
 			<version>2.2.8</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.apache.myfaces.tomahawk</groupId>
+			<artifactId>tomahawk20</artifactId>
+			<version>1.1.14</version>
+		</dependency>
+		
 		<!-- Change this dependency if you want to use another database manager system -->
 		<!-- Uncomment this dependency if you want to use relational database
 		<dependency>
