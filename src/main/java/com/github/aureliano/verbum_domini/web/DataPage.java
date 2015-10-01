@@ -11,7 +11,7 @@ public class DataPage {
 	private Integer pages;
 	private PageRange pageRange;
 	
-	private List<Object> data;
+	private List<?> data;
 	private Integer total;
 	
 	private boolean configured;
@@ -156,11 +156,11 @@ public class DataPage {
 		return this.pageRange;
 	}
 	
-	public List<Object> getData() {
+	public List<?> getData() {
 		return this.data;
 	}
 	
-	public DataPage withData(List<Object> data) {
+	public DataPage withData(List<?> data) {
 		this.data = data;
 		return this;
 	}
