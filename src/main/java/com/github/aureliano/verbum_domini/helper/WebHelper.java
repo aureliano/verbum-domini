@@ -18,6 +18,7 @@ public final class WebHelper {
 
 	private static final String IP_ADDRESS_REGEX = "\\d+\\.\\d+\\.\\d+\\.\\d+";
 	public static final String USER_LOGIN_KEY = "user_login";
+	public static final String ACCESS_DENIED_KEY = "access_denied";
 	
 	private WebHelper() {
 		super();
@@ -91,6 +92,18 @@ public final class WebHelper {
 		}
 		
 		return session.getAttribute(key);
+	}
+	
+	public static Object removeSessionAttribute(String key) {
+		HttpSession session = getSession();
+		if (session == null) {
+			throw new VerbumDominiException("There is no session.");
+		}
+		
+		Object value = session.getAttribute(key);
+		session.removeAttribute(key);
+		
+		return value;
 	}
 	
 	private static HttpSession getSession() {
