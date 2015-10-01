@@ -18,6 +18,7 @@ import com.github.aureliano.verbum_domini.core.web.ServiceRequestStatus;
 public final class WebHelper {
 
 	private static final String IP_ADDRESS_REGEX = "\\d+\\.\\d+\\.\\d+\\.\\d+";
+	public static final String USER_LOGIN_KEY = "user_login";
 	
 	private WebHelper() {
 		super();

@@ -28,6 +28,15 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+  <servlet>    
+    <display-name>SignOutServlet</display-name>  
+    <servlet-name>SignOutServlet</servlet-name>  
+    <servlet-class>com.github.aureliano.verbum_domini.web.servlet.SignOutServlet</servlet-class>  
+  </servlet>  
+  <servlet-mapping>  
+    <servlet-name>SignOutServlet</servlet-name>  
+    <url-pattern>/SignOutServlet</url-pattern>  
+  </servlet-mapping> 
   <filter>
     <filter-name>Extensions Filter</filter-name>
     <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
