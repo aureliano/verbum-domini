@@ -77,10 +77,7 @@ public final class WebHelper {
 	}
 	
 	public static void setSessionAttribute(String key, Object value) {
-		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) context.getRequest();
-		
-		HttpSession session = request.getSession();
+		HttpSession session = getSession();
 		if (session == null) {
 			throw new VerbumDominiException("There is no session.");
 		}
@@ -89,15 +86,19 @@ public final class WebHelper {
 	}
 	
 	public static Object getSessionAttribute(String key) {
-		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) context.getRequest();
-		
-		HttpSession session = request.getSession();
+		HttpSession session = getSession();
 		if (session == null) {
 			throw new VerbumDominiException("There is no session.");
 		}
 		
 		return session.getAttribute(key);
+	}
+	
+	private static HttpSession getSession() {
+		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) context.getRequest();
+		
+		return request.getSession();
 	}
 	
 	protected static boolean checkIpAddress(String ip) {
