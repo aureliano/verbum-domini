@@ -49,11 +49,20 @@
     <filter-name>ApiRestServiceRequestControlFilter</filter-name>
     <filter-class>com.github.aureliano.verbum_domini.web.filter.ApiRestServiceRequestControlFilter</filter-class>
     <display-name>API Rest Service Request Control Filter</display-name>
-    <description>Filter for prevent user abuses</description>
+    <description>Filter to prevent user abuses</description>
   </filter>
   <filter-mapping>
     <filter-name>ApiRestServiceRequestControlFilter</filter-name>
     <url-pattern>/apirest/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>ClearHttpHeaderCacheFilter</filter-name>
+    <filter-class>com.github.aureliano.verbum_domini.web.filter.ClearHttpHeaderCacheFilter</filter-class>
+    <description>Filter to set HTTP header for clearing cache.</description>
+  </filter>
+  <filter-mapping>
+    <filter-name>ClearHttpHeaderCacheFilter</filter-name>
+    <url-pattern>/app/*</url-pattern>
   </filter-mapping>
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
