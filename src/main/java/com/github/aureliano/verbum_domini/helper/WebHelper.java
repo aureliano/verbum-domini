@@ -8,7 +8,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
@@ -61,10 +60,9 @@ public final class WebHelper {
 	
 	public static void sendRedirect(String url) {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		HttpServletResponse response = (HttpServletResponse) context.getResponse();
 		
 		try {
-			response.sendRedirect(url);
+			context.redirect(url);
 		} catch (IOException ex) {
 			throw new VerbumDominiException(ex);
 		}
