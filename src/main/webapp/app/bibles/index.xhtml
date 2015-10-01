@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<head>
+	<title>Verbum Domini - Bibles</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta charset="UTF-8"/>
+	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="/verbumdomini/css/verbum-domini.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<ui:insert name="header">
+		<ui:include src="/template/header.xhtml"/>
+	</ui:insert>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<ol class="breadcrumb">
+					<li>Bibles</li>
+				</ol>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h:form>
+					<h:dataTable value="#{biblesMB.dataPage.data}" var="bible" styleClass="table table-striped">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Name"/>
+							</f:facet>
+							<h:outputText value="#{bible.id}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Language"/>
+							</f:facet>
+							<h:outputText value="#{bible.number}" />
+						</h:column>
+					</h:dataTable>
+	
+					<nav>
+						<ul class="pagination">
+							<t:dataList value="#{biblesMB.dataPage.pageIndexes}" var="page">
+								<li>
+									<h:commandLink value="#{page}"/>
+								</li>
+							</t:dataList>
+						</ul>
+					</nav>
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+	<ui:insert name="footer" >
+		<ui:include src="/template/footer.xhtml"/>
+	</ui:insert>
+	
+	<script src="/verbumdomini/js/jquery-1.11.3.min.js"></script>
+	<script src="/verbumdomini/js/bootstrap.min.js"></script>
+</body>
+</html>
