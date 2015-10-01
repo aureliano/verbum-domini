@@ -88,6 +88,18 @@ public final class WebHelper {
 		session.setAttribute(key, value);
 	}
 	
+	public static Object getSessionAttribute(String key) {
+		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) context.getRequest();
+		
+		HttpSession session = request.getSession();
+		if (session == null) {
+			throw new VerbumDominiException("There is no session.");
+		}
+		
+		return session.getAttribute(key);
+	}
+	
 	protected static boolean checkIpAddress(String ip) {
 		return ((ip != null) && (!ip.trim().isEmpty()) && (ip.matches(IP_ADDRESS_REGEX)));
 	}
