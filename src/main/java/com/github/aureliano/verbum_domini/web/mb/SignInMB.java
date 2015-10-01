@@ -16,6 +16,7 @@ import com.github.aureliano.verbum_domini.web.bc.SignInBC;
 public class SignInMB {
 	
 	private static final Logger logger = Logger.getLogger(SignInMB.class);
+	private static final String USER_LOGIN_KEY = "user_login";
 
 	private String login;
 	private String password;
@@ -28,13 +29,17 @@ public class SignInMB {
 		List<FacesMessage> messages = SignInBC.authenticate(this.login, this.password);
 		if (messages.isEmpty()) {
 			logger.info("User " + this.login + " has just signed in.");
-			WebHelper.setSessionAttribute("user_login", this.login);
+			WebHelper.setSessionAttribute(USER_LOGIN_KEY, this.login);
 			WebHelper.sendRedirect("/verbumdomini/");
 			
 			return;
 		}
 		
 		WebHelper.addMessagesToContext(messages);
+	}
+	
+	public boolean isUserSignedIn() {
+		return WebHelper.getSessionAttribute(USER_LOGIN_KEY) != null;
 	}
 
 	public String getLogin() {
