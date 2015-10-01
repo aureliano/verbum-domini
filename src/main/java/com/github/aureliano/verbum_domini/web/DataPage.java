@@ -156,6 +156,19 @@ public class DataPage {
 		return this.pageRange;
 	}
 	
+	public Integer[] getPageIndexes() {
+		this.synchronizeAttributes();
+		
+		int range = (this.pageRange.getLast() - this.pageRange.getFirst()) + 1;
+		Integer[] indexes = new Integer[range];
+		
+		for (short i = 0; i < range; i++) {
+			indexes[i] = this.pageRange.getFirst() + i;
+		}
+		
+		return indexes;
+	}
+	
 	public List<?> getData() {
 		return this.data;
 	}
