@@ -64,6 +64,15 @@
     <filter-name>ClearHttpHeaderCacheFilter</filter-name>
     <url-pattern>/app/*</url-pattern>
   </filter-mapping>
+  <filter>
+    <filter-name>CheckUserAuthenticationFilter</filter-name>
+    <filter-class>com.github.aureliano.verbum_domini.web.filter.CheckUserAuthenticationFilter</filter-class>
+    <description>Check whether user is authenticated.</description>
+  </filter>
+  <filter-mapping>
+    <filter-name>CheckUserAuthenticationFilter</filter-name>
+    <url-pattern>/app/*</url-pattern>
+  </filter-mapping>
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.xhtml</param-value>

@@ -1,5 +1,6 @@
 package com.github.aureliano.verbum_domini.web.mb;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -24,12 +25,27 @@ public class SignInMB {
 		super();
 	}
 	
+	public void showAccessDeniedMessage() {
+		Object attr = WebHelper.removeSessionAttribute(WebHelper.ACCESS_DENIED_KEY);
+		if (attr != null) {
+			String message = "User authentication must be provided before accessing this resource.";
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message);
+			WebHelper.addMessagesToContext(Arrays.asList(fm));
+		}
+	}
+	
 	public void signIn() {
 		List<FacesMessage> messages = SignInBC.authenticate(this.login, this.password);
 		if (messages.isEmpty()) {
 			logger.info("User " + this.login + " has just signed in.");
 			WebHelper.setSessionAttribute(WebHelper.USER_LOGIN_KEY, this.login);
-			WebHelper.sendRedirect("/verbumdomini/");
+			
+			Object requestedUri = WebHelper.removeSessionAttribute("requestedUri");
+			if (requestedUri != null) {
+				WebHelper.sendRedirect(requestedUri.toString());
+			} else {
+				WebHelper.sendRedirect("/verbumdomini/");
+			}
 			
 			return;
 		}
