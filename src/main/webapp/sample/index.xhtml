@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+	<title>Verbum Domini - Build client application</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta charset="UTF-8"/>
+	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="/verbumdomini/css/verbum-domini.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<ui:insert name="header">
+		<ui:include src="/template/header.xhtml"/>
+	</ui:insert>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<ol class="breadcrumb">
+					<li class="active">Build client application</li>
+				</ol>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h3 class="text-center">Build client application</h3>
+				<p class="text-justify">
+					This section will lead you through some samples on how to build client applications for consuming API RESTFul services.
+				</p>
+
+				<h3 class="text-center">Basic usage</h3>
+				<p class="text-justify">
+					You don't need too much in order to get a quick start up.
+					For test purpose you can type any service address onto your web browser and you'll get back some resource.
+					Or you might prefer to use some utility for non-interactive download files like
+					<a href="https://www.gnu.org/software/wget/">GNU Wget</a> or <a href="http://curl.haxx.se/">cURL</a>.
+					Those utilities can be used for building <a href="https://en.wikipedia.org/wiki/Shell_script">shell scripts</a>
+					in UNIX-like systems or <a href="https://en.wikipedia.org/wiki/Batch_file">batch file</a> in Windows-like systems
+					in order to dynamically consume services. 
+				</p>
+				
+				<h4 class="text-center">Sample</h4>
+				<p class="text-justify">
+					<ul>
+						<li>
+							Wget<br/>Consume XML
+							<pre>wget --header="Accept: application/xml" http://server-host/verbumdomini/apirest/bibles</pre>
+							<br/>Consume JSON
+							<pre>wget --header="Accept: application/json" http://server-host/verbumdomini/apirest/bibles</pre>
+						</li>
+						<br/>
+						<li>
+							cURL<br/>Consume XML
+							<pre>curl --header "Accept: application/xml" -XGET http://localhost:9090/verbumdomini/apirest/bibles</pre>
+							<br/>Consume JSON
+							<pre>curl --header "Accept: application/json" -XGET http://localhost:9090/verbumdomini/apirest/bibles</pre>
+						</li>
+					</ul> 
+				</p>
+				
+				<h3 class="text-center">Build smart consumers</h3>
+				<p class="text-justify">
+					It is up to you to use any dynamic programming language in order to build smart client applications for consuming services.
+					Bellow there are some examples on how to start up using some well-known programming languages.
+					If you are a Java programmer you may be pleased to know this <a href="java-client-api.xhtml">java client API</a>.
+				</p>
+				
+				<h4 class="text-center">Sample</h4>
+				<p class="text-justify">
+					<ul>
+						<li><a href="java-sample.xhtml">Java</a></li>
+						<li><a href="python-sample.xhtml">Python</a></li>
+						<li><a href="ruby-sample.xhtml">Ruby</a></li>
+					</ul>
+				</p>
+			</div>
+		</div>
+		
+	</div>
+	
+	<ui:insert name="footer" >
+		<ui:include src="/template/footer.xhtml"/>
+	</ui:insert>
+</body>
+</html>
