@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.helper.WebHelper;
+import com.github.aureliano.verbum_domini.web.SessionKey;
 
 public class CheckUserAuthenticationFilter implements Filter {
 
@@ -32,7 +33,7 @@ public class CheckUserAuthenticationFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		Object user = session.getAttribute(WebHelper.USER_LOGIN_KEY);
+		Object user = session.getAttribute(SessionKey.USER_LOGIN.name());
 		if (user != null) {
 			chain.doFilter(request, response);
 			return;
@@ -42,8 +43,8 @@ public class CheckUserAuthenticationFilter implements Filter {
 		String uri = ((HttpServletRequest) request).getRequestURI();
 		logger.warn("User with IP address " + ipAddress + " tried to access secured resource " + uri);
 		
-		session.setAttribute(WebHelper.ACCESS_DENIED_KEY, true);
-		session.setAttribute("requestedUri", uri);
+		session.setAttribute(SessionKey.ACCESS_DENIED.name(), true);
+		session.setAttribute(SessionKey.REQUESTED_URI.name(), uri);
 		((HttpServletResponse) response).sendRedirect("/verbumdomini/sign-in.xhtml");
 	}
 

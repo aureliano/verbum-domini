@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.github.aureliano.verbum_domini.helper.WebHelper;
+import com.github.aureliano.verbum_domini.web.SessionKey;
 
 public class SignOutServlet extends HttpServlet {
 
@@ -24,7 +24,7 @@ public class SignOutServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Object user = session.getAttribute(WebHelper.USER_LOGIN_KEY);
+		Object user = session.getAttribute(SessionKey.USER_LOGIN.name());
 		
 		session.invalidate();
 		logger.info("User " + user + " has just signed out.");
