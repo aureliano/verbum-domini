@@ -28,4 +28,8 @@ public final class BiblesBC {
 			.withPageSize(pageSize)
 			.withPageIndex(pageIndex);
 	}
+	
+	public static BibleBean fetchBible(Integer id) {
+		return DaoFactory.createDao(BibleBean.class).load(id);
+	}
 }
