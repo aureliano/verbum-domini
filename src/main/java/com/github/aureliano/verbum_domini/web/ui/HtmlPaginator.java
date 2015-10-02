@@ -53,7 +53,7 @@ public class HtmlPaginator extends UIComponentBase {
 					.append("</a></li>");
 			} else {
 				tag
-					.append("<li><a href=\"#\">")
+					.append("<li><a href=\"?page=" + index + "\">")
 					.append(index)
 					.append("</a></li>");
 			}
@@ -67,7 +67,7 @@ public class HtmlPaginator extends UIComponentBase {
 		if (dataPage.isHavePreviousPageRange()) {
 			tag
 			.append(">")
-			.append("<a href=\"#\">");
+			.append("<a href=\"?page=" + dataPage.getPreviousPageBlock() + "\">");
 		} else {
 			tag
 			.append(" class=\"disabled\">")
@@ -80,7 +80,7 @@ public class HtmlPaginator extends UIComponentBase {
 		if (dataPage.isHavePreviousPage()) {
 			tag
 			.append(">")
-			.append("<a href=\"#\">");
+			.append("<a href=\"?page=" + dataPage.getPreviousPage() + "\">");
 		} else {
 			tag
 			.append(" class=\"disabled\">")
@@ -97,7 +97,7 @@ public class HtmlPaginator extends UIComponentBase {
 		if (dataPage.isHaveNextPageRange()) {
 			tag
 			.append(">")
-			.append("<a href=\"#\">");
+			.append("<a href=\"?page=" + dataPage.getNextPageBlock() + "\">");
 		} else {
 			tag
 			.append(" class=\"disabled\">")
@@ -110,7 +110,7 @@ public class HtmlPaginator extends UIComponentBase {
 		if (dataPage.isHaveNextPage()) {
 			tag
 			.append(">")
-			.append("<a href=\"#\">");
+			.append("<a href=\"?page=" + dataPage.getNextPage() + "\">");
 		} else {
 			tag
 			.append(" class=\"disabled\">")
