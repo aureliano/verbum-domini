@@ -13,15 +13,15 @@ import org.apache.commons.lang.StringUtils;
 import com.github.aureliano.verbum_domini.web.DataPage;
 import com.github.aureliano.verbum_domini.web.bc.BiblesBC;
 
-@ManagedBean(name = "biblesMB")
+@ManagedBean(name = "bibleListMB")
 @ViewScoped
-public class BiblesMB {
+public class BibleListMB {
 
 	private static final Pattern PATTERN = Pattern.compile("[?&]?page=(\\d+)");
 	
 	private DataPage dataPage;
 	
-	public BiblesMB() {
+	public BibleListMB() {
 		super();
 	}
 	

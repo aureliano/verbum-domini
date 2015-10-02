@@ -38,11 +38,11 @@
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
 				<f:metadata>
-					<f:event type="preRenderView" listener="#{biblesMB.preRender}" />
+					<f:event type="preRenderView" listener="#{bibleListMB.preRender}" />
 				</f:metadata>
 
 				<h:form>
-					<h:dataTable value="#{biblesMB.dataPage.data}" var="bible" styleClass="table table-striped">
+					<h:dataTable value="#{bibleListMB.dataPage.data}" var="bible" styleClass="table table-striped">
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Name"/>
@@ -61,13 +61,13 @@
 							<f:facet name="header">
 								<h:outputText value=""/>
 							</f:facet>
-							<h:commandLink value="Detail" action="#{biblesMB.detail}" styleClass="btn btn-primary">
+							<h:commandLink value="Detail" action="#{bibleListMB.detail}" styleClass="btn btn-primary">
 								<f:param name="bible.id" value="#{bible.id}"/>
 							</h:commandLink>
 						</h:column>
 					</h:dataTable>
 	
-					<v:paginator dataPage="#{biblesMB.dataPage}"/>
+					<v:paginator dataPage="#{bibleListMB.dataPage}"/>
 				</h:form>
 			</div>
 		</div>
