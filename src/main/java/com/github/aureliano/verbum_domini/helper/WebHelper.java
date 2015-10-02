@@ -104,11 +104,20 @@ public final class WebHelper {
 		return value;
 	}
 	
+	public static Object getRequestParameter(String key) {
+		return getRequest().getParameter(key);
+	}
+	
 	private static HttpSession getSession() {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) context.getRequest();
 		
 		return request.getSession();
+	}
+	
+	private static HttpServletRequest getRequest() {
+		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+		return (HttpServletRequest) context.getRequest();
 	}
 	
 	protected static boolean checkIpAddress(String ip) {
