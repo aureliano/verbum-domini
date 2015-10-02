@@ -3,7 +3,8 @@
 <html xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:v="http://xmlns.jcp.org/jsf/component">
 <head>
 	<title>Verbum Domini - Bibles</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -36,31 +37,37 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
+				  <f:metadata>
+			        <f:event type="preRenderView" listener="#{biblesMB.preRender}" />
+			    </f:metadata>
+    
 				<h:form>
 					<h:dataTable value="#{biblesMB.dataPage.data}" var="bible" styleClass="table table-striped">
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Name"/>
 							</f:facet>
-							<h:outputText value="#{bible.id}" />
+							<h:outputText value="#{bible.name}"/>
 						</h:column>
+						
 						<h:column>
 							<f:facet name="header">
 								<h:outputText value="Language"/>
 							</f:facet>
-							<h:outputText value="#{bible.number}" />
+							<h:outputText value="#{bible.language}"/>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value=""/>
+							</f:facet>
+							<h:commandLink value="Detail" action="#{biblesMB.detail}" styleClass="btn btn-primary">
+								<f:param name="bible.id" value="#{bible.id}"/>
+							</h:commandLink>
 						</h:column>
 					</h:dataTable>
 	
-					<nav>
-						<ul class="pagination">
-							<t:dataList value="#{biblesMB.dataPage.pageIndexes}" var="page">
-								<li>
-									<h:commandLink value="#{page}"/>
-								</li>
-							</t:dataList>
-						</ul>
-					</nav>
+					<v:paginator dataPage="#{biblesMB.dataPage}"/>
 				</h:form>
 			</div>
 		</div>
