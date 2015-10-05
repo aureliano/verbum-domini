@@ -43,9 +43,49 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-8">
-				<ui:insert name="pageMessages">
-					<ui:include src="/template/page-messages.xhtml"/>
-				</ui:insert>
+				<div class="col-md-4">
+					<h:outputLabel for="server" value="Server"/>
+				</div>
+				<div class="col-md-8">
+					<h:outputText id="server" value="#{errorMB.server}"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-8">
+				<div class="col-md-4">
+					<h:outputLabel for="uuid" value="UUID"/>
+				</div>
+				<div class="col-md-8">
+					<h:outputText id="uuid" value="#{errorMB.uuid}"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-8">
+				<div class="col-md-4">
+					<h:outputLabel for="timestamp" value="Server date and time"/>
+				</div>
+				<div class="col-md-8">
+					<h:outputText id="timestamp" value="#{errorMB.serverDatetime}">
+						<f:converter converterId="defaultDateTimeConverter"/>
+					</h:outputText>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-8">
+				<div class="alert alert-danger" role="alert">
+					<ui:repeat value="#{errorMB.errors}" var="error">
+						<h:outputText value="#{error}"/><br/>
+					</ui:repeat>
+				</div>
 			</div>
 		</div>
 	</div>

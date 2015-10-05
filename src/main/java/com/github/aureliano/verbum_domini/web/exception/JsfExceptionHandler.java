@@ -1,10 +1,10 @@
 package com.github.aureliano.verbum_domini.web.exception;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
@@ -12,6 +12,9 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 
 import org.apache.log4j.Logger;
+
+import com.github.aureliano.verbum_domini.helper.WebHelper;
+import com.github.aureliano.verbum_domini.web.SessionKey;
 
 public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 
@@ -38,10 +41,9 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 			final FacesContext fc = FacesContext.getCurrentInstance();
 			
 			try {
-				logger.error(throwable.getMessage(), throwable);
-
-				FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, throwable.getMessage(), throwable.getMessage());
-				fc.addMessage(null, message);
+				String message = throwable.getMessage();
+				logger.error(message, throwable);
+				WebHelper.setSessionAttribute(SessionKey.ERROR_MESSAGES.name(), Arrays.asList(message));
 				
 				fc.getExternalContext().dispatch("/error.xhtml");
 				fc.renderResponse();
