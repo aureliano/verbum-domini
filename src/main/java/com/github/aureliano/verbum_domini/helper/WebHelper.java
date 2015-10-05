@@ -1,6 +1,7 @@
 package com.github.aureliano.verbum_domini.helper;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -10,12 +11,15 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.core.web.ServiceRequestController;
 import com.github.aureliano.verbum_domini.core.web.ServiceRequestStatus;
 
 public final class WebHelper {
 
+	private static final Logger logger = Logger.getLogger(WebHelper.class);
 	private static final String IP_ADDRESS_REGEX = "\\d+\\.\\d+\\.\\d+\\.\\d+";
 	
 	private WebHelper() {
@@ -44,6 +48,20 @@ public final class WebHelper {
 		}
 		
 		throw new VerbumDominiException("Could not find a valid client IP address. Expected to match " + IP_ADDRESS_REGEX);
+	}
+	
+	public static String getServerIpAddress() {
+		String host = null;
+		
+		try {
+			InetAddress addr = InetAddress.getLocalHost();
+			host = addr.getHostAddress();
+		} catch (Exception ex) {
+			logger.warn("Not able to get server host address.", ex);
+			host = "unknown";
+		}
+
+		return host;
 	}
 	
 	public static String buildPreventingAbuseMessage(ServiceRequestStatus status) {
