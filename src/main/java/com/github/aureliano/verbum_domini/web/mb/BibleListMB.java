@@ -34,6 +34,10 @@ public class BibleListMB {
 		return "BIBLE_DETAIL";
 	}
 	
+	public String add() {
+		return "BIBLE_ADD";
+	}
+	
 	public DataPage getDataPage() {
 		return this.dataPage;
 	}

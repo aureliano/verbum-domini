@@ -17,6 +17,10 @@
 		<ui:include src="/template/header.xhtml"/>
 	</ui:insert>
 	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{bibleListMB.preRender}" />
+	</f:metadata>
+				
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1"></div>
@@ -33,44 +37,47 @@
 				</ol>
 			</div>
 		</div>
+
+		<h:form>		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h:dataTable value="#{bibleListMB.dataPage.data}" var="bible" styleClass="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name"/>
+						</f:facet>
+						<h:outputText value="#{bible.name}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Language"/>
+						</f:facet>
+						<h:outputText value="#{bible.language}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:commandLink value="Detail" action="#{bibleListMB.detail}" styleClass="btn btn-primary">
+							<f:param name="bible.id" value="#{bible.id}"/>
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+
+				<v:paginator dataPage="#{bibleListMB.dataPage}"/>
+			</div>
+		</div>
 		
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<f:metadata>
-					<f:event type="preRenderView" listener="#{bibleListMB.preRender}" />
-				</f:metadata>
-
-				<h:form>
-					<h:dataTable value="#{bibleListMB.dataPage.data}" var="bible" styleClass="table table-striped">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Name"/>
-							</f:facet>
-							<h:outputText value="#{bible.name}"/>
-						</h:column>
-						
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="Language"/>
-							</f:facet>
-							<h:outputText value="#{bible.language}"/>
-						</h:column>
-						
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value=""/>
-							</f:facet>
-							<h:commandLink value="Detail" action="#{bibleListMB.detail}" styleClass="btn btn-primary">
-								<f:param name="bible.id" value="#{bible.id}"/>
-							</h:commandLink>
-						</h:column>
-					</h:dataTable>
-	
-					<v:paginator dataPage="#{bibleListMB.dataPage}"/>
-				</h:form>
+				<h:commandLink value="Add" action="#{bibleListMB.add}" styleClass="btn btn-primary"/>
 			</div>
 		</div>
+		</h:form>
 	</div>
 
 	<ui:insert name="footer" >

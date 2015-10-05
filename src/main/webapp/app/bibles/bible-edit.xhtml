@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:v="http://xmlns.jcp.org/jsf/component">
+<head>
+	<title>Verbum Domini - Bibles</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta charset="UTF-8"/>
+	<link href="/verbumdomini/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="/verbumdomini/css/verbum-domini.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<ui:insert name="header">
+		<ui:include src="/template/header.xhtml"/>
+	</ui:insert>
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{bibleEditMB.preRender}" />
+	</f:metadata>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<ol class="breadcrumb">
+					<li><a href="index.xhtml">Bibles</a></li>
+					<li class="active">Add</li>
+				</ol>
+			</div>
+		</div>
+		
+		<h:form styleClass="form-horizontal">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleName" value="Name"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleName" value="#{bibleEditMB.bible.name}" styleClass="form-control"
+						placeholder="Name" required="true" autofocus="true" maxlength="100"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleLanguage" value="Language"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleLanguage" value="#{bibleEditMB.bible.language}" styleClass="form-control"
+						placeholder="Language" required="true" maxlength="50"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleUrl" value="URL"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleUrl" value="#{bibleEditMB.bible.url}" styleClass="form-control"
+						placeholder="URL" maxlength="200"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleEdition" value="Edition"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleEdition" value="#{bibleEditMB.bible.edition}" styleClass="form-control" placeholder="Edition"
+						 maxlength="100"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="biblePrintedSource" value="Printed source"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputTextarea id="biblePrintedSource" value="#{bibleEditMB.bible.printedSource}" rows="5" styleClass="form-control"
+						placeholder="Printed source" maxlength="300"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleEletronicTranscriptionSource" value="Eletronic transcription source"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleEletronicTranscriptionSource" value="#{bibleEditMB.bible.eletronicTranscriptionSource}"
+						styleClass="form-control" placeholder="Eletronic transcription source" maxlength="200"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleEletronicTranscriptionSourceUrl" value="Eletronic transcription source URL"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleEletronicTranscriptionSourceUrl" value="#{bibleEditMB.bible.eletronicTranscriptionSourceUrl}"
+						styleClass="form-control" placeholder="Eletronic transcription source URL" maxlength="200"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<div class="col-md-4">
+					<h:outputLabel for="bibleCopyright" value="Copyright"/>
+				</div>
+				<div class="col-md-8">
+					<h:inputText id="bibleCopyright" value="#{bibleEditMB.bible.copyright}" styleClass="form-control"
+						placeholder="Copyright" maxlength="200"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h:commandLink value="Save" action="#{bibleEditMB.save}" styleClass="btn btn-primary"/>
+			</div>
+		</div>
+		</h:form>
+	</div>
+
+	<ui:insert name="footer" >
+		<ui:include src="/template/footer.xhtml"/>
+	</ui:insert>
+	
+	<script src="/verbumdomini/js/jquery-1.11.3.min.js"></script>
+	<script src="/verbumdomini/js/bootstrap.min.js"></script>
+</body>
+</html>
