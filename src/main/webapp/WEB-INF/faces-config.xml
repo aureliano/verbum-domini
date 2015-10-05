@@ -17,4 +17,15 @@
 			<to-view-id>/app/bibles/bible-edit.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<factory>
+		<exception-handler-factory>
+			com.github.aureliano.verbum_domini.web.exception.JsfExceptionHandlerFactory
+		</exception-handler-factory>
+	</factory>
+	
+	<converter>
+		<converter-id>defaultDateTimeConverter</converter-id>
+		<converter-class>com.github.aureliano.verbum_domini.web.converter.DefaultDateTimeConverter</converter-class>
+	</converter>
 </faces-config>
