@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.web.exception;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -45,10 +44,8 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 				logger.error(message, throwable);
 				WebHelper.setSessionAttribute(SessionKey.ERROR_MESSAGES.name(), Arrays.asList(message));
 				
-				fc.getExternalContext().dispatch("/error.xhtml");
+				WebHelper.sendRedirect("/verbumdomini/error.xhtml");
 				fc.renderResponse();
-			} catch (IOException ex) {
-				logger.fatal("Failed to forward to error page.", ex);
 			} finally {
 				iterator.remove();
 			}
