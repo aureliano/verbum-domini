@@ -3,6 +3,7 @@ package com.github.aureliano.verbum_domini.web.mb;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -26,6 +27,7 @@ public class SignInMB {
 		super();
 	}
 	
+	@PostConstruct
 	public void showAccessDeniedMessage() {
 		Object attr = WebHelper.removeSessionAttribute(SessionKey.ACCESS_DENIED.name());
 		if (attr != null) {

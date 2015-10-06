@@ -2,7 +2,8 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:i="http://xmlns.jcp.org/jsf/passthrough">
 <head>
 	<title>Verbum Domini - Sign in</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -21,9 +22,6 @@
 	</style>
 </head>
 <body>
-<f:view>
-	<f:event listener="#{signInMB.showAccessDeniedMessage}" type="preRenderView"/>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4"></div>
@@ -59,10 +57,10 @@
 				<h:form class="form-signin">
 					<h2 class="form-signin-heading">Please sign in</h2>
 					<label for="login" class="sr-only">User id</label>
-					<h:inputText value="#{signInMB.login}" id="login" class="form-control" placeholder="User id" required="true" autofocus="true"/>
+					<h:inputText value="#{signInMB.login}" id="login" class="form-control" i:placeholder="User id" i:required="true" i:autofocus="true"/>
 					
 					<label for="inputPassword" class="sr-only">Password</label>
-					<h:inputSecret value="#{signInMB.password}" id="inputPassword" class="form-control" placeholder="Password" required="true"/>
+					<h:inputSecret value="#{signInMB.password}" id="inputPassword" class="form-control" i:placeholder="Password" i:required="true"/>
 					
 					<h:commandButton class="btn btn-lg btn-primary btn-block" action="#{signInMB.signIn}" value="Sign in"/>
 				</h:form>
@@ -73,6 +71,5 @@
 	<ui:insert name="footer" >
 		<ui:include src="/template/footer.xhtml"/>
 	</ui:insert>
-</f:view>
 </body>
 </html>
