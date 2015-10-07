@@ -22,6 +22,10 @@ public class BibleDetailMB {
 		Integer id = this.bibleId();
 		this.bible = BibleBC.fetchBible(id);
 	}
+	
+	public String edit() {
+		return "BIBLE_EDIT";
+	}
 
 	public BibleBean getBible() {
 		return bible;

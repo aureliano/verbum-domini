@@ -135,6 +135,17 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h:form>
+				<h:commandLink value="Edit" action="#{bibleDetailMB.edit}" styleClass="btn btn-primary">
+					<f:param name="bible.id" value="#{bibleDetailMB.bible.id}"/>
+				</h:commandLink>
+				</h:form>
+			</div>
+		</div>
 	</div>
 
 	<ui:insert name="footer" >
