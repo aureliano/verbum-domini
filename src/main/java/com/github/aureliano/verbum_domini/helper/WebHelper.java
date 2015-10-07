@@ -96,6 +96,10 @@ public final class WebHelper {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 	
+	public static void addMessageInfoToContext(String message) {
+		addMessageToContext(new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+	}
+	
 	public static void setSessionAttribute(String key, Object value) {
 		HttpSession session = getSession();
 		if (session == null) {
