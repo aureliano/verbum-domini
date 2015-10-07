@@ -138,7 +138,7 @@ public final class WebHelper {
 	public static void showFacesMessageIfExist() {
 		Object message = WebHelper.removeSessionAttribute(SessionKey.INFO_MESSAGE.name());
 		if (message != null) {
-			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, message.toString(), message.toString());
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, message.toString(), message.toString());
 			WebHelper.addMessageToContext(fm);
 		}
 	}
