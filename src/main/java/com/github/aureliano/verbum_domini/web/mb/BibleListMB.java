@@ -3,6 +3,7 @@ package com.github.aureliano.verbum_domini.web.mb;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -25,6 +26,7 @@ public class BibleListMB {
 		super();
 	}
 	
+	@PostConstruct
 	public void preRender() {
 		Integer page = this.currentPage();
 		this.dataPage = BibleBC.createDataPage(null, page);
