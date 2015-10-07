@@ -5,9 +5,9 @@ import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.web.DataPage;
 
-public final class BiblesBC {
+public final class BibleBC {
 
-	private BiblesBC() {
+	private BibleBC() {
 		super();
 	}
 	
