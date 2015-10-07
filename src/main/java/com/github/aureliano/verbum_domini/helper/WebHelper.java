@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.core.web.ServiceRequestController;
 import com.github.aureliano.verbum_domini.core.web.ServiceRequestStatus;
+import com.github.aureliano.verbum_domini.web.SessionKey;
 
 public final class WebHelper {
 
@@ -132,6 +133,14 @@ public final class WebHelper {
 	
 	public static Object getRequestParameter(String key) {
 		return getRequest().getParameter(key);
+	}
+	
+	public static void showFacesMessageIfExist() {
+		Object message = WebHelper.removeSessionAttribute(SessionKey.INFO_MESSAGE.name());
+		if (message != null) {
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, message.toString(), message.toString());
+			WebHelper.addMessageToContext(fm);
+		}
 	}
 	
 	private static HttpSession getSession() {
