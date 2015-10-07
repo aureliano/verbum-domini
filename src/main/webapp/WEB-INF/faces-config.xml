@@ -21,6 +21,11 @@
 			<from-outcome>BIBLE_EDIT</from-outcome>
 			<to-view-id>/app/bibles/bible-edit.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>BIBLE_BOOKS</from-outcome>
+			<to-view-id>/app/books/index.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<factory>

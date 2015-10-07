@@ -27,6 +27,10 @@ public class BibleDetailMB {
 	public String edit() {
 		return NavigationViewKey.BIBLE_EDIT.name();
 	}
+	
+	public String listBooks() {
+		return NavigationViewKey.BIBLE_BOOKS.name();
+	}
 
 	public BibleBean getBible() {
 		return bible;

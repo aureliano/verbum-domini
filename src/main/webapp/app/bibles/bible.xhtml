@@ -140,9 +140,19 @@
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
 				<h:form>
-				<h:commandLink value="Edit" action="#{bibleDetailMB.edit}" styleClass="btn btn-primary">
-					<f:param name="bible.id" value="#{bibleDetailMB.bible.id}"/>
-				</h:commandLink>
+				<div class="row">
+					<div class="col-xs-1">
+						<h:commandLink value="Edit" action="#{bibleDetailMB.edit}" styleClass="btn btn-primary">
+							<f:param name="bible.id" value="#{bibleDetailMB.bible.id}"/>
+						</h:commandLink>
+					</div>
+					
+					<div class="col-xs-1">
+						<h:commandLink value="Books" action="#{bibleDetailMB.listBooks}" styleClass="btn btn-primary">
+							<f:param name="bible.id" value="#{bibleDetailMB.bible.id}"/>
+						</h:commandLink>
+					</div>
+				</div>
 				</h:form>
 			</div>
 		</div>
