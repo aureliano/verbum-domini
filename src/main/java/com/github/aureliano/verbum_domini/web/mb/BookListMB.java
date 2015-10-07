@@ -5,7 +5,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
-import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.DataPage;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
@@ -23,7 +22,7 @@ public class BookListMB {
 	
 	@PostConstruct
 	public void preRender() {
-		Integer id = this.bibleId();
+		Integer id = WebHelper.getEntityIdFromRequest("bible.id");
 		this.bible = BibleBC.fetchBible(id);
 		
 		Integer page = WebHelper.getCurrentDataPage();
@@ -44,14 +43,5 @@ public class BookListMB {
 
 	public void setDataPage(DataPage dataPage) {
 		this.dataPage = dataPage;
-	}
-	
-	private Integer bibleId() {
-		Object id = WebHelper.getRequestParameter("bible.id");
-		if (id == null) {
-			throw new VerbumDominiException("Could not find any bible id in the request.");
-		}
-		
-		return Integer.parseInt(id.toString());
 	}
 }
