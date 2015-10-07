@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.DataPage;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
@@ -28,6 +29,7 @@ public class BibleListMB {
 	
 	@PostConstruct
 	public void preRender() {
+		WebHelper.showFacesMessageIfExist();
 		Integer page = this.currentPage();
 		this.dataPage = BibleBC.createDataPage(null, page);
 	}
