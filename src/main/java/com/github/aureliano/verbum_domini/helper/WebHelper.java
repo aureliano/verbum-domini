@@ -3,6 +3,8 @@ package com.github.aureliano.verbum_domini.helper;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -11,6 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
@@ -22,6 +25,7 @@ public final class WebHelper {
 
 	private static final Logger logger = Logger.getLogger(WebHelper.class);
 	private static final String IP_ADDRESS_REGEX = "\\d+\\.\\d+\\.\\d+\\.\\d+";
+	private static final Pattern PATTERN = Pattern.compile("[?&]?page=(\\d+)");
 	
 	private WebHelper() {
 		super();
@@ -141,6 +145,22 @@ public final class WebHelper {
 			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, message.toString(), message.toString());
 			WebHelper.addMessageToContext(fm);
 		}
+	}
+	
+	public static Integer getCurrentDataPage() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		if (StringUtils.isEmpty(request.getQueryString())) {
+			return 1;
+		}
+		
+		Matcher matcher = PATTERN.matcher(request.getQueryString());
+		
+		String page = null;
+		if (matcher.find()) {
+			page = matcher.group(1);
+		}
+		
+		return (page != null) ? Integer.parseInt(page) : 1;
 	}
 	
 	private static HttpSession getSession() {
