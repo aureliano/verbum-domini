@@ -163,6 +163,15 @@ public final class WebHelper {
 		return (page != null) ? Integer.parseInt(page) : 1;
 	}
 	
+	public static Integer getEntityIdFromRequest(String key) {
+		Object id = WebHelper.getRequestParameter(key);
+		if (id == null) {
+			throw new VerbumDominiException("Could not find " + key + " parameter in request.");
+		}
+		
+		return Integer.parseInt(id.toString());
+	}
+	
 	private static HttpSession getSession() {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		HttpServletRequest request = (HttpServletRequest) context.getRequest();
