@@ -6,7 +6,7 @@ import javax.faces.bean.RequestScoped;
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
-import com.github.aureliano.verbum_domini.web.bc.BiblesBC;
+import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
 @ManagedBean
 @RequestScoped
@@ -20,7 +20,7 @@ public class BibleDetailMB {
 	
 	public void preRender() {
 		Integer id = this.bibleId();
-		this.bible = BiblesBC.fetchBible(id);
+		this.bible = BibleBC.fetchBible(id);
 	}
 
 	public BibleBean getBible() {

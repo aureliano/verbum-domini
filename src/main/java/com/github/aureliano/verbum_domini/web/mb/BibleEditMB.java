@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
-import com.github.aureliano.verbum_domini.web.bc.BiblesBC;
+import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
 @ManagedBean(name = "bibleEditMB")
 @ViewScoped
@@ -27,7 +27,7 @@ public class BibleEditMB {
 	public void preRender() {
 		Integer id = this.bibleId();
 		logger.info("Preparing to edit bible with id " + id);
-		this.bible = (id != null) ? BiblesBC.fetchBible(id) : new BibleBeanImpl();
+		this.bible = (id != null) ? BibleBC.fetchBible(id) : new BibleBeanImpl();
 	}
 	
 	public void save() {

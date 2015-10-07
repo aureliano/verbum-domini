@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 
 import com.github.aureliano.verbum_domini.web.DataPage;
-import com.github.aureliano.verbum_domini.web.bc.BiblesBC;
+import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
 @ManagedBean(name = "bibleListMB")
 @ViewScoped
@@ -27,7 +27,7 @@ public class BibleListMB {
 	
 	public void preRender() {
 		Integer page = this.currentPage();
-		this.dataPage = BiblesBC.createDataPage(null, page);
+		this.dataPage = BibleBC.createDataPage(null, page);
 	}
 	
 	public String detail() {
