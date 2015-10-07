@@ -80,6 +80,9 @@
   <listener>
     <listener-class>com.github.aureliano.verbum_domini.web.DatabaseConnectionServletContextListener</listener-class>
   </listener>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
   <context-param>
     <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
     <param-value>true</param-value>
