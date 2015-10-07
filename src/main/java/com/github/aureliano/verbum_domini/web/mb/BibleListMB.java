@@ -1,16 +1,10 @@
 package com.github.aureliano.verbum_domini.web.mb;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
-
+import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.DataPage;
 import com.github.aureliano.verbum_domini.web.NavigationViewKey;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
@@ -18,8 +12,6 @@ import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 @ManagedBean(name = "bibleListMB")
 @ViewScoped
 public class BibleListMB {
-
-	private static final Pattern PATTERN = Pattern.compile("[?&]?page=(\\d+)");
 	
 	private DataPage dataPage;
 	
@@ -29,7 +21,7 @@ public class BibleListMB {
 	
 	@PostConstruct
 	public void preRender() {
-		Integer page = this.currentPage();
+		Integer page = WebHelper.getCurrentDataPage();
 		this.dataPage = BibleBC.createDataPage(null, page);
 	}
 	
@@ -47,21 +39,5 @@ public class BibleListMB {
 	
 	public void setDataPage(DataPage dataPage) {
 		this.dataPage = dataPage;
-	}
-	
-	private Integer currentPage() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		if (StringUtils.isEmpty(request.getQueryString())) {
-			return 1;
-		}
-		
-		Matcher matcher = PATTERN.matcher(request.getQueryString());
-		
-		String page = null;
-		if (matcher.find()) {
-			page = matcher.group(1);
-		}
-		
-		return (page != null) ? Integer.parseInt(page) : 1;
 	}
 }
