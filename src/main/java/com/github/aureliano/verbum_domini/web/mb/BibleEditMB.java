@@ -3,12 +3,14 @@ package com.github.aureliano.verbum_domini.web.mb;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
+import javax.validation.ValidationException;
 
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
+import com.github.aureliano.verbum_domini.web.SessionKey;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
 @ManagedBean(name = "bibleEditMB")
@@ -31,7 +33,15 @@ public class BibleEditMB {
 	}
 	
 	public void save() {
-		logger.info("Saving bible with id " + this.bible.getId());
+		try {
+			BibleBC.save(this.bible);
+			WebHelper.setSessionAttribute(SessionKey.INFO_MESSAGE.name(), "Bible saved successfuly.");
+			logger.info("Bible with id " + this.bible.getId() + " saved successfuly.");
+			
+			WebHelper.sendRedirect("/verbumdomini/app/bibles");
+		} catch (ValidationException ex) {
+			logger.warn("Bible bean validation has failed.");
+		}
 	}
 
 	public BibleBean getBible() {
