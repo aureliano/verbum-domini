@@ -6,6 +6,7 @@ import javax.faces.bean.RequestScoped;
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
+import com.github.aureliano.verbum_domini.web.NavigationViewKey;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
 @ManagedBean
@@ -24,7 +25,7 @@ public class BibleDetailMB {
 	}
 	
 	public String edit() {
-		return "BIBLE_EDIT";
+		return NavigationViewKey.BIBLE_EDIT.name();
 	}
 
 	public BibleBean getBible() {

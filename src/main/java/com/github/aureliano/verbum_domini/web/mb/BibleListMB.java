@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 
 import com.github.aureliano.verbum_domini.web.DataPage;
+import com.github.aureliano.verbum_domini.web.NavigationViewKey;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
 
 @ManagedBean(name = "bibleListMB")
@@ -33,11 +34,11 @@ public class BibleListMB {
 	}
 	
 	public String detail() {
-		return "BIBLE_DETAIL";
+		return NavigationViewKey.BIBLE_DETAIL.name();
 	}
 	
 	public String add() {
-		return "BIBLE_ADD";
+		return NavigationViewKey.BIBLE_ADD.name();
 	}
 	
 	public DataPage getDataPage() {
