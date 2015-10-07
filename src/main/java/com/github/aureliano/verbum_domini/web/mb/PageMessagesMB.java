@@ -6,12 +6,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import com.github.aureliano.verbum_domini.helper.WebHelper;
+
 @ManagedBean(name = "pageMessagesMB")
 @RequestScoped
 public class PageMessagesMB {
 
 	public PageMessagesMB() {
 		super();
+	}
+	
+	public void showFacesMessageIfExist() {
+		WebHelper.showFacesMessageIfExist();
 	}
 	
 	public String getAlertStyleClass() {
