@@ -1,5 +1,7 @@
 package com.github.aureliano.verbum_domini.web.bc;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
@@ -32,10 +34,10 @@ public final class BookBC {
 	
 	public static BookBean fetchBook(Integer id) {
 		BookBean book = DaoFactory.createDao(BookBean.class).load(id);
-		//if (book.getBible() != null && book.getName() == null) {
+		if (book.getBible() != null && StringUtils.isEmpty(book.getBible().getName())) {
 			BibleBean bible = BibleBC.fetchBible(book.getBible().getId());
 			book.setBible(bible);
-		//}
+		}
 		
 		return book;
 	}
