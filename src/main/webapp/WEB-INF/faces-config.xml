@@ -31,6 +31,11 @@
 			<from-outcome>BOOK_DETAIL</from-outcome>
 			<to-view-id>/app/books/book.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>BOOK_EDIT</from-outcome>
+			<to-view-id>/app/books/book-edit.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<factory>

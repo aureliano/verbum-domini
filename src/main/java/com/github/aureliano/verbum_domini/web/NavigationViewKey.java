@@ -6,5 +6,6 @@ public enum NavigationViewKey {
 	BIBLE_ADD,
 	BIBLE_EDIT,
 	BIBLE_BOOKS,
-	BOOK_DETAIL
+	BOOK_DETAIL,
+	BOOK_EDIT;
 }

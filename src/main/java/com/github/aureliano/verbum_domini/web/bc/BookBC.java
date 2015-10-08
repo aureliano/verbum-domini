@@ -1,11 +1,22 @@
 package com.github.aureliano.verbum_domini.web.bc;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.validation.ValidationException;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
+import com.github.aureliano.verbum_domini.core.dao.IDao;
+import com.github.aureliano.verbum_domini.core.helper.ValidationHelper;
+import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
+import com.github.aureliano.verbum_domini.core.validation.Save;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
+import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.DataPage;
 
 public final class BookBC {
@@ -40,5 +51,26 @@ public final class BookBC {
 		}
 		
 		return book;
+	}
+
+	public static void save(BookBean book) {
+		IDao<BookBean> dao = DaoFactory.createDao(BookBean.class);
+		BookBean entity = ((book.getId() != null) ? dao.load(book.getId()) : new BookBeanImpl());
+		
+		entity.setName(book.getName());
+		
+		List<String> messages = ValidationHelper.validate(entity, Save.class);
+		if (messages.isEmpty()) {
+			dao.save(entity);
+			return;
+		}
+		
+		List<FacesMessage> facesMessages = new ArrayList<>();
+		for (String message : messages) {
+			facesMessages.add(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+		}
+		
+		WebHelper.addMessagesToContext(facesMessages);
+		throw new ValidationException();
 	}
 }

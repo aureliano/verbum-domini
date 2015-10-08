@@ -6,6 +6,7 @@ import javax.faces.bean.RequestScoped;
 
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
+import com.github.aureliano.verbum_domini.web.NavigationViewKey;
 import com.github.aureliano.verbum_domini.web.bc.BookBC;
 
 @ManagedBean
@@ -22,9 +23,10 @@ public class BookDetailMB {
 	public void preRender() {
 		Integer id = WebHelper.getEntityIdFromRequest("book.id");
 		this.book = BookBC.fetchBook(id);
-		
-		System.out.println(" => BOOK: " + book.getId());
-		System.out.println(" => BIBLE: " + book.getBible().getId() + " - " + book.getBible().getName());
+	}
+	
+	public String edit() {
+		return NavigationViewKey.BOOK_EDIT.name();
 	}
 	
 	public BookBean getBook() {
