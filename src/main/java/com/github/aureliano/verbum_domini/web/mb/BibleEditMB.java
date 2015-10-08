@@ -27,7 +27,7 @@ public class BibleEditMB {
 	
 	@PostConstruct
 	public void preRender() {
-		Integer id = this.bibleId();
+		Integer id = WebHelper.getEntityIdFromRequest("bible.id");
 		logger.info("Preparing to edit bible with id " + id);
 		this.bible = (id != null) ? BibleBC.fetchBible(id) : new BibleBeanImpl();
 	}
@@ -50,14 +50,5 @@ public class BibleEditMB {
 
 	public void setBible(BibleBean bible) {
 		this.bible = bible;
-	}
-	
-	private Integer bibleId() {
-		Object id = WebHelper.getRequestParameter("bible.id");
-		if (id == null) {
-			return null;
-		}
-		
-		return Integer.parseInt(id.toString());
 	}
 }
