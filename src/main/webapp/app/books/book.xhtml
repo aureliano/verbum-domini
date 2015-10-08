@@ -3,8 +3,7 @@
 <html xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:v="http://xmlns.jcp.org/jsf/component">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 <head>
 	<title>Verbum Domini - Books</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -17,16 +16,12 @@
 		<ui:include src="/template/header.xhtml"/>
 	</ui:insert>
 	
-	<f:metadata>
-		<f:viewAction action="#{pageMessagesMB.showFacesMessageIfExist}"/>
-	</f:metadata>
-	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8 text-center">
 				<h2>Verbum Domini</h2>
-				<h3><h:outputText value="#{bookListMB.bible.name}"/></h3>
+				<h3><h:outputText value="#{bookDetailMB.book.bible.name}"/></h3>
 			</div>
 		</div>
 		
@@ -37,11 +32,16 @@
 				<ol class="breadcrumb">
 					<li><a href="/verbumdomini/app/bibles">Bibles</a></li>
 					<li>
-						<h:commandLink value="#{bookListMB.bible.name}" action="#{bibleListMB.detail}">
-							<f:param name="bible.id" value="#{bookListMB.bible.id}"/>
+						<h:commandLink value="#{bookDetailMB.book.bible.name}" action="#{bibleListMB.detail}">
+							<f:param name="bible.id" value="#{bookDetailMB.book.bible.id}"/>
 						</h:commandLink>
 					</li>
-					<li class="active">Books</li>
+					<li>
+						<h:commandLink value="Books" action="#{bibleDetailMB.listBooks}">
+							<f:param name="bible.id" value="#{bookDetailMB.book.bible.id}"/>
+						</h:commandLink>
+					</li>
+					<li class="active">Detail</li>
 				</ol>
 				</h:form>
 			</div>
@@ -49,46 +49,30 @@
 		
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-8">
-				<ui:insert name="pageMessages">
-					<ui:include src="/template/page-messages.xhtml"/>
-				</ui:insert>
-			</div>
-		</div>
-
-		<h:form>		
-		<div class="row">
-			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<h:dataTable value="#{bookListMB.dataPage.data}" var="book" styleClass="table table-striped">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Name"/>
-						</f:facet>
-						<h:outputText value="#{book.name}"/>
-					</h:column>
-					
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value=""/>
-						</f:facet>
-						<h:commandLink value="Detail" action="#{bookListMB.detail}" styleClass="btn btn-primary">
-							<f:param name="book.id" value="#{book.id}"/>
-						</h:commandLink>
-					</h:column>
-				</h:dataTable>
-
-				<v:paginator dataPage="#{bookListMB.dataPage}"/>
+				<div class="col-md-4">
+					<h:outputLabel for="bookName" value="Name"/>
+				</div>
+				<div class="col-md-8">
+					<h:outputText id="bookName" value="#{bookDetailMB.book.name}"/>
+				</div>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<h:commandLink value="Add" styleClass="btn btn-primary"/>
+				<h:form>
+				<div class="row">
+					<div class="col-xs-1">
+						<h:commandLink value="Edit" action="#{bookDetailMB.edit}" styleClass="btn btn-primary">
+							<f:param name="book.id" value="#{bookDetailMB.book.id}"/>
+						</h:commandLink>
+					</div>
+				</div>
+				</h:form>
 			</div>
 		</div>
-		</h:form>
 	</div>
 
 	<ui:insert name="footer" >

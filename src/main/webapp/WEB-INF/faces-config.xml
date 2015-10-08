@@ -26,6 +26,11 @@
 			<from-outcome>BIBLE_BOOKS</from-outcome>
 			<to-view-id>/app/books/index.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>BOOK_DETAIL</from-outcome>
+			<to-view-id>/app/books/book.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<factory>
