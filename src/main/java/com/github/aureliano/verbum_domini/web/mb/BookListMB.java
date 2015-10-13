@@ -26,7 +26,11 @@ public class BookListMB {
 	
 	@PostConstruct
 	public void preRender() {
-		Integer id = WebHelper.getEntityIdFromRequest("bible.id");
+		Integer id = (Integer) WebHelper.getSessionAttribute("bible.id");
+		if (id == null) {
+			id = WebHelper.getEntityIdFromRequest("bible.id");
+		}
+		
 		this.bible = BibleBC.fetchBible(id);
 		
 		Integer page = WebHelper.getCurrentDataPage();

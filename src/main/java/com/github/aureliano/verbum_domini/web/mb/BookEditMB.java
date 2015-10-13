@@ -27,7 +27,12 @@ public class BookEditMB {
 	
 	@PostConstruct
 	public void preRender() {
-		Integer id = WebHelper.getEntityIdFromRequest("book.id");
+		Integer id = (Integer) WebHelper.getSessionAttribute("book.id");
+		if (id == null) {
+			id = WebHelper.getEntityIdFromRequest("book.id");
+			WebHelper.setSessionAttribute("book.id", id);
+		}
+		
 		logger.info("Preparing to edit book with id " + id);
 		this.book = (id != null) ? BookBC.fetchBook(id) : new BookBeanImpl();
 	}
@@ -38,6 +43,8 @@ public class BookEditMB {
 			WebHelper.setSessionAttribute(SessionKey.INFO_MESSAGE.name(), "Book saved successfuly.");
 			logger.info("Book with id " + this.book.getId() + " saved successfuly.");
 			
+			WebHelper.removeSessionAttribute("book.id");
+			WebHelper.setSessionAttribute("bible.id", this.book.getBible().getId());
 			WebHelper.sendRedirect("/verbumdomini/app/books/");
 		} catch (ValidationException ex) {
 			logger.warn("Book bean validation has failed.");

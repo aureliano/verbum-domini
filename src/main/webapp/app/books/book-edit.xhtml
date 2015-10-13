@@ -34,7 +34,7 @@
 				<ol class="breadcrumb">
 					<li><a href="/verbumdomini/app/bibles">Bibles</a></li>
 					<li>
-						<h:commandLink value="#{bookDetailMB.book.bible.name}" action="#{bibleListMB.detail}">
+						<h:commandLink value="#{bookEditMB.book.bible.name}" action="#{bibleListMB.detail}">
 							<f:param name="bible.id" value="#{bookEditMB.book.bible.id}"/>
 						</h:commandLink>
 					</li>
@@ -59,7 +59,6 @@
 		</div>
 		
 		<h:form styleClass="form-horizontal">
-		<h:inputHidden value="#{bookEditMB.book.id}"/>
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
