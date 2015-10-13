@@ -40,6 +40,10 @@ public class BookListMB {
 	public String detail() {
 		return NavigationViewKey.BOOK_DETAIL.name();
 	}
+	
+	public String importBook() {
+		return NavigationViewKey.IMPORT_BOOK.name();
+	}
 
 	public BibleBean getBible() {
 		return bible;

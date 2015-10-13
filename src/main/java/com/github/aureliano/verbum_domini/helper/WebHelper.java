@@ -166,7 +166,7 @@ public final class WebHelper {
 	public static Integer getEntityIdFromRequest(String key) {
 		Object id = WebHelper.getRequestParameter(key);
 		if (id == null) {
-			throw new VerbumDominiException("Could not find " + key + " parameter in request.");
+			return null;
 		}
 		
 		return Integer.parseInt(id.toString());

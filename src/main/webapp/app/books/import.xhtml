@@ -3,8 +3,7 @@
 <html xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:v="http://xmlns.jcp.org/jsf/component">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 <head>
 	<title>Verbum Domini - Books</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -26,7 +25,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-xs-8 text-center">
 				<h2>Verbum Domini</h2>
-				<h3><h:outputText value="#{bookListMB.bible.name}"/></h3>
+				<h3><h:outputText value="#{bookEditMB.book.bible.name}"/></h3>
 			</div>
 		</div>
 		
@@ -37,11 +36,16 @@
 				<ol class="breadcrumb">
 					<li><a href="/verbumdomini/app/bibles">Bibles</a></li>
 					<li>
-						<h:commandLink value="#{bookListMB.bible.name}" action="#{bibleListMB.detail}">
-							<f:param name="bible.id" value="#{bookListMB.bible.id}"/>
+						<h:commandLink value="#{bookEditMB.book.bible.name}" action="#{bibleListMB.detail}">
+							<f:param name="bible.id" value="#{bookEditMB.book.bible.id}"/>
 						</h:commandLink>
 					</li>
-					<li class="active">Books</li>
+					<li>
+						<h:commandLink value="Books" action="#{bibleDetailMB.listBooks}">
+							<f:param name="bible.id" value="#{bookEditMB.book.bible.id}"/>
+						</h:commandLink>
+					</li>
+					<li class="active">Edit</li>
 				</ol>
 				</h:form>
 			</div>
@@ -56,37 +60,25 @@
 			</div>
 		</div>
 
-		<h:form>		
+		<h:form enctype="multipart/form-data">		
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<h:dataTable value="#{bookListMB.dataPage.data}" var="book" styleClass="table table-striped">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Name"/>
-						</f:facet>
-						<h:outputText value="#{book.name}"/>
-					</h:column>
-					
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value=""/>
-						</f:facet>
-						<h:commandLink value="Detail" action="#{bookListMB.detail}" styleClass="btn btn-primary">
-							<f:param name="book.id" value="#{book.id}"/>
-						</h:commandLink>
-					</h:column>
-				</h:dataTable>
-
-				<v:paginator dataPage="#{bookListMB.dataPage}"/>
+				<div class="col-md-4">
+					<h:outputLabel for="bookFile" value="File"/>
+				</div>
+				<div class="col-md-8">
+					<t:inputFileUpload id="bookFile" value="#{bookEditMB.file}"
+						styleClass="form-control" validator="uploadDataFileValidator"/>
+				</div>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<h:commandLink value="Import" styleClass="btn btn-primary" action="#{bookListMB.importBook}">
-					<f:param name="bible.id" value="#{bookListMB.bible.id}"/>
+				<h:commandLink value="Import" styleClass="btn btn-primary" action="#{bookEditMB.importFile}">
+					<f:param name="bible.id" value="#{bookEditMB.book.bible.id}"/>
 				</h:commandLink>
 			</div>
 		</div>

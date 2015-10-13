@@ -36,6 +36,11 @@
 			<from-outcome>BOOK_EDIT</from-outcome>
 			<to-view-id>/app/books/book-edit.xhtml</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>IMPORT_BOOK</from-outcome>
+			<to-view-id>/app/books/import.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<factory>
@@ -48,4 +53,9 @@
 		<converter-id>defaultDateTimeConverter</converter-id>
 		<converter-class>com.github.aureliano.verbum_domini.web.converter.DefaultDateTimeConverter</converter-class>
 	</converter>
+	
+	<validator>
+		<validator-id>uploadDataFileValidator</validator-id>
+		<validator-class>com.github.aureliano.verbum_domini.web.validator.UploadDataFileValidator</validator-class>
+	</validator>
 </faces-config>

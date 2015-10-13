@@ -40,6 +40,17 @@
   <filter>
     <filter-name>Extensions Filter</filter-name>
     <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+    <init-param>
+      <param-name>uploadMaxFileSize</param-name>
+      <param-value>500k</param-value>
+      <description>
+        Define o tamanho máximo que o arquivo pode ter.
+        Formato: 10 - 10 bytes
+                 10k - 10 KB
+                 10m - 10 MB
+                 1g - 1 GB
+      </description>
+    </init-param>
   </filter>
   <filter-mapping>
     <filter-name>Extensions Filter</filter-name>
