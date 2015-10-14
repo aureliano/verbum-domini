@@ -27,7 +27,7 @@ public class HtmlPaginator extends UIComponentBase {
 	public void encodeBegin(FacesContext facesContext) throws IOException {
 		DataPage dataPage = (DataPage) super.getAttributes().get("dataPage");
 		
-		if (dataPage == null) {
+		if ((dataPage == null) || (dataPage.getPageIndex() <= 1)) {
 			return;
 		}
 		

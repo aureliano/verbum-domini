@@ -121,8 +121,12 @@ public class DataPage {
 			max = (max - (max - (this.pages)));
 		}
 		
+		if (min < 1) {
+			min = 0;
+		}
+		
 		if (max < 1) {
-			max = 1;
+			max = 0;
 		}
 		
 		return new PageRange(min, max);
