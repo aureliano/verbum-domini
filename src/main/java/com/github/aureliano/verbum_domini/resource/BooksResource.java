@@ -8,6 +8,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
+
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Book;
 import com.github.aureliano.verbum_domini.model.Books;
@@ -21,6 +24,8 @@ import com.github.aureliano.verbum_domini.service.VersesService;
 @Path("books")
 public class BooksResource {
 
+	private static final Logger logger = Logger.getLogger(BooksResource.class);
+
 	public BooksResource() {
 		super();
 	}
@@ -30,6 +35,9 @@ public class BooksResource {
 	public Response getBooks(
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
+		
+		String url = UrlHelper.join("books");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
 		
 		Books books = BooksService.fetchAll(start, pages);
 		return Response.status(200).entity(books).build();
@@ -52,7 +60,11 @@ public class BooksResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("books", bookId, "chapters");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (!BooksService.exist(bookId)) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -67,7 +79,11 @@ public class BooksResource {
 			@PathParam("bookId") String bookId,
 			@PathParam("chapterId") String chapterId) {
 		
+		String url = UrlHelper.join("books", bookId, "chapters", chapterId);
+		logger.info("Service: " + url);
+		
 		if (!BooksService.exist(bookId)) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -83,7 +99,11 @@ public class BooksResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("books", bookId, "chapters", chapterId, "verses");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -99,7 +119,11 @@ public class BooksResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("verseId") String verseId) {
 		
+		String url = UrlHelper.join("books", bookId, "chapters", chapterId, "verses", verseId);
+		logger.info("Service: " + url);
+		
 		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -115,7 +139,11 @@ public class BooksResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("books", bookId, "chapters", chapterId, "annotations");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -131,7 +159,11 @@ public class BooksResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("annotationId") String annotationId) {
 		
+		String url = UrlHelper.join("books", bookId, "chapters", chapterId, "annotations", annotationId);
+		logger.info("Service: " + url);
+		
 		if (((!BooksService.exist(bookId)) || ((!ChaptersService.exist(chapterId))))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -139,9 +171,13 @@ public class BooksResource {
 	}
 	
 	public static Response fetchBookById(String bookId) {
+		String url = UrlHelper.join("books", bookId);
+		logger.info("Service: " + url);
+		
 		Book book = BooksService.fetchBookById(bookId);
 		
 		if (book == null) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		

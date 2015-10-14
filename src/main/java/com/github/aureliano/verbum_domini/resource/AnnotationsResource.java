@@ -8,12 +8,17 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
+
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.model.Annotation;
 import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.service.AnnotationsService;
 
 @Path("annotations")
 public class AnnotationsResource {
+
+	private static final Logger logger = Logger.getLogger(AnnotationsResource.class);
 
 	public AnnotationsResource() {
 		super();
@@ -24,6 +29,9 @@ public class AnnotationsResource {
 	public Response getAnnotations(
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
+
+		String url = UrlHelper.join("annotations");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
 		
 		Annotations annotations = AnnotationsService.fetchAll(start, pages);
 		return Response.status(200).entity(annotations).build();
@@ -39,9 +47,13 @@ public class AnnotationsResource {
 	}
 	
 	public static Response fetchAnnotationById(String annotationId) {
+		String url = UrlHelper.join("annotations", annotationId);
+		logger.info("Service: " + url);
+		
 		Annotation annotation = AnnotationsService.fetchAnnotationById(annotationId);
 		
 		if (annotation == null) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		

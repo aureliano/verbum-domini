@@ -8,6 +8,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
+
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
@@ -23,6 +26,8 @@ import com.github.aureliano.verbum_domini.service.VersesService;
 @Path("bibles")
 public class BiblesResource {
 
+	private static final Logger logger = Logger.getLogger(BiblesResource.class);
+	
 	public BiblesResource() {
 		super();
 	}
@@ -32,6 +37,9 @@ public class BiblesResource {
 	public Response getBibles(
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
+		
+		String url = UrlHelper.join("bibles");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
 		
 		Bibles bibles = BiblesService.fetchAll(start, pages);
 		return Response.status(200).entity(bibles).build();
@@ -43,9 +51,13 @@ public class BiblesResource {
 	public Response getBibleById(
 			@PathParam("bibleId") String bibleId) {
 		
+		String url = UrlHelper.join("bibles", bibleId);
+		logger.info("Service: " + url);
+		
 		Bible bible = BiblesService.fetchById(bibleId);
 		
 		if (bible == null) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -60,7 +72,11 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (!BiblesService.exist(bibleId)) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -75,7 +91,11 @@ public class BiblesResource {
 			@PathParam("bibleId") String bibleId,
 			@PathParam("bookId") String bookId) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId);
+		logger.info("Service: " + url);
+		
 		if (!BiblesService.exist(bibleId)) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -91,7 +111,11 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId)))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -107,7 +131,11 @@ public class BiblesResource {
 			@PathParam("bookId") String bookId,
 			@PathParam("chapterId") String chapterId) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters", chapterId);
+		logger.info("Service: " + url);
+		
 		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId)))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -124,8 +152,12 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters", chapterId, "verses");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
 				|| (!ChaptersService.exist(chapterId)))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -142,8 +174,13 @@ public class BiblesResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("verseId") String verseId) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId,
+				"chapters", chapterId, "verses", verseId);
+		logger.info("Service: " + url);
+		
 		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
 				|| (!ChaptersService.exist(chapterId)))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -160,8 +197,12 @@ public class BiblesResource {
 			@QueryParam("start") Long start,
 			@QueryParam("pages") Long pages) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters", chapterId, "annotations");
+		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
+		
 		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
 				|| (!ChaptersService.exist(chapterId)))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
@@ -178,8 +219,13 @@ public class BiblesResource {
 			@PathParam("chapterId") String chapterId,
 			@PathParam("annotationId") String annotationId) {
 		
+		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters",
+				chapterId, "annotations", annotationId);
+		logger.info("Service: " + url);
+		
 		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
 				|| (!ChaptersService.exist(chapterId)))) {
+			logger.warn("Response 404 to URL " + url);
 			return Response.status(404).build();
 		}
 		
