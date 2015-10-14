@@ -46,7 +46,11 @@ public final class BibleBC {
 	
 	public static void save(BibleBean bible) {
 		IDao<BibleBean> dao = DaoFactory.createDao(BibleBean.class);
-		BibleBean entity = ((bible.getId() != null) ? dao.load(bible.getId()) : new BibleBeanImpl());
+		BibleBean entity = ((bible.getId() != null) ? dao.get(bible.getId()) : new BibleBeanImpl());
+		
+		if (entity == null) {
+			entity = new BibleBeanImpl();
+		}
 		
 		entity.setName(bible.getName());
 		entity.setLanguage(bible.getLanguage());

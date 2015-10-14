@@ -61,7 +61,11 @@ public final class BookBC {
 
 	public static void save(BookBean book) {
 		IDao<BookBean> dao = DaoFactory.createDao(BookBean.class);
-		BookBean entity = ((book.getId() != null) ? dao.load(book.getId()) : new BookBeanImpl());
+		BookBean entity = ((book.getId() != null) ? dao.get(book.getId()) : new BookBeanImpl());
+		
+		if (entity == null) {
+			entity = new BookBeanImpl();
+		}
 		
 		entity.setName(book.getName());
 		
