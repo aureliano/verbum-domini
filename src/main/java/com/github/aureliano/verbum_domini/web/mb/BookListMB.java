@@ -52,6 +52,10 @@ public class BookListMB {
 	public void setBible(BibleBean bible) {
 		this.bible = bible;
 	}
+	
+	public boolean isEmptyData() {
+		return this.dataPage.getData().isEmpty();
+	}
 
 	public DataPage getDataPage() {
 		return dataPage;

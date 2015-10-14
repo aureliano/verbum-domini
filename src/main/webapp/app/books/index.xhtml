@@ -60,7 +60,8 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<h:dataTable value="#{bookListMB.dataPage.data}" var="book" styleClass="table table-striped">
+				<h:dataTable value="#{bookListMB.dataPage.data}" var="book"
+					rendered="#{!bookListMB.emptyData}" styleClass="table table-striped">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Name"/>
@@ -79,6 +80,7 @@
 				</h:dataTable>
 
 				<v:paginator dataPage="#{bookListMB.dataPage}"/>
+				<h:outputText value="No records to show." rendered="#{bookListMB.emptyData}"/>
 			</div>
 		</div>
 		
