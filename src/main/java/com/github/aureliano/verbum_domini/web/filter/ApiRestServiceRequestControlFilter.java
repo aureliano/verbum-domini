@@ -38,8 +38,11 @@ public class ApiRestServiceRequestControlFilter implements Filter {
 		ServiceRequestStatus status = this.serviceRequestController.track(ipAddress);
 		
 		if (ServiceRequestStatus.SUCCESS.equals(status)) {
-			chain.doFilter(request, response);
-			this.serviceRequestController.removeRequestThread(ipAddress);
+			try {
+				chain.doFilter(request, response);
+			} finally {
+				this.serviceRequestController.removeRequestThread(ipAddress);
+			}
 		} else {
 			logger.warn("Request denied. User: " + ipAddress + " Code: " + status);
 			
