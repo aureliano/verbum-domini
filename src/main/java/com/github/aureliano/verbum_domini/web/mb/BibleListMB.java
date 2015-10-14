@@ -33,6 +33,10 @@ public class BibleListMB {
 		return NavigationViewKey.BIBLE_ADD.name();
 	}
 	
+	public boolean isEmptyData() {
+		return this.dataPage.getData().isEmpty();
+	}
+	
 	public DataPage getDataPage() {
 		return this.dataPage;
 	}

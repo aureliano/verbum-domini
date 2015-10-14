@@ -51,7 +51,8 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
-				<h:dataTable value="#{bibleListMB.dataPage.data}" var="bible" styleClass="table table-striped">
+				<h:dataTable value="#{bibleListMB.dataPage.data}" var="bible"
+					rendered="#{!bibleListMB.emptyData}" styleClass="table table-striped">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Name"/>
@@ -77,6 +78,7 @@
 				</h:dataTable>
 
 				<v:paginator dataPage="#{bibleListMB.dataPage}"/>
+				<h:outputText value="No records to show." rendered="#{bibleListMB.emptyData}"/>
 			</div>
 		</div>
 		
