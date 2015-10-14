@@ -40,6 +40,7 @@ public class SignInMB {
 		
 		if (!messages.isEmpty()) {
 			WebHelper.addMessagesToContext(messages);
+			return;
 		}
 		
 		logger.info("User " + this.login + " has just signed in.");
