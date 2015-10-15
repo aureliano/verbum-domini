@@ -51,7 +51,6 @@ public final class DataHelper {
 		return this.dataHelpersInitialized;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void clearDatabase() {
 		List<Class<? extends IBean>> entityTypes = Arrays.asList(
 			VerseBean.class, AnnotationBean.class,
