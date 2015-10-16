@@ -9,6 +9,7 @@ import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.IBean;
+import com.github.aureliano.verbum_domini.core.bean.UserBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 
@@ -43,6 +44,7 @@ public final class DataHelper {
 		ChapterDataHelper.createChapters();
 		VerseDataHelper.createVerses();
 		AnnotationDataHelper.createAnnotations();
+		UserDataHelper.createUsers();
 		
 		this.dataHelpersInitialized = true;
 	}
@@ -53,7 +55,7 @@ public final class DataHelper {
 	
 	private void clearDatabase() {
 		List<Class<? extends IBean>> entityTypes = Arrays.asList(
-			VerseBean.class, AnnotationBean.class,
+			UserBean.class, VerseBean.class, AnnotationBean.class,
 			ChapterBean.class, BookBean.class, BibleBean.class
 		);
 		
