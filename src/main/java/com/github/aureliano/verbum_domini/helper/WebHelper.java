@@ -179,7 +179,7 @@ public final class WebHelper {
 		return request.getSession();
 	}
 	
-	private static HttpServletRequest getRequest() {
+	public static HttpServletRequest getRequest() {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		return (HttpServletRequest) context.getRequest();
 	}
