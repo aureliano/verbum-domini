@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.web.SessionKey;
 
 public class SignOutServlet extends HttpServlet {
@@ -29,6 +30,6 @@ public class SignOutServlet extends HttpServlet {
 		session.invalidate();
 		logger.info("User " + user + " has just signed out.");
 		
-		response.sendRedirect("/verbumdomini/");
+		response.sendRedirect(UrlHelper.buildWebAppUrl(request, ""));
 	}
 }

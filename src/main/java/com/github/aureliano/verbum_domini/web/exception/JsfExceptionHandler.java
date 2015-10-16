@@ -9,9 +9,11 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
+import javax.servlet.ServletRequest;
 
 import org.apache.log4j.Logger;
 
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.SessionKey;
 
@@ -44,7 +46,9 @@ public class JsfExceptionHandler extends ExceptionHandlerWrapper {
 				logger.error(message, throwable);
 				WebHelper.setSessionAttribute(SessionKey.ERROR_MESSAGES.name(), Arrays.asList(message));
 				
-				WebHelper.sendRedirect("/verbumdomini/error.xhtml");
+				ServletRequest request = (ServletRequest) fc.getExternalContext().getRequest();
+				String url = UrlHelper.buildWebAppUrl(request, "error.xhtml");
+				WebHelper.sendRedirect(url);
 				fc.renderResponse();
 			} finally {
 				iterator.remove();

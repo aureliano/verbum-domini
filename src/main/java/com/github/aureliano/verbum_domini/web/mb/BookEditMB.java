@@ -13,6 +13,7 @@ import org.apache.myfaces.custom.fileupload.UploadedFile;
 
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.SessionKey;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
@@ -61,7 +62,8 @@ public class BookEditMB {
 			logger.info("Book with id " + id + " imported successfuly.");
 			
 			WebHelper.setSessionAttribute("bible.id", this.book.getBible().getId());
-			WebHelper.sendRedirect("/verbumdomini/app/books/");
+			String url = UrlHelper.buildWebAppUrl("app/books");
+			WebHelper.sendRedirect(url);
 		} catch (IOException ex) {
 			WebHelper.addMessageToContext(
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage()));
@@ -76,7 +78,8 @@ public class BookEditMB {
 			
 			WebHelper.removeSessionAttribute("book.id");
 			WebHelper.setSessionAttribute("bible.id", this.book.getBible().getId());
-			WebHelper.sendRedirect("/verbumdomini/app/books/");
+			String url = UrlHelper.buildWebAppUrl("app/books");
+			WebHelper.sendRedirect(url);
 		} catch (ValidationException ex) {
 			logger.warn("Book bean validation has failed.");
 		}

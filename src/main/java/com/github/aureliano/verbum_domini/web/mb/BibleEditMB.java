@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.SessionKey;
 import com.github.aureliano.verbum_domini.web.bc.BibleBC;
@@ -38,7 +39,8 @@ public class BibleEditMB {
 			WebHelper.setSessionAttribute(SessionKey.INFO_MESSAGE.name(), "Bible saved successfuly.");
 			logger.info("Bible with id " + this.bible.getId() + " saved successfuly.");
 			
-			WebHelper.sendRedirect("/verbumdomini/app/bibles");
+			String url = UrlHelper.buildWebAppUrl("app/bibles");
+			WebHelper.sendRedirect(url);
 		} catch (ValidationException ex) {
 			logger.warn("Bible bean validation has failed.");
 		}

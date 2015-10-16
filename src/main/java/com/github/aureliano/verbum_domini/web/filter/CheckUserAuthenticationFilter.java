@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.SessionKey;
 
@@ -45,7 +46,9 @@ public class CheckUserAuthenticationFilter implements Filter {
 		
 		session.setAttribute(SessionKey.ACCESS_DENIED.name(), true);
 		session.setAttribute(SessionKey.REQUESTED_URI.name(), uri);
-		((HttpServletResponse) response).sendRedirect("/verbumdomini/sign-in.xhtml");
+		
+		String url = UrlHelper.buildWebAppUrl(request, "sign-in.xhtml");
+		((HttpServletResponse) response).sendRedirect(url);
 	}
 
 	@Override

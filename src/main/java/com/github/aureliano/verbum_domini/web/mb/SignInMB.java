@@ -9,6 +9,7 @@ import javax.faces.bean.RequestScoped;
 
 import org.apache.log4j.Logger;
 
+import com.github.aureliano.verbum_domini.helper.UrlHelper;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.SessionKey;
 import com.github.aureliano.verbum_domini.web.bc.SignInBC;
@@ -50,7 +51,7 @@ public class SignInMB {
 		if (requestedUri != null) {
 			WebHelper.sendRedirect(requestedUri.toString());
 		} else {
-			WebHelper.sendRedirect("/verbumdomini/");
+			WebHelper.sendRedirect(UrlHelper.buildWebAppUrl(""));
 		}
 	}
 	
