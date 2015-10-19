@@ -28,7 +28,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-xs-8">
 				<ol class="breadcrumb">
-					<li><a href="/verbumdomini/sample/">Build client application</a></li>
+					<li><a href="index.xhtml">Build client application</a></li>
 					<li class="active">Java</li>
 				</ol>
 			</div>
@@ -54,7 +54,7 @@ import java.net.URL;
 public class ConsumeService {
 
   public static void main(String[] args) throws Exception {
-    String url = "http://server-host/verbumdomini/apirest/bibles";
+    String url = "http://server-host/apirest/bibles";
 
     // Consume service as XML.
     String output = fetch(url, "application/xml");
@@ -94,7 +94,7 @@ public class ConsumeService {
 		<ui:include src="/template/footer.xhtml"/>
 	</ui:insert>
 	
-	<<v:script source="jquery-1.11.3.min"/>
+	<v:script source="jquery-1.11.3.min"/>
 	<v:script source="bootstrap.min"/>
 </body>
 </html>
