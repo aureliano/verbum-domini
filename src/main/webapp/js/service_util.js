@@ -1,26 +1,25 @@
-function consumeService(url, service, type) {
+function consumeService(path, service, type) {
   var field_id = "input#" + service + "ServiceLoaded_" + type;
   var loaded = $(field_id).val();
+  var appName = "";
+  
+  if (location.pathname.startsWith('/verbumdomini')) {
+    appName = '/verbumdomini';
+  }
 
   if (loaded == 'false') {
     if (type == 'xml') {
-      consumeXml(url, service, field_id);
+      consumeXml(appName, path, service, field_id);
     } else if (type == 'json') {
-      consumeJson(url, service, field_id);
+      consumeJson(appName, path, service, field_id);
     } else {
       alert('Unsupported render type ' + type);
     }
   }
 }
 
-function consumeJson(path, service, field_id) {
+function consumeJson(appName, path, service, field_id) {
   $('#loading').show();
-  
-  var appName = "";
-  
-  if (location.pathname.startsWith('/verbumdomini')) {
-    appName = '/verbumdomini';
-  }
 
   var type = 'json';
   var url = location.protocol + '//' + location.host + appName + '/apirest' + path;
@@ -37,11 +36,11 @@ function consumeJson(path, service, field_id) {
   });
 }
 
-function consumeXml(url, service, field_id) {
+function consumeXml(appName, path, service, field_id) {
   $('#loading').show();
 
   var type = 'xml';
-  var url = 'http://' + location.host + '/verbumdomini/apirest' + url;
+  var url = location.protocol + '//' + location.host + appName + '/apirest' + path;
   var dataField = service + '_' + type;
 
   $.get(url, function(data) {
