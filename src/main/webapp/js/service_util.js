@@ -13,11 +13,17 @@ function consumeService(url, service, type) {
   }
 }
 
-function consumeJson(url, service, field_id) {
+function consumeJson(path, service, field_id) {
   $('#loading').show();
+  
+  var appName = "";
+  
+  if (location.pathname.startsWith('/verbumdomini')) {
+    appName = '/verbumdomini';
+  }
 
   var type = 'json';
-  var url = 'http://' + location.host + '/verbumdomini/apirest' + url;
+  var url = location.protocol + '//' + location.host + appName + '/apirest' + path;
   var dataField = service + '_' + type;
 
   $.getJSON(url, function(data) {
