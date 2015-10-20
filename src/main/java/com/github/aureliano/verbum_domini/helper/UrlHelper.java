@@ -20,7 +20,8 @@ public final class UrlHelper {
 		if (contextPath.startsWith("/")) {
 			contextPath = contextPath.substring(1);
 		}
-		return join(contextPath, path);
+		
+		return (StringUtils.isEmpty(contextPath)) ? path : join(contextPath, path);
 	}
 	
 	public static String buildWebAppUrl(String path) {
