@@ -21,7 +21,7 @@ public final class UrlHelper {
 			contextPath = contextPath.substring(1);
 		}
 		
-		return (StringUtils.isEmpty(contextPath)) ? path : join(contextPath, path);
+		return (StringUtils.isEmpty(contextPath)) ? join(path) : join(contextPath, path);
 	}
 	
 	public static String buildWebAppUrl(String path) {

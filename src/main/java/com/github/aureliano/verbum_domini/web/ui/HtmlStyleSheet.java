@@ -31,7 +31,7 @@ public class HtmlStyleSheet extends UIComponentBase {
 		
 		String source = (String) super.getAttributes().get("source");
 		if (source != null) {
-			String url = UrlHelper.buildWebAppUrl("/css/" + source + ".css");
+			String url = UrlHelper.buildWebAppUrl("css/" + source + ".css");
 			tag.append(" href=\"" + url + "\"");
 		}
 		
