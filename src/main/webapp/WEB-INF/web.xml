@@ -89,6 +89,9 @@
     <param-value>.xhtml</param-value>
   </context-param>
   <listener>
+    <listener-class>com.github.aureliano.verbum_domini.web.listener.ConfigureSystemPropertiesServletContextListener</listener-class>
+  </listener>
+  <listener>
     <listener-class>com.github.aureliano.verbum_domini.web.listener.DatabaseConnectionServletContextListener</listener-class>
   </listener>
   <listener>
