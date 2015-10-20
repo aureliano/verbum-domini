@@ -17,7 +17,10 @@ public final class UrlHelper {
 	
 	public static String buildWebAppUrl(ServletRequest request, String path) {
 		String contextPath = ((HttpServletRequest) request).getContextPath();
-		return join(contextPath.substring(1), path);
+		if (contextPath.startsWith("/")) {
+			contextPath = contextPath.substring(1);
+		}
+		return join(contextPath, path);
 	}
 	
 	public static String buildWebAppUrl(String path) {
