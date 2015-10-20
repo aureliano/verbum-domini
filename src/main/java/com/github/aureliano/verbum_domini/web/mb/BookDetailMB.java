@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.web.mb;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -19,7 +18,6 @@ public class BookDetailMB {
 		super();
 	}
 	
-	@PostConstruct
 	public void preRender() {
 		Integer id = WebHelper.getEntityIdFromRequest("book.id");
 		this.book = BookBC.fetchBook(id);

@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.web.mb;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -19,7 +18,6 @@ public class BibleListMB {
 		super();
 	}
 	
-	@PostConstruct
 	public void preRender() {
 		Integer page = WebHelper.getCurrentDataPage();
 		this.dataPage = BibleBC.createDataPage(null, page);

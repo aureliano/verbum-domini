@@ -18,6 +18,7 @@
 	</ui:insert>
 	
 	<f:metadata>
+		<f:event type="preRenderView" listener="#{bookListMB.preRender}"/>
 		<f:viewAction action="#{pageMessagesMB.showFacesMessageIfExist}"/>
 	</f:metadata>
 	

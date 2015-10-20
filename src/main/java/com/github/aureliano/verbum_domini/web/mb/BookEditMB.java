@@ -2,7 +2,6 @@ package com.github.aureliano.verbum_domini.web.mb;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
@@ -32,7 +31,6 @@ public class BookEditMB {
 		super();
 	}
 	
-	@PostConstruct
 	public void preRender() {
 		Integer id = (Integer) WebHelper.getSessionAttribute("book.id");
 		if (id == null) {

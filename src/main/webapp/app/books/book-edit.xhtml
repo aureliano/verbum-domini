@@ -18,6 +18,10 @@
 		<ui:include src="/template/header.xhtml"/>
 	</ui:insert>
 	
+	<f:metadata>
+		<f:event type="postAddToView" listener="#{bookEditMB.preRender}"/>
+	</f:metadata>
+	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1"></div>

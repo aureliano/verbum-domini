@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.web.mb;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.validation.ValidationException;
@@ -26,7 +25,6 @@ public class BibleEditMB {
 		super();
 	}
 	
-	@PostConstruct
 	public void preRender() {
 		Integer id = WebHelper.getEntityIdFromRequest("bible.id");
 		logger.info("Preparing to edit bible with id " + id);
