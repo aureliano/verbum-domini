@@ -1,4 +1,4 @@
-package com.github.aureliano.verbum_domini.web;
+package com.github.aureliano.verbum_domini.web.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,12 +15,12 @@ public class DatabaseConnectionServletContextListener implements ServletContextL
 	}
 	
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent event) {
 		this.persistenceManager.startUp();
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
+	public void contextDestroyed(ServletContextEvent event) {
 		this.persistenceManager.shutDown();
 	}
 }
