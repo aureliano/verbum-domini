@@ -31,7 +31,7 @@ public class HtmlScript extends UIComponentBase {
 		
 		String source = (String) super.getAttributes().get("source");
 		if (source != null) {
-			String url = UrlHelper.buildWebAppUrl("js/" + source + ".js");
+			String url = UrlHelper.buildWebAppUrl("/js/" + source + ".js");
 			tag.append(" src=\"" + url + "\"");
 		}
 		
