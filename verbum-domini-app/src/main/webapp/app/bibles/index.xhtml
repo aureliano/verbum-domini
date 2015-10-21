@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:v="http://xmlns.jcp.org/jsf/component">
+<head>
+	<title>Verbum Domini - Bibles</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta charset="UTF-8"/>
+	<v:styleSheet source="bootstrap.min" media="screen"/>
+	<v:styleSheet source="verbum-domini" media="screen"/>
+</head>
+<body>
+	<ui:insert name="header">
+		<ui:include src="/template/header.xhtml"/>
+	</ui:insert>
+	
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{bibleListMB.preRender}"/>
+		<f:viewAction action="#{pageMessagesMB.showFacesMessageIfExist}"/>
+	</f:metadata>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8 text-center">
+				<h2>Verbum Domini</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<ol class="breadcrumb">
+					<li class="active">Bibles</li>
+				</ol>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-8">
+				<ui:insert name="pageMessages">
+					<ui:include src="/template/page-messages.xhtml"/>
+				</ui:insert>
+			</div>
+		</div>
+
+		<h:form>		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h:dataTable value="#{bibleListMB.dataPage.data}" var="bible"
+					rendered="#{!bibleListMB.emptyData}" styleClass="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name"/>
+						</f:facet>
+						<h:outputText value="#{bible.name}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Language"/>
+						</f:facet>
+						<h:outputText value="#{bible.language}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:commandLink value="Detail" action="#{bibleListMB.detail}" styleClass="btn btn-primary">
+							<f:param name="bible.id" value="#{bible.id}"/>
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+
+				<v:paginator dataPage="#{bibleListMB.dataPage}"/>
+				<h:outputText value="No records to show." rendered="#{bibleListMB.emptyData}"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-xs-8">
+				<h:commandLink value="Add" action="#{bibleListMB.add}" styleClass="btn btn-primary"/>
+			</div>
+		</div>
+		</h:form>
+	</div>
+
+	<ui:insert name="footer" >
+		<ui:include src="/template/footer.xhtml"/>
+	</ui:insert>
+	
+	<v:script source="jquery-1.11.3.min"/>
+	<v:script source="bootstrap.min"/>
+</body>
+</html>

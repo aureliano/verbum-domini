@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This web.xml file is not required when using Servlet 3.0 container,
+     see implementation details http://jersey.java.net/nonav/documentation/latest/jax-rs.html -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>Verbum Domini</display-name>
+  <welcome-file-list>
+    <welcome-file>index.xhtml</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>com.github.aureliano.verbum_domini.web.VerbumDominiApiResourceConfig</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey Web Application</servlet-name>
+    <url-pattern>/apirest/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  <servlet>    
+    <display-name>SignOutServlet</display-name>  
+    <servlet-name>SignOutServlet</servlet-name>  
+    <servlet-class>com.github.aureliano.verbum_domini.web.servlet.SignOutServlet</servlet-class>  
+  </servlet>  
+  <servlet-mapping>  
+    <servlet-name>SignOutServlet</servlet-name>  
+    <url-pattern>/SignOutServlet</url-pattern>  
+  </servlet-mapping> 
+  <filter>
+    <filter-name>Extensions Filter</filter-name>
+    <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
+    <init-param>
+      <param-name>uploadMaxFileSize</param-name>
+      <param-value>500k</param-value>
+      <description>
+        Define o tamanho máximo que o arquivo pode ter.
+        Formato: 10 - 10 bytes
+                 10k - 10 KB
+                 10m - 10 MB
+                 1g - 1 GB
+      </description>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>Extensions Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+  <filter>
+    <filter-name>ApiRestServiceRequestControlFilter</filter-name>
+    <filter-class>com.github.aureliano.verbum_domini.web.filter.ApiRestServiceRequestControlFilter</filter-class>
+    <display-name>API Rest Service Request Control Filter</display-name>
+    <description>Filter to prevent user abuses</description>
+  </filter>
+  <filter-mapping>
+    <filter-name>ApiRestServiceRequestControlFilter</filter-name>
+    <url-pattern>/apirest/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>ClearHttpHeaderCacheFilter</filter-name>
+    <filter-class>com.github.aureliano.verbum_domini.web.filter.ClearHttpHeaderCacheFilter</filter-class>
+    <description>Filter to set HTTP header for clearing cache.</description>
+  </filter>
+  <filter-mapping>
+    <filter-name>ClearHttpHeaderCacheFilter</filter-name>
+    <url-pattern>/app/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>CheckUserAuthenticationFilter</filter-name>
+    <filter-class>com.github.aureliano.verbum_domini.web.filter.CheckUserAuthenticationFilter</filter-class>
+    <description>Check whether user is authenticated.</description>
+  </filter>
+  <filter-mapping>
+    <filter-name>CheckUserAuthenticationFilter</filter-name>
+    <url-pattern>/app/*</url-pattern>
+  </filter-mapping>
+  <context-param>
+    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+    <param-value>.xhtml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>com.github.aureliano.verbum_domini.web.listener.ConfigureSystemPropertiesServletContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.github.aureliano.verbum_domini.web.listener.DatabaseConnectionServletContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.github.aureliano.verbum_domini.web.listener.PrepareUserServletContextListener</listener-class>
+  </listener>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <context-param>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
+</context-param>
+</web-app>

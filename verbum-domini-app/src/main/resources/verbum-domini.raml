@@ -1,0 +1,88 @@
+#%RAML 0.8
+---
+title: "Holy bible REST API"
+baseUri: http://localhost:8081/verbumdomini/apirest
+version: v1
+schemas:
+  - bible: !include schema/bible.json
+  - bibles: !include schema/bibles.json
+  - book: !include schema/book.json
+  - books: !include schema/books.json
+  - chapter: !include schema/chapter.json
+  - chapters: !include schema/chapters.json
+  - verse: !include schema/verse.json
+  - verses: !include schema/verses.json
+  - annotation: !include schema/annotation.json
+  - annotations: !include schema/annotations.json
+
+resourceTypes:
+  - base:
+      get?:
+        responses: &standardResponses
+          200:
+            description: OK
+  - collection:
+      type: base
+      get:
+        is: [ paged ]
+  - typedCollection:
+      type: collection
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<collectionSchema>>
+  - member:
+      type: base
+      get:
+  - typedMember:
+      type: member
+      get:
+        responses:
+          200:
+            body:
+              application/json:
+                schema: <<schema>>
+
+traits:
+  - paged:
+      displayName: paged
+      queryParameters:
+        start:
+          displayName: start
+          description: The first page to return (> 0)
+          type: integer
+        pages:
+          displayName: pages
+          description: The number of pages to return (> 0 <= 2)
+          type: integer
+
+/verses: &verses
+  type: { typedCollection: { schema: verse, collectionSchema: verses } }
+  /{verseId}:
+    type: { typedMember: { schema: verse } }
+
+/annotations: &annotations
+  type: { typedCollection: { schema: annotation, collectionSchema: annotations } }
+  /{annotationId}:
+    type: { typedMember: { schema: annotation } }
+
+/chapters: &chapters
+  type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
+  /{chapterId}:
+    type: { typedMember: { schema: chapter } }
+    /verses: *verses
+    /annotations: *annotations
+
+/books: &books
+  type: { typedCollection: { schema: book, collectionSchema: books } }
+  /{bookId}:
+    type: { typedMember: { schema: book } }
+    /chapters: *chapters
+
+/bibles:
+  type: { typedCollection: { schema: bible, collectionSchema: bibles } }
+  /{bibleId}:
+    type: { typedMember: { schema: bible } }
+    /books: *books
