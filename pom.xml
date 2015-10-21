@@ -32,4 +32,8 @@
 		<module>verbum-domini-core-relational</module>
 		<module>verbum-domini-app</module>
   </modules>
+        
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 </project>
