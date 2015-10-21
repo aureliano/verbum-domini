@@ -13,3 +13,6 @@ target
 .project
 .settings
 Gemfile.lock
+
+verbum-domini-app/src/main/resources/app-configuration.properties
+verbum-domini-app/src/main/resources/hibernate.cfg.xml
