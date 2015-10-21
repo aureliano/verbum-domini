@@ -26,6 +26,7 @@
 
 	<modules>
 		<module>verbum-domini-core</module>
+		<module>verbum-domini-core-mongo</module>
 		<module>verbum-domini-app</module>
   </modules>
 </project>
