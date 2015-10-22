@@ -1,5 +1,8 @@
 package com.github.aureliano.verbum_domini.core.impl;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -37,6 +40,9 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
 	@Override
 	public void startUp() {
+		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
+	    mongoLogger.setLevel(Level.SEVERE); 
+	    
 		AppConfiguration configuration = AppConfiguration.instance();
 		this.databaseName = configuration.getProperty("database.name");
 		if (this.databaseName == null) {
