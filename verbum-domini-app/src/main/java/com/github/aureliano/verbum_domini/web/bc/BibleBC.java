@@ -75,4 +75,31 @@ public final class BibleBC {
 		WebHelper.addMessagesToContext(facesMessages);
 		throw new ValidationException();
 	}
+	
+	public static void defineEmptyValuesAsNull(BibleBean bible) {
+		if ("".equals(bible.getCopyright())) {
+			bible.setCopyright(null);
+		}
+		if ("".equals(bible.getEdition())) {
+			bible.setEdition(null);
+		}
+		if ("".equals(bible.getEletronicTranscriptionSource())) {
+			bible.setEletronicTranscriptionSource(null);
+		}
+		if ("".equals(bible.getEletronicTranscriptionSourceUrl())) {
+			bible.setEletronicTranscriptionSourceUrl(null);
+		}
+		if ("".equals(bible.getLanguage())) {
+			bible.setLanguage(null);
+		}
+		if ("".equals(bible.getName())) {
+			bible.setName(null);
+		}
+		if ("".equals(bible.getPrintedSource())) {
+			bible.setPrintedSource(null);
+		}
+		if ("".equals(bible.getUrl())) {
+			bible.setUrl(null);
+		}
+	}
 }

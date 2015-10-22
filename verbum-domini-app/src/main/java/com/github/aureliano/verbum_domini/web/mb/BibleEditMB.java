@@ -33,7 +33,9 @@ public class BibleEditMB {
 	
 	public void save() {
 		try {
+			BibleBC.defineEmptyValuesAsNull(this.bible);
 			BibleBC.save(this.bible);
+			
 			WebHelper.setSessionAttribute(SessionKey.INFO_MESSAGE.name(), "Bible saved successfuly.");
 			logger.info("Bible with id " + this.bible.getId() + " saved successfuly.");
 			
