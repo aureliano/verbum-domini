@@ -70,7 +70,9 @@ public class BookEditMB {
 	
 	public void save() {
 		try {
+			BookBC.defineEmptyValuesAsNull(this.book);
 			BookBC.save(this.book);
+			
 			WebHelper.setSessionAttribute(SessionKey.INFO_MESSAGE.name(), "Book saved successfuly.");
 			logger.info("Book with id " + this.book.getId() + " saved successfuly.");
 			

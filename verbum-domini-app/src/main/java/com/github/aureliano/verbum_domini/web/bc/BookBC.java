@@ -92,4 +92,10 @@ public final class BookBC {
 		DataBookBucket dataBucket = new DataBookBucketImpl();
 		return (Integer) dataBucket.saveBatch(book);
 	}
+	
+	public static void defineEmptyValuesAsNull(BookBean book) {
+		if ("".equals(book.getName())) {
+			book.setName(null);
+		}
+	}
 }
