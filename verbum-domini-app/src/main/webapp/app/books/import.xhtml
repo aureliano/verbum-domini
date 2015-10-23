@@ -19,6 +19,7 @@
 	
 	<f:metadata>
 		<f:viewAction action="#{pageMessagesMB.showFacesMessageIfExist}"/>
+		<f:event type="postAddToView" listener="#{bookEditMB.preRender}"/>
 	</f:metadata>
 	
 	<div class="container-fluid">
