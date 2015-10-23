@@ -40,8 +40,8 @@ public class PersistenceManagerImpl implements PersistenceManager {
 
 	@Override
 	public void startUp() {
-		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
-	    mongoLogger.setLevel(Level.SEVERE); 
+		Logger.getLogger("org.mongodb").setLevel(Level.SEVERE);
+		Logger.getLogger("com.mongodb").setLevel(Level.SEVERE);
 	    
 		AppConfiguration configuration = AppConfiguration.instance();
 		this.databaseName = configuration.getProperty("database.name");
