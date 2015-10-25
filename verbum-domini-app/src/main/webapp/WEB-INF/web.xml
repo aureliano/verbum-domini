@@ -36,26 +36,20 @@
   <servlet-mapping>  
     <servlet-name>SignOutServlet</servlet-name>  
     <url-pattern>/SignOutServlet</url-pattern>  
-  </servlet-mapping> 
-  <filter>
-    <filter-name>Extensions Filter</filter-name>
-    <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
-    <init-param>
-      <param-name>uploadMaxFileSize</param-name>
-      <param-value>500k</param-value>
-      <description>
-        Define o tamanho máximo que o arquivo pode ter.
-        Formato: 10 - 10 bytes
-                 10k - 10 KB
-                 10m - 10 MB
-                 1g - 1 GB
-      </description>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>Extensions Filter</filter-name>
-    <servlet-name>Faces Servlet</servlet-name>
-  </filter-mapping>
+  </servlet-mapping>
+  <servlet>
+  	<display-name>ImportBookServlet</display-name>
+    <servlet-name>ImportBookServlet</servlet-name>
+    <servlet-class>com.github.aureliano.verbum_domini.web.servlet.ImportBookServlet</servlet-class>
+    <multipart-config>
+      <max-file-size>512000</max-file-size>
+      <max-request-size>665600</max-request-size>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImportBookServlet</servlet-name>
+    <url-pattern>/app/books/ImportBookServlet</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>ApiRestServiceRequestControlFilter</filter-name>
     <filter-class>com.github.aureliano.verbum_domini.web.filter.ApiRestServiceRequestControlFilter</filter-class>
