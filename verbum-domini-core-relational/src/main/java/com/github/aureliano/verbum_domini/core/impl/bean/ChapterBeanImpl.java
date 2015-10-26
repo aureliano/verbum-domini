@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
@@ -34,7 +33,6 @@ public class ChapterBeanImpl implements ChapterBean {
 
 	@Column(name = "number", precision = 5, nullable = false)
 	@NotNull(message = "Property 'Number' must be provided.", groups = { Save.class })
-	@Size(min = 1, max = 5, message = "Property 'Number' must have between 1 and 5 characters.", groups = { Save.class })
 	private String number;
 
 	@ManyToOne(targetEntity = BookBeanImpl.class)

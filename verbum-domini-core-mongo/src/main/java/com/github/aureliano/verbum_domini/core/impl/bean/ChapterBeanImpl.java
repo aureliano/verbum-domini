@@ -3,7 +3,6 @@ package com.github.aureliano.verbum_domini.core.impl.bean;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.bson.BsonDocument;
 import org.bson.BsonDocumentWrapper;
@@ -23,7 +22,6 @@ public class ChapterBeanImpl implements ChapterBean, Bson {
 	private Integer id;
 
 	@NotNull(message = "Property 'Number' must be provided.", groups = { Save.class })
-	@Size(min = 1, max = 5, message = "Property 'Number' must have between 1 and 5 characters.", groups = { Save.class })
 	private String number;
 
 	@NotNull(message = "Property 'Book' must be provided.", groups = { Save.class })
