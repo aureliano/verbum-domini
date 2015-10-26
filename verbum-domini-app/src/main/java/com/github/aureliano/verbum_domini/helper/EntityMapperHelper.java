@@ -56,6 +56,10 @@ public final class EntityMapperHelper {
 	private static List<AnnotationBean> mapAnnotations(ChapterBean chapter, Map<String, Object> map) {
 		List<AnnotationBean> annotations = new ArrayList<AnnotationBean>();
 		
+		if (map == null) {
+			return annotations;
+		}
+		
 		for (String ka : map.keySet()) {
 			AnnotationBean annotation = new AnnotationBeanImpl();
 			annotation.setNumber(ka);
