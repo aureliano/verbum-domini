@@ -120,7 +120,9 @@
 					<h:outputLabel for="bibleEletronicTranscriptionSourceUrl" value="Eletronic transcription source URL"/>
 				</div>
 				<div class="col-md-8">
-					<h:outputText id="bibleEletronicTranscriptionSourceUrl" value="#{bibleDetailMB.bible.eletronicTranscriptionSourceUrl}"/>
+					<h:outputLink id="bibleEletronicTranscriptionSourceUrl" value="#{bibleDetailMB.bible.eletronicTranscriptionSourceUrl}">
+						<h:outputText value="#{bibleDetailMB.bible.eletronicTranscriptionSourceUrl}"/>
+					</h:outputLink>
 				</div>
 			</div>
 		</div>
