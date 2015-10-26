@@ -46,6 +46,14 @@ public class DataSeedServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
+		logger.info("Disabled");
+		//this.dataSeed();
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent event) { }
+	
+	private void dataSeed() {
 		logger.info("Load bible data to database.");
 		File[] biblesDir = this.getDataDir().listFiles();
 		this.dropEntities();
@@ -55,9 +63,6 @@ public class DataSeedServletContextListener implements ServletContextListener {
 			this.saveDataToDatabase(dir);
 		}
 	}
-
-	@Override
-	public void contextDestroyed(ServletContextEvent event) { }
 	
 	private void saveDataToDatabase(File dir) {
 		String language = dir.getName();
