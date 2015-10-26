@@ -107,7 +107,7 @@ Dir.entries('books').each do |dir|
     next if ignorable_files.include? fchapter
 
     hash = JSON.parse(File.read File.join('books', dir, fchapter))
-    data[:chapters][hash['chapter']] = hash['verses']
+    data[:chapters][hash['chapter']] = { :verses => hash['verses'] }
   end
 
   name = "#{data[:book]}.json"

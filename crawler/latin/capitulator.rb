@@ -29,6 +29,7 @@ end
     chapter_count = 1
     book = {}
     chapters = text.split /\s{4,}/
+    _chapters = {}
 
     chapters.each do |chapter|
       next if chapter.strip.empty?
@@ -36,7 +37,7 @@ end
       verses = chapter.scan /\d+[^\d]+/
       
       if verses.empty?
-        book['0'] = { '1' => chapter.gsub(/\r\n/, ' ').gsub(/\n/, ' ').strip }
+        _chapters['0'] = { :verses => { '1' => chapter.gsub(/\r\n/, ' ').gsub(/\n/, ' ').strip } }
         next
       end
 
@@ -47,10 +48,12 @@ end
         hash[matcher[1].to_s] = matcher[2].gsub(/\r\n/, ' ').gsub(/\n/, ' ').strip
       end
       
-      book[chapter_count.to_s] = hash
+      _chapters[chapter_count.to_s] = { :verses => hash }
       chapter_count += 1
     end
 
+    book[:book] = fname.sub('.html', '')
+    book[:chapters] = _chapters
     File.write(File.join('data', fname.sub('.html', '.json')), book.to_json)
   end
 end
