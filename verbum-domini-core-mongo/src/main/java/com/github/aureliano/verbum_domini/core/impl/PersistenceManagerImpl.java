@@ -59,6 +59,12 @@ public class PersistenceManagerImpl implements PersistenceManager {
 		MongoClientOptions.Builder options = this.buildOptions(configuration);
 		MongoClientURI uri = new MongoClientURI(connectionUrl, options);
 		
+		System.out.println("\n\n");
+		System.out.println(this.databaseName);
+		System.out.println(connectionUrl);
+		System.out.println(options);
+		System.out.println("\n\n");
+		
 		this.mongoClient = new MongoClient(uri);
 	}
 	
