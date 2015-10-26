@@ -27,7 +27,7 @@ public class PrepareUserServletContextListener implements ServletContextListener
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		logger.info(" >>> Prepare default users.");
-		this.saveUser("santo_antonio", "santo-antonio-2015");
+		this.saveUser("santo_antonio", System.getenv("DEFAULT_USER_PASSWORD"));
 	}
 
 	@Override
