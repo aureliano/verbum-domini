@@ -54,16 +54,13 @@ public class PersistenceManagerImpl implements PersistenceManager {
 		if (Environments.TEST.equals(configuration.getEnvironment())) {
 			this.databaseName = "verbum_domini_test";
 			connectionUrl = "mongodb://localhost";
+		} else if (Environments.PRODUCTION.equals(configuration.getEnvironment())) {
+			this.databaseName = System.getenv("MONGOLAB_DB_NAME");
+			connectionUrl = System.getenv("MONGOLAB_URI");
 		}
 		
 		MongoClientOptions.Builder options = this.buildOptions(configuration);
 		MongoClientURI uri = new MongoClientURI(connectionUrl, options);
-		
-		System.out.println("\n\n");
-		System.out.println(this.databaseName);
-		System.out.println(connectionUrl);
-		System.out.println(options);
-		System.out.println("\n\n");
 		
 		this.mongoClient = new MongoClient(uri);
 	}
