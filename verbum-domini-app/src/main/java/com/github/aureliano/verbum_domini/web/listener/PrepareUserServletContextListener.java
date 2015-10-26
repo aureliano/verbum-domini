@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.core.bean.UserBean;
@@ -17,6 +18,7 @@ import com.github.aureliano.verbum_domini.core.impl.dao.UserDaoImpl;
 public class PrepareUserServletContextListener implements ServletContextListener {
 
 	private static final Logger logger = Logger.getLogger(PrepareUserServletContextListener.class);
+	private static final String DEFAULT_USER_PASSWORD_KEY = "DEFAULT_USER_PASSWORD";
 	
 	private UserDao userDao;
 	
@@ -27,7 +29,14 @@ public class PrepareUserServletContextListener implements ServletContextListener
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		logger.info(" >>> Prepare default users.");
-		this.saveUser("santo_antonio", System.getenv("DEFAULT_USER_PASSWORD"));
+		String password = System.getenv(DEFAULT_USER_PASSWORD_KEY);
+		
+		if (StringUtils.isEmpty(password)) {
+			logger.warn(" Ignoring user saving because no password was found as environment variable " + DEFAULT_USER_PASSWORD_KEY);
+			return;
+		}
+		
+		this.saveUser("santo_antonio", password);
 	}
 
 	@Override
