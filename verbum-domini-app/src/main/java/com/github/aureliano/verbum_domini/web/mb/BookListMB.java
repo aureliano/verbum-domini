@@ -30,6 +30,7 @@ public class BookListMB {
 		Integer id = (Integer) WebHelper.getSessionAttribute("bible.id");
 		if (id == null) {
 			id = WebHelper.getEntityIdFromRequest("bible.id");
+			WebHelper.setSessionAttribute("bible.id", id);
 		}
 		
 		this.bible = BibleBC.fetchBible(id);
