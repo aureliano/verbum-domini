@@ -80,7 +80,7 @@
 					</h:column>
 				</h:dataTable>
 
-				<v:paginator dataPage="#{bookListMB.dataPage}"/>
+				<v:paginator dataPage="#{bookListMB.dataPage}" pageUrl="#{bookListMB.pageUrl}"/>
 				<h:outputText value="No records to show." rendered="#{bookListMB.emptyData}"/>
 			</div>
 		</div>
