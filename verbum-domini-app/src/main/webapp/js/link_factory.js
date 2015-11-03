@@ -17,7 +17,7 @@ function buildPath(name) {
 function createHref(name) {
   var appName = "";
   
-  if (location.pathname.startsWith('/verbumdomini')) {
+  if (location.pathname.search('/verbumdomini') == 0) {
     appName = '/verbumdomini';
   }
 
