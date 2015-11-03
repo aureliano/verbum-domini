@@ -3,7 +3,7 @@ function consumeService(path, service, type) {
   var loaded = $(field_id).val();
   var appName = "";
   
-  if (location.pathname.startsWith('/verbumdomini')) {
+  if (location.pathname.search('/verbumdomini') == 0) {
     appName = '/verbumdomini';
   }
 
