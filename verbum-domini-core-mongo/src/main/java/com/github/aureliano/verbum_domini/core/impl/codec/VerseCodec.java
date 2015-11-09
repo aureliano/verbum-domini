@@ -1,5 +1,9 @@
 package com.github.aureliano.verbum_domini.core.impl.codec;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.bson.BsonInt32;
 import org.bson.BsonReader;
 import org.bson.BsonValue;
@@ -11,6 +15,7 @@ import org.bson.codecs.DecoderContext;
 import org.bson.codecs.DocumentCodec;
 import org.bson.codecs.EncoderContext;
 
+import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
@@ -40,6 +45,19 @@ public class VerseCodec implements CollectibleCodec<VerseBeanImpl> {
 		document.put("number", bean.getNumber());
 		document.put("text", bean.getText());
 		
+		if ((bean.getAnnotations() != null) && (!bean.getAnnotations().isEmpty())) {
+			List<Document> docs = new ArrayList<Document>();
+			for (AnnotationBean a : bean.getAnnotations()) {
+				Document doc = new Document();
+				
+				doc.put("number", a.getNumber());
+				doc.put("text", a.getText());
+				
+				docs.add(doc);
+			}
+			document.put("annotations", docs);
+		}
+		
 		this.documentCodec.encode(writer, document, context);
 	}
 
@@ -59,6 +77,8 @@ public class VerseCodec implements CollectibleCodec<VerseBeanImpl> {
 		bean.setChapter(chapter);
 		bean.setNumber(document.getString("number"));
 		bean.setText(document.getString("text"));
+		
+		Collection<?> coll = document.get("annotations", Collection.class);
 		
 		return bean;
 	}

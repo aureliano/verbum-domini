@@ -12,7 +12,6 @@ import com.github.aureliano.verbum_domini.core.AppConfiguration;
 import com.github.aureliano.verbum_domini.core.Environments;
 import com.github.aureliano.verbum_domini.core.PersistenceManager;
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
-import com.github.aureliano.verbum_domini.core.impl.codec.AnnotationCodec;
 import com.github.aureliano.verbum_domini.core.impl.codec.BibleCodec;
 import com.github.aureliano.verbum_domini.core.impl.codec.BookCodec;
 import com.github.aureliano.verbum_domini.core.impl.codec.ChapterCodec;
@@ -105,7 +104,6 @@ public class PersistenceManagerImpl implements PersistenceManager {
 				new BookCodec(defaultDocumentCodec),
 				new ChapterCodec(defaultDocumentCodec),
 				new VerseCodec(defaultDocumentCodec),
-				new AnnotationCodec(defaultDocumentCodec),
 				new UserCodec(defaultDocumentCodec)
 			)
 		);

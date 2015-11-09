@@ -11,11 +11,8 @@ public class AnnotationParser implements IResourceParser<AnnotationBean> {
 	
 	@Override
 	public Annotation toResource(AnnotationBean bean) {
-		Integer chapterId = (bean.getChapter() != null) ? bean.getChapter().getId() : null;
-		
 		return new Annotation()
 			.withAnnotationId(bean.getId())
-			.withChapterId(chapterId)
 			.withNumber(bean.getNumber())
 			.withText(bean.getText());
 	}

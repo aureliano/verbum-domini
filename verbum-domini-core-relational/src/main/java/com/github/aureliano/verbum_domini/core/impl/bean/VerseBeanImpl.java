@@ -1,14 +1,22 @@
 package com.github.aureliano.verbum_domini.core.impl.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.validation.Delete;
@@ -39,6 +47,14 @@ public class VerseBeanImpl implements VerseBean {
 	@JoinColumn(name = "chapter_fk")
     @NotNull(message = "Property 'Chapter' must be provided.", groups = { Save.class })
     private ChapterBean chapter;
+    
+    @ManyToMany(targetEntity = AnnotationBeanImpl.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+    	name = "verse_annotation",
+    	joinColumns = { @JoinColumn(name = "verse_id", referencedColumnName = "id") },
+    	inverseJoinColumns = { @JoinColumn(name= "annotation_id", referencedColumnName = "id") }
+    )
+    private List<AnnotationBean> annotations;
 	
 	public VerseBeanImpl() {
 		super();
@@ -74,6 +90,23 @@ public class VerseBeanImpl implements VerseBean {
 
 	public void setChapter(ChapterBean chapter) {
 		this.chapter = chapter;
+	}
+
+	public void setAnnotations(List<AnnotationBean> annotations) {
+		this.annotations = annotations;
+	}
+
+	public List<AnnotationBean> getAnnotations() {
+		return this.annotations;
+	}
+	
+	public VerseBeanImpl addAnnotation(AnnotationBean annotation) {
+		if (this.annotations == null) {
+			this.annotations = new ArrayList<AnnotationBean>();
+		}
+		
+		this.annotations.add(annotation);
+		return this;
 	}
 
 	@Override

@@ -126,6 +126,11 @@ public class BibleDaoImplTest {
 	}
 	
 	private void prepareData() {
-		DataHelper.instance().initializeDataHelpers();
+		try {
+			DataHelper.instance().initializeDataHelpers();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
 	}
 }

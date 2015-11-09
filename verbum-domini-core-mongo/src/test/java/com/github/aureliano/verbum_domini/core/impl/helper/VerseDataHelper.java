@@ -3,6 +3,7 @@ package com.github.aureliano.verbum_domini.core.impl.helper;
 import com.github.aureliano.verbum_domini.core.AppConfiguration;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.impl.PersistenceManagerImpl;
+import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoHelper;
@@ -38,7 +39,18 @@ public final class VerseDataHelper {
 		verse.setNumber(number);
 		verse.setText("Something " + number);
 		verse.setChapter(chapter);
+		verse.addAnnotation(prepareAnnotation(id, number));
 		
 		return verse;
+	}
+	
+	private static AnnotationBeanImpl prepareAnnotation(Integer id, String number) {
+		AnnotationBeanImpl annotation = new AnnotationBeanImpl();
+		
+		annotation.setId(id);
+		annotation.setNumber(number);
+		annotation.setText("Something " + number);
+		
+		return annotation;
 	}
 }

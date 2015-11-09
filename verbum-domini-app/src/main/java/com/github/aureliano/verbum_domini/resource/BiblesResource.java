@@ -11,13 +11,11 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.helper.UrlHelper;
-import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Bible;
 import com.github.aureliano.verbum_domini.model.Bibles;
 import com.github.aureliano.verbum_domini.model.Books;
 import com.github.aureliano.verbum_domini.model.Chapters;
 import com.github.aureliano.verbum_domini.model.Verses;
-import com.github.aureliano.verbum_domini.service.AnnotationsService;
 import com.github.aureliano.verbum_domini.service.BiblesService;
 import com.github.aureliano.verbum_domini.service.BooksService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
@@ -185,50 +183,5 @@ public class BiblesResource {
 		}
 		
 		return VersesResource.fetchVerseById(verseId);
-	}
-	
-	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}/annotations")
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getAnnotationsByChapterAndBookFromBible(
-			@PathParam("bibleId") String bibleId,
-			@PathParam("bookId") String bookId,
-			@PathParam("chapterId") String chapterId,
-			@QueryParam("start") Long start,
-			@QueryParam("pages") Long pages) {
-		
-		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters", chapterId, "annotations");
-		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
-		
-		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
-				|| (!ChaptersService.exist(chapterId)))) {
-			logger.warn("Response 404 to URL " + url);
-			return Response.status(404).build();
-		}
-		
-		Annotations annotations = AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages);
-		return Response.status(200).entity(annotations).build();
-	}
-	
-	@Path("{bibleId}/books/{bookId}/chapters/{chapterId}/annotations/{annotationId}")
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getAnnotationsByIdAndChapterFromBook(
-			@PathParam("bibleId") String bibleId,
-			@PathParam("bookId") String bookId,
-			@PathParam("chapterId") String chapterId,
-			@PathParam("annotationId") String annotationId) {
-		
-		String url = UrlHelper.join("bibles", bibleId, "books", bookId, "chapters",
-				chapterId, "annotations", annotationId);
-		logger.info("Service: " + url);
-		
-		if (((!BiblesService.exist(bibleId)) || (!BooksService.exist(bookId))
-				|| (!ChaptersService.exist(chapterId)))) {
-			logger.warn("Response 404 to URL " + url);
-			return Response.status(404).build();
-		}
-		
-		return AnnotationsResource.fetchAnnotationById(annotationId);
 	}
 }

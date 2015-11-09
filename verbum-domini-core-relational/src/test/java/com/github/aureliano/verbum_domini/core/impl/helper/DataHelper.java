@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.github.aureliano.verbum_domini.core.AppConfiguration;
-import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
@@ -43,7 +42,6 @@ public final class DataHelper {
 		BookDataHelper.createBooks();
 		ChapterDataHelper.createChapters();
 		VerseDataHelper.createVerses();
-		AnnotationDataHelper.createAnnotations();
 		UserDataHelper.createUsers();
 		
 		this.dataHelpersInitialized = true;
@@ -57,7 +55,7 @@ public final class DataHelper {
 	private void clearDatabase() {
 		List<Class<? extends IBean>> entityTypes = Arrays.asList(
 			BibleBean.class, BookBean.class, ChapterBean.class,
-			VerseBean.class, AnnotationBean.class, UserBean.class
+			VerseBean.class, UserBean.class
 		);
 		
 		for (Class<? extends IBean> entityType : entityTypes) {

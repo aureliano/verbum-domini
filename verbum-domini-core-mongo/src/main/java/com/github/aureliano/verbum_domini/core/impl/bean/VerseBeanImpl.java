@@ -1,5 +1,8 @@
 package com.github.aureliano.verbum_domini.core.impl.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -8,6 +11,7 @@ import org.bson.BsonDocumentWrapper;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 
+import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.validation.Save;
@@ -28,6 +32,8 @@ public class VerseBeanImpl implements VerseBean, Bson {
     
     @NotNull(message = "Property 'Chapter' must be provided.", groups = { Save.class })
     private ChapterBean chapter;
+    
+    private List<AnnotationBean> annotations;
 	
 	public VerseBeanImpl() {
 		super();
@@ -63,6 +69,23 @@ public class VerseBeanImpl implements VerseBean, Bson {
 
 	public void setChapter(ChapterBean chapter) {
 		this.chapter = chapter;
+	}
+
+	public void setAnnotations(List<AnnotationBean> annotations) {
+		this.annotations = annotations;
+	}
+
+	public List<AnnotationBean> getAnnotations() {
+		return this.annotations;
+	}
+	
+	public VerseBeanImpl addAnnotation(AnnotationBean annotation) {
+		if (this.annotations == null) {
+			this.annotations = new ArrayList<AnnotationBean>();
+		}
+		
+		this.annotations.add(annotation);
+		return this;
 	}
 
 	@Override

@@ -2,13 +2,11 @@ package com.github.aureliano.verbum_domini.core.impl.data;
 
 import java.io.Serializable;
 
-import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.dao.ChapterDao;
 import com.github.aureliano.verbum_domini.core.data.DataChapterBucket;
 import com.github.aureliano.verbum_domini.core.impl.PersistenceManagerImpl;
-import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.ChapterDaoImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoHelper;
@@ -33,7 +31,6 @@ public class DataChapterBucketImpl implements DataChapterBucket {
 		Serializable id = dao.save(chapter);
 		
 		this.saveVerses(chapter);
-		this.saveAnnotations(chapter);
 		
 		return id;
 	}
@@ -47,18 +44,6 @@ public class DataChapterBucketImpl implements DataChapterBucket {
 			Integer id = DaoHelper.nextId(verse);
 			verse.setId(id);
 			coll.insertOne((VerseBeanImpl) verse);
-		}
-	}
-	
-	private void saveAnnotations(ChapterBean chapter) {
-		MongoCollection<AnnotationBeanImpl> coll = this.persistenceManager.fetchCollection(AnnotationBeanImpl.class);
-		
-		for (AnnotationBean annotation : chapter.getAnnotations()) {
-			annotation.setChapter(chapter);
-			
-			Integer id = DaoHelper.nextId(annotation);
-			annotation.setId(id);
-			coll.insertOne((AnnotationBeanImpl) annotation);
 		}
 	}
 }

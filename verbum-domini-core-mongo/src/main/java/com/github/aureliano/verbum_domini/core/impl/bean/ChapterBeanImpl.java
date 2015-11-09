@@ -1,5 +1,6 @@
 package com.github.aureliano.verbum_domini.core.impl.bean;
 
+import java.beans.Transient;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class ChapterBeanImpl implements ChapterBean, Bson {
 	
 	private List<VerseBean> verses;
 	
-	private List<AnnotationBean> annotations;
+	private transient List<AnnotationBean> annotations;
 
 	public ChapterBeanImpl() {
 		super();
@@ -67,10 +68,20 @@ public class ChapterBeanImpl implements ChapterBean, Bson {
 		this.verses = verses;
 	}
 
+
+	/**
+	 * Transient class attribute access.
+	 */
+	@Transient
 	public List<AnnotationBean> getAnnotations() {
 		return annotations;
 	}
 
+
+	/**
+	 * Transient class attribute access.
+	 */
+	@Transient
 	public void setAnnotations(List<AnnotationBean> annotations) {
 		this.annotations = annotations;
 	}

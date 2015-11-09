@@ -1,16 +1,17 @@
 package com.github.aureliano.verbum_domini.core.impl.bean;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
-import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
+import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.validation.Delete;
 import com.github.aureliano.verbum_domini.core.validation.Save;
 
@@ -34,11 +35,9 @@ public class AnnotationBeanImpl implements AnnotationBean {
 	@NotNull(message = "Property 'Text' must be provided.", groups = { Save.class })
 	@Size(min = 5, max = 10000, message = "Property 'Text' must have between 5 and 10000 characters.", groups = { Save.class })
 	private String text;
-    
-    @ManyToOne(targetEntity = ChapterBeanImpl.class)
-	@JoinColumn(name = "chapter_fk")
-    @NotNull(message = "Property 'Chapter' must be provided.", groups = { Save.class })
-    private ChapterBean chapter;
+	
+	@ManyToMany(targetEntity = VerseBeanImpl.class)
+	private List<VerseBean> verses;
 	
 	public AnnotationBeanImpl() {
 		super();
@@ -68,12 +67,12 @@ public class AnnotationBeanImpl implements AnnotationBean {
 		this.text = text;
 	}
 
-	public ChapterBean getChapter() {
-		return chapter;
+	public List<VerseBean> getVerses() {
+		return verses;
 	}
 
-	public void setChapter(ChapterBean chapter) {
-		this.chapter = chapter;
+	public void setVerses(List<VerseBean> verses) {
+		this.verses = verses;
 	}
 
 	@Override

@@ -9,7 +9,6 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 
 import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
-import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.validation.Save;
 
 public class AnnotationBeanImpl implements AnnotationBean, Bson {
@@ -25,9 +24,6 @@ public class AnnotationBeanImpl implements AnnotationBean, Bson {
 	@NotNull(message = "Property 'Text' must be provided.", groups = { Save.class })
 	@Size(min = 5, max = 10000, message = "Property 'Text' must have between 5 and 10000 characters.", groups = { Save.class })
 	private String text;
-	
-	@NotNull(message = "Property 'Chapter' must be provided.", groups = { Save.class })
-    private ChapterBean chapter;
 	
 	public AnnotationBeanImpl() {
 		super();
@@ -55,14 +51,6 @@ public class AnnotationBeanImpl implements AnnotationBean, Bson {
 
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public ChapterBean getChapter() {
-		return chapter;
-	}
-
-	public void setChapter(ChapterBean chapter) {
-		this.chapter = chapter;
 	}
 
 	@Override

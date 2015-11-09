@@ -96,7 +96,6 @@ public class BookDaoImplTest {
 	public void testSave() {
 		BookBean bean = new BookBeanImpl();
 		BibleBean bible = new BibleDaoImpl().get(1);
-		
 		bean.setBible(bible);
 		bean.setName("apocalipse");
 		this.dao.save(bean);
@@ -122,7 +121,7 @@ public class BookDaoImplTest {
 	
 	private void validateEquals(BookBean b1, BookBean b2) {
 		assertEquals(b1.getBible().getId(), b2.getBible().getId());
-		assertEquals(b1, b2);
+		assertTrue(b1.getId() + " <> " + b2.getId(), b1.equals(b2));
 	}
 	
 	private void prepareData() {

@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
@@ -40,12 +39,6 @@ public class EntityMapperHelperTest {
 			for (VerseBean verse : chapter.getVerses()) {
 				assertNotNull(verse.getChapter());
 				assertFalse(verse.getNumber().isEmpty());
-			}
-			
-			for (AnnotationBean annotation : chapter.getAnnotations()) {
-				assertNotNull(annotation.getChapter());
-				assertFalse(annotation.getNumber().isEmpty());
-				assertFalse(annotation.getText().isEmpty());
 			}
 		}
 	}

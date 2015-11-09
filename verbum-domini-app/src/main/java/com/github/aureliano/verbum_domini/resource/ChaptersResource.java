@@ -11,11 +11,9 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.helper.UrlHelper;
-import com.github.aureliano.verbum_domini.model.Annotations;
 import com.github.aureliano.verbum_domini.model.Chapter;
 import com.github.aureliano.verbum_domini.model.Chapters;
 import com.github.aureliano.verbum_domini.model.Verses;
-import com.github.aureliano.verbum_domini.service.AnnotationsService;
 import com.github.aureliano.verbum_domini.service.ChaptersService;
 import com.github.aureliano.verbum_domini.service.VersesService;
 
@@ -86,44 +84,6 @@ public class ChaptersResource {
 		}
 		
 		return VersesResource.fetchVerseById(verseId);
-	}
-	
-	@Path("{chapterId}/annotations")
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getChapterAnnotations(
-			@PathParam("chapterId") String chapterId,
-			@QueryParam("start") Long start,
-			@QueryParam("pages") Long pages) {
-
-		String url = UrlHelper.join("chapters", chapterId, "annotations");
-		logger.info("Service: " + url + ", start: " + start + ", pages: " + pages);
-		
-		if (!ChaptersService.exist(chapterId)) {
-			logger.warn("Response 404 to URL " + url);
-			return Response.status(404).build();
-		}
-		
-		Annotations annotations = AnnotationsService.fetchAnnotationsByChapter(chapterId, start, pages);
-		return Response.status(200).entity(annotations).build();
-	}
-	
-	@Path("{chapterId}/annotations/{annotationId}")
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getChapterAnnotationById(
-			@PathParam("chapterId") String chapterId,
-			@PathParam("annotationId") String annotationId) {
-		
-		String url = UrlHelper.join("chapters", chapterId, "annotations", annotationId);
-		logger.info("Service: " + url);
-		
-		if (!ChaptersService.exist(chapterId)) {
-			logger.warn("Response 404 to URL " + url);
-			return Response.status(404).build();
-		}
-		
-		return AnnotationsResource.fetchAnnotationById(annotationId);
 	}
 	
 	public static Response fetchChapterById(String chapterId) {

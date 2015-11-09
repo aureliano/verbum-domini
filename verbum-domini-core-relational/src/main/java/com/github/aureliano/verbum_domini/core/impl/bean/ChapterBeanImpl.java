@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
@@ -43,8 +44,8 @@ public class ChapterBeanImpl implements ChapterBean {
 	@OneToMany(targetEntity = VerseBeanImpl.class, cascade = CascadeType.PERSIST, mappedBy = "chapter", fetch = FetchType.LAZY)
 	private List<VerseBean> verses;
 	
-	@OneToMany(targetEntity = AnnotationBeanImpl.class, cascade = CascadeType.PERSIST, mappedBy = "chapter", fetch = FetchType.LAZY)
-	private List<AnnotationBean> annotations;
+	@Transient
+	private transient List<AnnotationBean> annotations;
 
 	public ChapterBeanImpl() {
 		super();
@@ -82,10 +83,19 @@ public class ChapterBeanImpl implements ChapterBean {
 		this.verses = verses;
 	}
 
+
+	/**
+	 * Transient class attribute access.
+	 */
+	@java.beans.Transient
 	public List<AnnotationBean> getAnnotations() {
 		return annotations;
 	}
 
+	/**
+	 * Transient class attribute access.
+	 */
+	@java.beans.Transient
 	public void setAnnotations(List<AnnotationBean> annotations) {
 		this.annotations = annotations;
 	}

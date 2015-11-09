@@ -13,14 +13,12 @@ import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
-import com.github.aureliano.verbum_domini.core.dao.AnnotationDao;
 import com.github.aureliano.verbum_domini.core.dao.ChapterDao;
 import com.github.aureliano.verbum_domini.core.dao.VerseDao;
 import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
-import com.github.aureliano.verbum_domini.core.impl.dao.AnnotationDaoImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.BibleDaoImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.BookDaoImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.ChapterDaoImpl;
@@ -50,6 +48,16 @@ public class DataBookBucketImplTest {
 		Serializable id = this.bucket.saveBatch(book);
 		BookBean entity = new BookDaoImpl().load(id);
 		
+		ChapterBean chapter = new ChapterBeanImpl();
+		chapter.setBook(entity);
+		entity.setChapters(new ChapterDaoImpl().list(chapter).getElements());
+		
+		for (ChapterBean c : entity.getChapters()) {
+			VerseBean verse = new VerseBeanImpl();
+			verse.setChapter(c);
+			c.setVerses(new VerseDaoImpl().list(verse).getElements());
+		}
+		
 		assertEquals(this.chaptersSize, entity.getChapters().size());
 		this.validateEquals(book, entity);
 		
@@ -59,15 +67,10 @@ public class DataBookBucketImplTest {
 	private void deleteCascadeBook(BookBean book) {
 		ChapterDao cdao = new ChapterDaoImpl();
 		VerseDao vdao = new VerseDaoImpl();
-		AnnotationDao adao = new AnnotationDaoImpl();
 		
 		for (ChapterBean chapter : book.getChapters()) {
 			for (VerseBean verse : chapter.getVerses()) {
 				vdao.delete(verse);
-			}
-			
-			for (AnnotationBean annotation : chapter.getAnnotations()) {
-				adao.delete(annotation);
 			}
 			
 			cdao.delete(chapter);
@@ -94,9 +97,13 @@ public class DataBookBucketImplTest {
 			
 			chapter.setBook(book);
 			chapter.setNumber("12345");
-			chapter.setVerses(this.prepareVerses(chapter));
-			chapter.setAnnotations(this.prepareAnnotations(chapter));
 			
+			List<VerseBean> verses = this.prepareVerses(chapter);
+			for (VerseBean verse : verses) {
+				verse.setAnnotations(this.prepareAnnotations());
+			}
+			
+			chapter.setVerses(this.prepareVerses(chapter));
 			chapters.add(chapter);
 		}
 		
@@ -118,12 +125,11 @@ public class DataBookBucketImplTest {
 		return verses;
 	}
 	
-	private List<AnnotationBean> prepareAnnotations(ChapterBean chapter) {
+	private List<AnnotationBean> prepareAnnotations() {
 		List<AnnotationBean> annotations = new ArrayList<AnnotationBean>();
 		
 		for (short i = 0; i < annotationsSize; i++) {
 			AnnotationBean annotation = new AnnotationBeanImpl();
-			annotation.setChapter(chapter);
 			annotation.setNumber(String.valueOf(i + 1));
 			annotation.setText("Test annotation text " + (i + 1));
 			
@@ -144,27 +150,20 @@ public class DataBookBucketImplTest {
 		
 			assertEquals(c1.getId(), c2.getId());
 			assertEquals(c1.getNumber(), c2.getNumber());
-			
 			assertEquals(c1.getVerses().size(), c2.getVerses().size());
-			assertEquals(c1.getAnnotations().size(), c2.getAnnotations().size());
 
 			assertEquals(this.versesSize, c2.getVerses().size());
-			assertEquals(this.annotationsSize, c2.getAnnotations().size());
 		
 			for (short j = 0; j < c1.getVerses().size(); j++) {
 				VerseBean v1 = c1.getVerses().get(j);
 				VerseBean v2 = c2.getVerses().get(j);
 				
 				assertEquals(v1.getNumber(), v2.getNumber());
-				assertEquals(v1.getText(), v2.getText());
-			}
-			
-			for (short j = 0; j < c1.getAnnotations().size(); j++) {
-				AnnotationBean a1 = c1.getAnnotations().get(j);
-				AnnotationBean a2 = c2.getAnnotations().get(j);
+				assertEquals(v1.getId(), v2.getId());
 				
-				assertEquals(a1.getNumber(), a2.getNumber());
-				assertEquals(a1.getText(), a2.getText());
+				if (v1.getAnnotations() != null) {
+					assertEquals(v1.getAnnotations().size(), v2.getAnnotations().size());
+				}
 			}
 		}
 	}

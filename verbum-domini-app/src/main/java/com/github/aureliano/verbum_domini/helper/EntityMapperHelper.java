@@ -1,8 +1,11 @@
 package com.github.aureliano.verbum_domini.helper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
@@ -44,8 +47,7 @@ public final class EntityMapperHelper {
 			ChapterBean chapter = new ChapterBeanImpl();
 			chapter.setBook(book);
 			chapter.setNumber(key.toString());
-			chapter.setAnnotations(mapAnnotations(chapter, annotations));
-			chapter.setVerses(mapVerses(chapter, verses));
+			chapter.setVerses(mapVerses(chapter, verses, annotations));
 			
 			book.getChapters().add(chapter);
 		}
@@ -53,36 +55,30 @@ public final class EntityMapperHelper {
 		return book;
 	}
 	
-	private static List<AnnotationBean> mapAnnotations(ChapterBean chapter, Map<String, Object> map) {
-		List<AnnotationBean> annotations = new ArrayList<AnnotationBean>();
+	private static List<VerseBean> mapVerses(
+			ChapterBean chapter, Map<String, Object> mapVerses, Map<String, Object> mapAnnotations) {
 		
-		if (map == null) {
-			return annotations;
-		}
+		Map<String, AnnotationBean> hash = buildAnnotationsHash(mapAnnotations);
 		
-		for (String ka : map.keySet()) {
-			AnnotationBean annotation = new AnnotationBeanImpl();
-			annotation.setNumber(ka);
-			annotation.setText(map.get(ka).toString());
-			
-			annotation.setChapter(chapter);
-			annotations.add(annotation);
-		}
-		
-		return annotations;
-	}
-	
-	private static List<VerseBean> mapVerses(ChapterBean chapter, Map<String, Object> map) {
 		List<VerseBean> verses = new ArrayList<VerseBean>();
 		
-		for (String kv : map.keySet()) {
-			Object o = map.get(kv);
+		for (String kv : mapVerses.keySet()) {
+			Object o = mapVerses.get(kv);
 			VerseBean verse = new VerseBeanImpl();
 			verse.setNumber(kv);
 			
 			if (o instanceof Map) {
 				String text = ((Map<?, ?>) o).get("verse").toString();
 				verse.setText(text);
+				
+				List<String> annotations = (List<String>) ((Map<?, ?>) o).get("annotations");
+				for (String key : annotations) {
+					AnnotationBean annotation = hash.get(key);
+					if (annotation == null) {
+						throw new VerbumDominiException("Could not find any annotation bean to the verse " + kv + " on chapter " + chapter.getNumber());
+					}
+					verse.addAnnotation(annotation);
+				}
 			} else {
 				verse.setText(o.toString());
 			}
@@ -92,5 +88,26 @@ public final class EntityMapperHelper {
 		}
 		
 		return verses;
+	}
+	
+	private static Map<String, AnnotationBean> buildAnnotationsHash(Map<String, Object> mapAnnotations) {
+		Map<String, AnnotationBean> hash = new HashMap<String, AnnotationBean>();
+		
+		for (String kv : mapAnnotations.keySet()) {
+			AnnotationBean annotation = new AnnotationBeanImpl();
+			
+			String text = mapAnnotations.get(kv).toString();
+			String verseRange = RegexHelper.scan("^\\[[^\\]]+\\]", text);
+			if (!StringUtils.isEmpty(verseRange)) {
+				text.replaceFirst("^\\[[^\\]]+\\]", verseRange.replaceAll("\\s+", ""));
+			}
+			
+			annotation.setNumber(kv);
+			annotation.setText(text);
+			
+			hash.put(kv, annotation);
+		}
+		
+		return hash;
 	}
 }

@@ -18,7 +18,6 @@ public class AnnotationParserTest {
 		Annotation resource = new AnnotationParser().toResource(bean);
 		
 		assertEquals(bean.getId(), resource.getAnnotationId());
-		assertEquals(bean.getChapter().getId(), resource.getChapterId());
 		assertEquals(bean.getNumber(), resource.getNumber());
 		assertEquals(bean.getText(), resource.getText());
 	}
@@ -29,7 +28,6 @@ public class AnnotationParserTest {
 		chapter.setId(20);
 		
 		bean.setId(4);
-		bean.setChapter(chapter);
 		bean.setNumber("12345");
 		bean.setText("This is an annotation.");
 		

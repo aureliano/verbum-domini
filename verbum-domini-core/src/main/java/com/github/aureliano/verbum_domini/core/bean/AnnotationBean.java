@@ -9,8 +9,4 @@ public abstract void setNumber(String number);
 	public abstract void setText(String text);
 	
 	public abstract String getText();
-	
-	public abstract void setChapter(ChapterBean chapter);
-	
-	public abstract ChapterBean getChapter();
 }

@@ -8,11 +8,9 @@ import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
-import com.github.aureliano.verbum_domini.core.bean.IBean;
 import com.github.aureliano.verbum_domini.core.bean.UserBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.dao.IDao;
-import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
@@ -23,7 +21,7 @@ public class DaoFactoryTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateDaoWithUnsupportedType() {
-		DaoFactory.createDao(CustomBean.class);
+		DaoFactory.createDao(AnnotationBean.class);
 	}
 	
 	public void testCreateDao() {
@@ -47,18 +45,9 @@ public class DaoFactoryTest {
 		dao = DaoFactory.createDao(VerseBeanImpl.class);
 		assertTrue(dao instanceof VerseDaoImpl);
 		
-		dao = DaoFactory.createDao(AnnotationBean.class);
-		assertTrue(dao instanceof AnnotationDaoImpl);
-		dao = DaoFactory.createDao(AnnotationBeanImpl.class);
-		assertTrue(dao instanceof AnnotationDaoImpl);
-		
 		dao = DaoFactory.createDao(UserBean.class);
 		assertTrue(dao instanceof UserDaoImpl);
 		dao = DaoFactory.createDao(UserBeanImpl.class);
 		assertTrue(dao instanceof UserDaoImpl);
-	}
-	
-	private interface CustomBean extends IBean {
-		
 	}
 }

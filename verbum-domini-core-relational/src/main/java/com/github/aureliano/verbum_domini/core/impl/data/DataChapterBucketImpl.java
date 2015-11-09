@@ -8,13 +8,11 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 
 import com.github.aureliano.verbum_domini.core.AppConfiguration;
-import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.data.DataChapterBucket;
 import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.core.impl.PersistenceManagerImpl;
-import com.github.aureliano.verbum_domini.core.impl.bean.AnnotationBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
 
@@ -50,7 +48,6 @@ public class DataChapterBucketImpl implements DataChapterBucket {
 		chapter = (ChapterBean) session.load(ChapterBeanImpl.class, id);
 		
 		this.saveVerses(chapter, session);
-		this.saveAnnotations(chapter, session);
 		
 		return id;
 	}
@@ -62,16 +59,6 @@ public class DataChapterBucketImpl implements DataChapterBucket {
 			Integer id = this.lastId(session, VerseBeanImpl.class) + 1;
 			verse.setId(id);
 			session.save(verse);
-		}
-	}
-	
-	private void saveAnnotations(ChapterBean chapter, Session session) {
-		for (AnnotationBean annotation : chapter.getAnnotations()) {
-			annotation.setChapter(chapter);
-			
-			Integer id = this.lastId(session, AnnotationBeanImpl.class) + 1;
-			annotation.setId(id);
-			session.save(annotation);
 		}
 	}
 	

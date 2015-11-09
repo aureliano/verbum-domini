@@ -1,6 +1,5 @@
 package com.github.aureliano.verbum_domini.core.impl.dao;
 
-import com.github.aureliano.verbum_domini.core.bean.AnnotationBean;
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
@@ -19,8 +18,6 @@ public final class DaoFactory {
 	public static <T extends IBean> IDao<T> createDao(Class<T> type) {
 		if (VerseBean.class.isAssignableFrom(type)) {
 			return (IDao<T>) new VerseDaoImpl();
-		} else if (AnnotationBean.class.isAssignableFrom(type)) {
-			return (IDao<T>) new AnnotationDaoImpl();
 		} else if (ChapterBean.class.isAssignableFrom(type)) {
 			return (IDao<T>) new ChapterDaoImpl();
 		} else if (BookBean.class.isAssignableFrom(type)) {
