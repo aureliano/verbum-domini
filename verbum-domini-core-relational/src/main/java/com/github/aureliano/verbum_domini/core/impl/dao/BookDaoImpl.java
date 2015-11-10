@@ -163,6 +163,10 @@ public class BookDaoImpl implements BookDao {
 			criteria.add(Restrictions.eq("bible", book.getBible()));
 		}
 		
+		if (book.getName() != null) {
+			criteria.add(Restrictions.eq("name", book.getName()));
+		}
+		
 		return criteria;
 	}
 	

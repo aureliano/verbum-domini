@@ -138,6 +138,10 @@ public class BookDaoImpl implements BookDao {
 			dbFilter.append("bible_id", filter.getBible().getId());
 		}
 		
+		if (filter.getName() != null) {
+			dbFilter.append("name", filter.getName());
+		}
+		
 		return dbFilter;
 	}
 	
