@@ -19,21 +19,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-	"annotationId",
 	"number",
-	"text",
-	"chapterId"
+	"text"
 })
 @XmlRootElement
 public class Annotation {
 
-	/**
-	 * 
-	 * (Required)
-	 * 
-	 */
-	@JsonProperty("annotationId")
-	private Integer annotationId;
 	/**
 	 * 
 	 * (Required)
@@ -48,44 +39,8 @@ public class Annotation {
 	 */
 	@JsonProperty("text")
 	private String text;
-	/**
-	 * 
-	 * (Required)
-	 * 
-	 */
-	@JsonProperty("chapterId")
-	private Integer chapterId;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-	/**
-	 * 
-	 * (Required)
-	 * 
-	 * @return
-	 *	 The annotationId
-	 */
-	@JsonProperty("annotationId")
-	public Integer getAnnotationId() {
-		return annotationId;
-	}
-
-	/**
-	 * 
-	 * (Required)
-	 * 
-	 * @param annotationId
-	 *	 The annotationId
-	 */
-	@JsonProperty("annotationId")
-	public void setAnnotationId(Integer annotationId) {
-		this.annotationId = annotationId;
-	}
-
-	public Annotation withAnnotationId(Integer annotationId) {
-		this.annotationId = annotationId;
-		return this;
-	}
 
 	/**
 	 * 
@@ -142,35 +97,6 @@ public class Annotation {
 
 	public Annotation withText(String text) {
 		this.text = text;
-		return this;
-	}
-
-	/**
-	 * 
-	 * (Required)
-	 * 
-	 * @return
-	 *	 The chapterId
-	 */
-	@JsonProperty("chapterId")
-	public Integer getChapterId() {
-		return chapterId;
-	}
-
-	/**
-	 * 
-	 * (Required)
-	 * 
-	 * @param chapterId
-	 *	 The chapterId
-	 */
-	@JsonProperty("chapterId")
-	public void setChapterId(Integer chapterId) {
-		this.chapterId = chapterId;
-	}
-
-	public Annotation withChapterId(Integer chapterId) {
-		this.chapterId = chapterId;
 		return this;
 	}
 
