@@ -12,8 +12,6 @@ schemas:
   - chapters: !include schema/chapters.json
   - verse: !include schema/verse.json
   - verses: !include schema/verses.json
-  - annotation: !include schema/annotation.json
-  - annotations: !include schema/annotations.json
 
 resourceTypes:
   - base:
@@ -62,11 +60,6 @@ traits:
   type: { typedCollection: { schema: verse, collectionSchema: verses } }
   /{verseId}:
     type: { typedMember: { schema: verse } }
-
-/annotations: &annotations
-  type: { typedCollection: { schema: annotation, collectionSchema: annotations } }
-  /{annotationId}:
-    type: { typedMember: { schema: annotation } }
 
 /chapters: &chapters
   type: { typedCollection: { schema: chapter, collectionSchema: chapters } }
