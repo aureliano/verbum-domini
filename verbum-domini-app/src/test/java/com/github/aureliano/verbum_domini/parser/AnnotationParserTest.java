@@ -17,7 +17,6 @@ public class AnnotationParserTest {
 		AnnotationBean bean = this.createBean();
 		Annotation resource = new AnnotationParser().toResource(bean);
 		
-		assertEquals(bean.getId(), resource.getAnnotationId());
 		assertEquals(bean.getNumber(), resource.getNumber());
 		assertEquals(bean.getText(), resource.getText());
 	}

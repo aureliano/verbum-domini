@@ -12,7 +12,6 @@ public class AnnotationParser implements IResourceParser<AnnotationBean> {
 	@Override
 	public Annotation toResource(AnnotationBean bean) {
 		return new Annotation()
-			.withAnnotationId(bean.getId())
 			.withNumber(bean.getNumber())
 			.withText(bean.getText());
 	}
