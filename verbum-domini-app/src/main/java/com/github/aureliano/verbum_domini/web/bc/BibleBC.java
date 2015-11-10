@@ -11,7 +11,7 @@ import com.github.aureliano.verbum_domini.core.dao.IDao;
 import com.github.aureliano.verbum_domini.core.helper.ValidationHelper;
 import com.github.aureliano.verbum_domini.core.impl.bean.BibleBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.helper.WebHelper;
 import com.github.aureliano.verbum_domini.web.DataPage;

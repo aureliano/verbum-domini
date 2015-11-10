@@ -12,7 +12,7 @@ import com.github.aureliano.verbum_domini.core.exception.VerbumDominiException;
 import com.github.aureliano.verbum_domini.core.helper.ValidationHelper;
 import com.github.aureliano.verbum_domini.core.impl.PersistenceManagerImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.core.web.ServiceParams;
 import com.mongodb.BasicDBObject;

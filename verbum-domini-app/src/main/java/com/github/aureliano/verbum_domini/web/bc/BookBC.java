@@ -18,7 +18,7 @@ import com.github.aureliano.verbum_domini.core.helper.ValidationHelper;
 import com.github.aureliano.verbum_domini.core.impl.bean.BookBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.impl.data.DataBookBucketImpl;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 import com.github.aureliano.verbum_domini.core.web.Pagination;
 import com.github.aureliano.verbum_domini.helper.EntityMapperHelper;
 import com.github.aureliano.verbum_domini.helper.JsonMapperHelper;

@@ -11,7 +11,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 
 import com.github.aureliano.verbum_domini.core.bean.UserBean;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 
 public class UserBeanImpl implements UserBean, Bson {
 

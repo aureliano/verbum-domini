@@ -5,8 +5,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.github.aureliano.verbum_domini.core.validation.Delete;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Delete;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 
 public class BeanImpl implements IBean {
 

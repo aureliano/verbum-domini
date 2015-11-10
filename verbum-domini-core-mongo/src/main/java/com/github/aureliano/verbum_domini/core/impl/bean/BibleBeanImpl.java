@@ -12,7 +12,7 @@ import org.bson.conversions.Bson;
 
 import com.github.aureliano.verbum_domini.core.bean.BibleBean;
 import com.github.aureliano.verbum_domini.core.bean.BookBean;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 
 public class BibleBeanImpl implements BibleBean, Bson {
 

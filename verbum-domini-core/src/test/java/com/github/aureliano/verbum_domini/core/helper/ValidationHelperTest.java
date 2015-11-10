@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.github.aureliano.verbum_domini.core.bean.BeanImpl;
-import com.github.aureliano.verbum_domini.core.validation.Delete;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Delete;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 
 public class ValidationHelperTest {
 
