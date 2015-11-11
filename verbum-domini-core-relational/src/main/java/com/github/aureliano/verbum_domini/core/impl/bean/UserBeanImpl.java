@@ -16,7 +16,7 @@ import com.github.aureliano.verbum_domini.core.validation.group.Delete;
 import com.github.aureliano.verbum_domini.core.validation.group.Save;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_tb")
 public class UserBeanImpl implements UserBean {
 
 	private static final long serialVersionUID = -3566933057670413917L;

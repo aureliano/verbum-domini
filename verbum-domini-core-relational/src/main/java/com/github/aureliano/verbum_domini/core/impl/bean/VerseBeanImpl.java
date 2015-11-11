@@ -40,7 +40,7 @@ public class VerseBeanImpl implements VerseBean {
     
 	@Column(name = "text", precision = 10000, nullable = false)
 	@NotNull(message = "Property 'Text' must be provided.", groups = { Save.class })
-	@Size(min = 5, max = 10000, message = "Property 'Text' must have between 5 and 10000 characters.", groups = { Save.class })
+	@Size(min = 5, max = 22000, message = "Property 'Text' must have between 5 and 10000 characters.", groups = { Save.class })
 	private String text;
     
     @ManyToOne(targetEntity = ChapterBeanImpl.class)
@@ -51,8 +51,8 @@ public class VerseBeanImpl implements VerseBean {
     @ManyToMany(targetEntity = AnnotationBeanImpl.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
     	name = "verse_annotation",
-    	joinColumns = { @JoinColumn(name = "verse_id", referencedColumnName = "id") },
-    	inverseJoinColumns = { @JoinColumn(name= "annotation_id", referencedColumnName = "id") }
+    	joinColumns = { @JoinColumn(name = "verse_fk", referencedColumnName = "id") },
+    	inverseJoinColumns = { @JoinColumn(name= "annotation_fk", referencedColumnName = "id") }
     )
     private List<AnnotationBean> annotations;
 	

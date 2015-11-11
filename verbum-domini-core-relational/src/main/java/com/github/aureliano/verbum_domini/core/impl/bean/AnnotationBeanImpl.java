@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -37,6 +39,11 @@ public class AnnotationBeanImpl implements AnnotationBean {
 	private String text;
 	
 	@ManyToMany(targetEntity = VerseBeanImpl.class)
+    @JoinTable(
+    	name = "verse_annotation",
+    	joinColumns = { @JoinColumn(name = "annotation_fk", referencedColumnName = "id") },
+    	inverseJoinColumns = { @JoinColumn(name= "verse_fk", referencedColumnName = "id") }
+    )
 	private List<VerseBean> verses;
 	
 	public AnnotationBeanImpl() {
