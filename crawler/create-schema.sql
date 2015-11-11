@@ -38,7 +38,7 @@ CREATE TABLE verse(
   id INT NOT NULL,
   chapter_fk INT NOT NULL,
   number CHARACTER VARYING(5) NOT NULL,
-  text CHARACTER VARYING(10000) NOT NULL,
+  text CHARACTER VARYING(22000) NOT NULL,
   CONSTRAINT verse_pkey PRIMARY KEY(id),
   CONSTRAINT fkc_chapter_verse FOREIGN KEY (chapter_fk)
       REFERENCES chapter (id) MATCH SIMPLE
@@ -47,13 +47,31 @@ CREATE TABLE verse(
 
 CREATE TABLE annotation(
   id INT NOT NULL,
-  chapter_fk INT NOT NULL,
   number CHARACTER VARYING(5) NOT NULL,
   text CHARACTER VARYING(5000) NOT NULL,
-  CONSTRAINT annotation_pkey PRIMARY KEY(id),
-  CONSTRAINT fkc_chapter_annotation FOREIGN KEY (chapter_fk)
-      REFERENCES chapter (id) MATCH SIMPLE
+  CONSTRAINT annotation_pkey PRIMARY KEY(id)
+);
+
+CREATE TABLE verse_annotation(
+  verse_fk INT NOT NULL,
+  annotation_fk INT NOT NULL,
+  CONSTRAINT fkc_verse_va FOREIGN KEY (verse_fk)
+      REFERENCES verse (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fkc_annotation_va FOREIGN KEY (annotation_fk)
+      REFERENCES annotation (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE user_tb(
+  id INT NOT NULL,
+  login CHARACTER VARYING(50) NOT NULL,
+  password CHARACTER VARYING(50) NOT NULL,
+  salt_number CHARACTER VARYING(5) NOT NULL,
+  active BOOLEAN DEFAULT TRUE,
+  creation TIMESTAMP NOT NULL,
+  last_sign_in TIMESTAMP
+  CONSTRAINT user_pkey PRIMARY KEY(id)
 );
 
 CREATE SEQUENCE bible_seq
@@ -85,6 +103,13 @@ CREATE SEQUENCE verse_seq
   CACHE 1;
 
 CREATE SEQUENCE annotation_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 2147483647
+  START 1
+  CACHE 1;
+
+CREATE SEQUENCE user_tb_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 2147483647
