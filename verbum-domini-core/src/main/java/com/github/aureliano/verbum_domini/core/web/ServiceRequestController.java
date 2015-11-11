@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import org.apache.log4j.Logger;
 
 import com.github.aureliano.verbum_domini.core.AppConfiguration;
+import com.github.aureliano.verbum_domini.core.Environments;
 
 public final class ServiceRequestController {
 
@@ -191,6 +192,10 @@ public final class ServiceRequestController {
 		value = configuration.getProperty("app.service.usage.max_threads_per_user");
 		if (value != null) {
 			this.maxThreadsPerUser = Integer.parseInt(value);
+		}
+		
+		if (Environments.TEST.equals(AppConfiguration.instance().getEnvironment())) {
+			this.intervalBetweenRequests = 10;
 		}
 	}
 }
