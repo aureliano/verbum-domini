@@ -40,7 +40,6 @@ public final class DaoHelper {
 		return (id + 1);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static Integer lastId(MongoCollection<?> coll) {
 		FindIterable<Document> it = (FindIterable<Document>) coll.find()
 			.projection(Projections.include("_id")).sort(new BasicDBObject("_id", -1)).limit(1);
