@@ -1,6 +1,7 @@
 package com.github.aureliano.verbum_domini.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -55,6 +56,10 @@ public class Verse {
 	 */
 	@JsonProperty("chapterId")
 	private Integer chapterId;
+	
+	@JsonProperty("annotations")
+	private List<Annotation> annotations;
+	
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -171,6 +176,33 @@ public class Verse {
 
 	public Verse withChapterId(Integer chapterId) {
 		this.chapterId = chapterId;
+		return this;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @return
+	 *	 The annotations
+	 */
+	@JsonProperty("annotations")
+	public List<Annotation> getAnnotations() {
+		return annotations;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param annotations
+	 *	 The annotations
+	 */
+	@JsonProperty("annotations")
+	public void setAnnotations(List<Annotation> annotations) {
+		this.annotations = annotations;
+	}
+	
+	public Verse withAnnotations(List<Annotation> annotations) {
+		this.annotations = annotations;
 		return this;
 	}
 
