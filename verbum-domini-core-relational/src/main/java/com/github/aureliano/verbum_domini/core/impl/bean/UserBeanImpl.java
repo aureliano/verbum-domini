@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.github.aureliano.verbum_domini.core.bean.UserBean;
-import com.github.aureliano.verbum_domini.core.validation.Delete;
-import com.github.aureliano.verbum_domini.core.validation.Save;
+import com.github.aureliano.verbum_domini.core.validation.group.Delete;
+import com.github.aureliano.verbum_domini.core.validation.group.Save;
 
 @Entity
 @Table(name = "user")
