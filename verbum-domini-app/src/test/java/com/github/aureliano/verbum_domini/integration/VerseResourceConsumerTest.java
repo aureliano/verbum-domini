@@ -18,12 +18,15 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.aureliano.verbum_domini.core.AppConfiguration;
 import com.github.aureliano.verbum_domini.helper.AppHelper;
 import com.github.aureliano.verbum_domini.helper.DataHelper;
 import com.github.aureliano.verbum_domini.model.Verse;
 import com.github.aureliano.verbum_domini.model.Verses;
 
 public class VerseResourceConsumerTest {
+
+	private static final int MAX_ELEMENTS_BY_QUERY = AppConfiguration.instance().maxElementsByQuery();
 
 	public VerseResourceConsumerTest() {
 		DataHelper.instance().initializeDataHelpers();
@@ -41,7 +44,7 @@ public class VerseResourceConsumerTest {
 		Verses verses = (Verses) u.unmarshal(new StringReader(content));
 		
 		assertEquals(new Integer(250), verses.getSize());
-		assertEquals(25, verses.getVerses().size());
+		assertEquals(MAX_ELEMENTS_BY_QUERY, verses.getVerses().size());
 	}
 
 	@Test
@@ -73,7 +76,7 @@ public class VerseResourceConsumerTest {
 		Verses verses = mapper.readValue(content, Verses.class);
 		
 		assertEquals(new Integer(250), verses.getSize());
-		assertEquals(25, verses.getVerses().size());
+		assertEquals(MAX_ELEMENTS_BY_QUERY, verses.getVerses().size());
 	}
 	
 	@Test

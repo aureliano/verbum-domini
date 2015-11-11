@@ -22,7 +22,7 @@ import com.mongodb.client.model.Filters;
 
 public class ChapterDaoImpl implements ChapterDao {
 
-	private static final int MAX_ELEMENTS_BY_QUERY = Integer.parseInt(AppConfiguration.instance().getProperty("database.dao.max_elements_by_query"));
+	private static final int MAX_ELEMENTS_BY_QUERY = AppConfiguration.instance().maxElementsByQuery();
 	
 	private PersistenceManagerImpl persistenceManager;
 	

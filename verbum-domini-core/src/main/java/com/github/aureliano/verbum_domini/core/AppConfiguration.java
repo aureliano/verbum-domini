@@ -15,6 +15,7 @@ public class AppConfiguration {
 	private Properties properties;
 	
 	private Environments environment;
+	private int maxElementsByQuery;
 	
 	private AppConfiguration() {
 		this.properties = PropertyHelper.loadProperties(APP_CONFIGURATION_RESOURCE_NAME);
@@ -51,6 +52,15 @@ public class AppConfiguration {
 	
 	public Environments getEnvironment() {
 		return this.environment;
+	}
+	
+	public Integer maxElementsByQuery() {
+		this.maxElementsByQuery = Integer.parseInt(this.getProperty("database.dao.max_elements_by_query"));
+		if (Environments.TEST.equals(AppConfiguration.instance().getEnvironment())) {
+			this.maxElementsByQuery = 25;
+		}
+		
+		return this.maxElementsByQuery;
 	}
 	
 	private PersistenceManager createPersistenceManager() {
