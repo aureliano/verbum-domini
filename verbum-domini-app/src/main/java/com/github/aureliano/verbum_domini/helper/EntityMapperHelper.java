@@ -49,6 +49,12 @@ public final class EntityMapperHelper {
 			chapter.setNumber(key.toString());
 			chapter.setVerses(mapVerses(chapter, verses, annotations));
 			
+			if (chapter.getVerses().isEmpty()) {
+				continue;
+			} else if (!chapter.getNumber().matches("\\d+") && book.getName().contains(chapter.getNumber())) {
+				chapter.setNumber("1");
+			}
+			
 			book.getChapters().add(chapter);
 		}
 		
@@ -75,7 +81,7 @@ public final class EntityMapperHelper {
 				for (String key : annotations) {
 					AnnotationBean annotation = hash.get(key);
 					if (annotation == null) {
-						throw new VerbumDominiException("Could not find any annotation bean to the verse " + kv + " on chapter " + chapter.getNumber());
+						continue;
 					}
 					verse.addAnnotation(annotation);
 				}
@@ -92,6 +98,9 @@ public final class EntityMapperHelper {
 	
 	private static Map<String, AnnotationBean> buildAnnotationsHash(Map<String, Object> mapAnnotations) {
 		Map<String, AnnotationBean> hash = new HashMap<String, AnnotationBean>();
+		if (mapAnnotations == null) {
+			return hash;
+		}
 		
 		for (String kv : mapAnnotations.keySet()) {
 			AnnotationBean annotation = new AnnotationBeanImpl();

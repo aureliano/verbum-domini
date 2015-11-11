@@ -38,6 +38,7 @@ public class DataSeedServletContextListener implements ServletContextListener {
 	
 	private DataBookBucket dataBookBucket;
 	private BibleDao bibleDao;
+	private int annotationIdSeed = 0;
 	
 	public DataSeedServletContextListener() {
 		this.dataBookBucket = new DataBookBucketImpl();
@@ -47,7 +48,7 @@ public class DataSeedServletContextListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		logger.info("Disabled");
-		//this.dataSeed();
+		this.dataSeed();
 	}
 
 	@Override
@@ -92,13 +93,25 @@ public class DataSeedServletContextListener implements ServletContextListener {
 		Map<?, ?> map = JsonMapperHelper.map(Map.class, inputStream);
 		BookBean book = EntityMapperHelper.map(BookBean.class, map);
 		
+		for (ChapterBean c : book.getChapters()) {
+			for (VerseBean v : c.getVerses()) {
+				if (v.getAnnotations() == null) {
+					continue;
+				}
+				
+				for (AnnotationBean a : v.getAnnotations()) {
+					a.setId(++this.annotationIdSeed);
+				}
+			}
+		}
+		
 		return book;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void dropEntities() {
 		List<Class<? extends IBean>> entityTypes = Arrays.asList(
-			VerseBean.class, AnnotationBean.class,
-			ChapterBean.class, BookBean.class
+			VerseBean.class, ChapterBean.class, BookBean.class
 		);
 		
 		for (Class<? extends IBean> entityType : entityTypes) {

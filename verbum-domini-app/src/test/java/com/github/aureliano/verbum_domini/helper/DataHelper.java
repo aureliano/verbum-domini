@@ -54,8 +54,9 @@ public final class DataHelper {
 	@SuppressWarnings("unchecked")
 	private void clearDatabase() {
 		List<Class<? extends IBean>> entityTypes = Arrays.asList(
-			BibleBean.class, BookBean.class, ChapterBean.class,
-			VerseBean.class, UserBean.class
+			VerseBean.class, ChapterBean.class,
+			BookBean.class, BibleBean.class,
+			UserBean.class
 		);
 		
 		for (Class<? extends IBean> entityType : entityTypes) {

@@ -14,11 +14,13 @@ import com.github.aureliano.verbum_domini.core.bean.BookBean;
 import com.github.aureliano.verbum_domini.core.bean.ChapterBean;
 import com.github.aureliano.verbum_domini.core.bean.VerseBean;
 import com.github.aureliano.verbum_domini.core.dao.ChapterDao;
+import com.github.aureliano.verbum_domini.core.dao.IDao;
 import com.github.aureliano.verbum_domini.core.dao.VerseDao;
 import com.github.aureliano.verbum_domini.core.impl.bean.ChapterBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.bean.VerseBeanImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.BookDaoImpl;
 import com.github.aureliano.verbum_domini.core.impl.dao.ChapterDaoImpl;
+import com.github.aureliano.verbum_domini.core.impl.dao.DaoFactory;
 import com.github.aureliano.verbum_domini.core.impl.dao.VerseDaoImpl;
 import com.github.aureliano.verbum_domini.helper.DataHelper;
 
@@ -42,6 +44,8 @@ public class DataBookFacadeTest {
 	}
 	
 	private void deleteCascadeBook(BookBean book) {
+		book = DaoFactory.createDao(BookBean.class).get(book.getId());
+		
 		ChapterDao cdao = new ChapterDaoImpl();
 		VerseDao vdao = new VerseDaoImpl();
 		
@@ -52,6 +56,7 @@ public class DataBookFacadeTest {
 			book.setChapters(cdao.list(filter).getElements());
 		}
 		
+		IDao<ChapterBean> dao = DaoFactory.createDao(ChapterBean.class);
 		for (ChapterBean chapter : book.getChapters()) {
 			if (chapter.getVerses() == null) {
 				VerseBean filter = new VerseBeanImpl();
@@ -60,6 +65,7 @@ public class DataBookFacadeTest {
 				chapter.setVerses(vdao.list(filter).getElements());
 			}
 			
+			chapter = dao.get(chapter.getId());
 			for (VerseBean verse : chapter.getVerses()) {
 				vdao.delete(verse);
 			}
