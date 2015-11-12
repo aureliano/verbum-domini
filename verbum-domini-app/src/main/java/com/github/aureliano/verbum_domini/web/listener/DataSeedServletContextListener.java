@@ -47,7 +47,7 @@ public class DataSeedServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		logger.info("Disabled");
+		//logger.info("Disabled");
 		this.dataSeed();
 	}
 
