@@ -78,10 +78,9 @@ Dir.entries('pages').each do |fname|
       verse.gsub! /&nbsp;?/, ''
       verse.gsub! /\s?&#8658;\s?/, ' '
       verse.gsub! /<\/b/, ''
-      verse.gsub! "\n", ''
       verse.strip!
 
-      content << verse
+      content << verse unless verse.empty?
     end
     
     dt_verses['1'] = content.join("\n")
