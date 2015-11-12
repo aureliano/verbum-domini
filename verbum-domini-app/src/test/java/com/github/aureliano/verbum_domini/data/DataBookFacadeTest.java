@@ -66,8 +66,10 @@ public class DataBookFacadeTest {
 			}
 			
 			chapter = dao.get(chapter.getId());
-			for (VerseBean verse : chapter.getVerses()) {
-				vdao.delete(verse);
+			if (chapter.getVerses() != null) {
+				for (VerseBean verse : chapter.getVerses()) {
+					vdao.delete(verse);
+				}
 			}
 			
 			cdao.delete(chapter);
