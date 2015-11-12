@@ -22,7 +22,7 @@ end
 replacements = {
   /<[^>]+>/ => '',
   /&nbsp;/ => '',
-  /&quot;/ => '"'
+  /&quot;?/ => '"'
 }
 
 ignorable_files = ['.', '..']
@@ -75,9 +75,10 @@ Dir.entries('pages').each do |fname|
     verses.each do |verse|
       replacements.each  {|regex, replacement| verse.gsub! regex, replacement }
       verse.gsub! /\s{2,}/, ' '
-      verse.gsub! /&nbsp/, ''
+      verse.gsub! /&nbsp;?/, ''
       verse.gsub! /\s?&#8658;\s?/, ' '
       verse.gsub! /<\/b/, ''
+      verse.gsub! "\n", ''
       verse.strip!
 
       content << verse
@@ -132,7 +133,7 @@ index = {
   :credits => {
     :printed_source => "United States Conference of Catholic Bishops\n3211 4th Street, N.E., Washington, DC 20017-1194 (202) 541-3000\nNovember 11, 2002 Copyright (c) by United States Conference of Catholic Bishops",
     :eletronic_transcription_source => 'United States Conference of Catholic Bishops',
-    :eletronic_transcription_source_url => 'http://www.nccbuscc.org/'
+    :eletronic_transcription_source_url => 'http://www.usccb.org/'
   },
   :copyright => 'Libreria Editrice Vaticana',
   :books => books

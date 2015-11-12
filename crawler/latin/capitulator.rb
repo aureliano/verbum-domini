@@ -3,7 +3,7 @@ require 'json'
 replacements = {
   /<[^>]+>/ => '',
   /&nbsp;/ => '',
-  /&quot;/ => '"'
+  /&quot;?/ => '"'
 }
 
 ignorable_files = ['.', '..']

@@ -23,7 +23,7 @@ end
 replacements = {
   /<[^>]+>/ => '',
   /&nbsp;/ => '',
-  /&quot;/ => '"',
+  /&quot;?/ => '"',
   /&Agrave;/ => 'À',
   /&agrave;/ => 'à',
   /&Aacute;/ => 'Á',
